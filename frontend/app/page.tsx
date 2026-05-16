@@ -1091,13 +1091,14 @@ export default function Home() {
                     <option value="other">其他 / 不指定</option>
                   </select>
                 </Field>
-                <Field label="日常活动">
+                <Field label="日常活动（影响热量）">
                   <select value={profile.activity_level} onChange={(event) => patchProfile("activity_level", event.target.value as Activity)}>
                     <option value="sedentary">久坐</option>
                     <option value="light">轻度活动</option>
                     <option value="moderate">中等活动</option>
                     <option value="active">高活动量</option>
                   </select>
+                  <small className="field-note">用于估算维持热量、目标热量和生活消耗。</small>
                 </Field>
               </div>
             </Panel>

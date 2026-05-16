@@ -351,6 +351,13 @@ progress::-moz-progress-bar {
   font-weight: 800;
 }
 
+.field-note {
+  margin-top: 0.42rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
 .segment > div {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
