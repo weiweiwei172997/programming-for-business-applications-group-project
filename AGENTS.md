@@ -111,7 +111,9 @@ Use `.env` locally and never commit it.
 ```text
 DEEPSEEK_API_KEY=your_key
 DEEPSEEK_BASE_URL=https://api.deepseek.com
-DEEPSEEK_MODEL=deepseek-v4-pro
+DEEPSEEK_MODEL=deepseek-v4-flash
+DEEPSEEK_MAX_TOKENS=1200
+DEEPSEEK_REASONING_EFFORT=medium
 GYMPATH_DB_PATH=optional_custom_sqlite_path
 ```
 
