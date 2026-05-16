@@ -990,6 +990,26 @@ details .chip-row {
   color: rgba(0, 0, 0, 0.65);
 }
 
+.custom-food-form {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1.25fr) repeat(4, minmax(6rem, 0.8fr)) auto;
+  gap: 0.55rem;
+  align-items: end;
+  padding: 0.75rem;
+  border: 1px dashed var(--line);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.custom-food-form strong {
+  grid-column: 1 / -1;
+  color: var(--white);
+}
+
+.custom-food-form input {
+  min-height: 2.45rem;
+  padding: 0.45rem 0.55rem;
+}
+
 .selected-food-list {
   display: grid;
   gap: 0.5rem;
@@ -1897,6 +1917,10 @@ details .chip-row {
   }
 
   .selected-food-row {
+    grid-template-columns: 1fr;
+  }
+
+  .custom-food-form {
     grid-template-columns: 1fr;
   }
 

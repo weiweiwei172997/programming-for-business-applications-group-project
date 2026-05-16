@@ -1,7 +1,7 @@
 "use client";
 
 import type { Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getJson, postFormData, postJson, putJson } from "../lib/api";
 
 type Level = "beginner" | "restarting" | "experienced";
@@ -65,6 +65,8 @@ type WorkoutPlan = {
     warmup_video_url?: string;
   }[];
 };
+
+type WorkoutDay = WorkoutPlan["weekly_schedule"][number];
 
 type ProgramBrief = {
   title: string;
@@ -183,6 +185,14 @@ type MealFoodSelection = {
   food_id: string;
   grams: number;
   state: string;
+};
+
+type CustomFoodDraft = {
+  name: string;
+  grams: string;
+  carbs: string;
+  protein: string;
+  fat: string;
 };
 
 type PainInput = {
@@ -581,6 +591,7 @@ const PAIN_JOINTS = [
 ];
 
 export default function Home() {
+  const resultRef = useRef<HTMLElement | null>(null);
   const [profile, setProfile] = useState<Profile>(initialProfile);
   const [view, setView] = useState<View>("plan");
   const [status, setStatus] = useState("系统待命");
@@ -694,6 +705,7 @@ export default function Home() {
       setPlan(nextPlan);
       setNutrition(nextNutrition);
       setStatus("计划已更新，可以开始执行");
+      requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch (error) {
       setStatus(error instanceof Error ? `API 连接失败：${error.message}` : "API 连接失败");
     } finally {
@@ -1040,12 +1052,12 @@ export default function Home() {
           <Panel code="PROFILE" title="训练画像">
             <Segment label="训练水平" options={LEVELS} value={profile.level} onChange={(value) => patchProfile("level", value)} />
             <Segment label="目标" options={GOALS} value={profile.goal} onChange={(value) => patchProfile("goal", value)} />
-            {profile.goal === "muscle_gain" ? (
+            {view === "plan" && profile.goal === "muscle_gain" ? (
               <div className="fat-loss-config">
                 <Segment label="增肌计划" options={MUSCLE_GAIN_PLANS} value={profile.muscle_gain_plan} onChange={(value) => patchProfile("muscle_gain_plan", value)} />
               </div>
             ) : null}
-            {profile.goal === "strength_gain" ? (
+            {view === "plan" && profile.goal === "strength_gain" ? (
               <div className="fat-loss-config">
                 <Segment label="增力计划" options={STRENGTH_PLANS} value={profile.strength_plan} onChange={(value) => patchProfile("strength_plan", value)} />
               </div>
@@ -1068,7 +1080,7 @@ export default function Home() {
               <input type="range" min="20" max="120" step="5" value={profile.minutes_per_session} onChange={(event) => patchProfile("minutes_per_session", Number(event.target.value))} />
             </Field>
             <button className="primary" type="button" onClick={generatePlan} disabled={loading}>
-              {loading ? "正在生成" : "生成黑白训练方案"}
+              {loading ? "正在生成" : view === "nutrition" ? "生成饮食方案" : "生成黑白训练方案"}
             </button>
           </Panel>
 
@@ -1106,7 +1118,7 @@ export default function Home() {
         </section>
         ) : null}
 
-        <section className="stage">
+        <section className="stage" ref={resultRef}>
           {view === "plan" && <PlanView plan={plan} />}
           {view === "nutrition" && <NutritionView nutrition={nutrition} />}
           {view === "pain" && (
@@ -1290,7 +1302,10 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
         <p className="soft">按当前目标生成训练日、热身、动作和反馈调整入口。</p>
       )}
       <div className="day-stack">
-        {plan.weekly_schedule.map((day, index) => (
+        {plan.weekly_schedule.map((day, index) => {
+          const dayVideoLinks = uniqueDayVideoLinks(day);
+          const shownExerciseVideoUrls = new Set(dayVideoLinks.map((link) => canonicalVideoUrl(link.url)));
+          return (
           <article className="day" key={`${day.day}-${day.focus}`}>
             <div className="day-head">
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -1308,16 +1323,11 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
               <>
                 {day.rest_policy ? <p className="session-rest-policy">{day.rest_policy}</p> : null}
                 <div className="day-actions">
-                  {day.session_video_url ? (
-                    <a href={day.session_video_url} target="_blank" rel="noreferrer">
-                      本次训练视频
+                  {dayVideoLinks.map((link) => (
+                    <a key={`${day.day}-${link.key}`} href={link.url} target="_blank" rel="noreferrer">
+                      {link.label}
                     </a>
-                  ) : null}
-                  {day.warmup_video_url ? (
-                    <a href={day.warmup_video_url} target="_blank" rel="noreferrer">
-                      热身讲解视频
-                    </a>
-                  ) : null}
+                  ))}
                 </div>
                 <details>
                   <summary>训练前热身 / 激活</summary>
@@ -1331,24 +1341,46 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
                   </div>
                 ) : null}
                 <div className="exercise-grid">
-                  {day.exercises.map((exercise, exerciseIndex) => (
-                    <article className="exercise" key={`${exercise.name}-${exerciseIndex}`}>
-                      <header>
-                        <span>{exercise.phase ?? exercise.target_muscle}</span>
-                        <a href={exercise.teaching_url} target="_blank" rel="noreferrer">跟练视频</a>
-                      </header>
-                      <h4>{tx(EXERCISE_CN, exercise.name)}</h4>
-                      <p>{exercise.sets} 组 / {exercise.reps} 次 / 组间休息 {formatRest(exercise.rest_seconds)}</p>
-                    </article>
-                  ))}
+                  {day.exercises.map((exercise, exerciseIndex) => {
+                    const videoKey = canonicalVideoUrl(exercise.teaching_url);
+                    const showTeachingVideo = Boolean(exercise.teaching_url) && !shownExerciseVideoUrls.has(videoKey);
+                    if (showTeachingVideo) {
+                      shownExerciseVideoUrls.add(videoKey);
+                    }
+                    return (
+                      <article className="exercise" key={`${exercise.name}-${exerciseIndex}`}>
+                        <header>
+                          <span>{exercise.phase ?? exercise.target_muscle}</span>
+                          {showTeachingVideo ? <a href={exercise.teaching_url} target="_blank" rel="noreferrer">跟练视频</a> : null}
+                        </header>
+                        <h4>{tx(EXERCISE_CN, exercise.name)}</h4>
+                        <p>{exercise.sets} 组 / {exercise.reps} 次 / 组间休息 {formatRest(exercise.rest_seconds)}</p>
+                      </article>
+                    );
+                  })}
                 </div>
               </>
             )}
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
+}
+
+function uniqueDayVideoLinks(day: WorkoutDay) {
+  const seen = new Set<string>();
+  return [
+    { key: "session", label: "本次训练视频", url: day.session_video_url },
+    { key: "warmup", label: "热身讲解视频", url: day.warmup_video_url },
+  ].filter((link): link is { key: string; label: string; url: string } => {
+    if (!link.url) return false;
+    const videoKey = canonicalVideoUrl(link.url);
+    if (seen.has(videoKey)) return false;
+    seen.add(videoKey);
+    return true;
+  });
 }
 
 function ProgramBriefView({ code, plan }: { code: string; plan: ProgramBrief }) {
@@ -1387,6 +1419,7 @@ function ProgramBriefView({ code, plan }: { code: string; plan: ProgramBrief }) 
 function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
   const [foodLibrary, setFoodLibrary] = useState<FoodLibrary | null>(null);
   const [mealSelections, setMealSelections] = useState<Record<string, MealFoodSelection[]>>({});
+  const [customFoods, setCustomFoods] = useState<FoodItem[]>([]);
   const [selectedDietDay, setSelectedDietDay] = useState("baseline");
 
   useEffect(() => {
@@ -1539,6 +1572,8 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
           target={dietTarget}
           setSelectedDietDay={setSelectedDietDay}
           foodLibrary={foodLibrary}
+          customFoods={customFoods}
+          setCustomFoods={setCustomFoods}
           mealSelections={mealSelections}
           setMealSelections={setMealSelections}
         />
@@ -1563,6 +1598,8 @@ function MealPlanner({
   target,
   setSelectedDietDay,
   foodLibrary,
+  customFoods,
+  setCustomFoods,
   mealSelections,
   setMealSelections,
 }: {
@@ -1570,9 +1607,12 @@ function MealPlanner({
   target: MacroTotals & { key: string; label: string };
   setSelectedDietDay: Dispatch<SetStateAction<string>>;
   foodLibrary: FoodLibrary;
+  customFoods: FoodItem[];
+  setCustomFoods: Dispatch<SetStateAction<FoodItem[]>>;
   mealSelections: Record<string, MealFoodSelection[]>;
   setMealSelections: Dispatch<SetStateAction<Record<string, MealFoodSelection[]>>>;
 }) {
+  const [customDrafts, setCustomDrafts] = useState<Record<string, CustomFoodDraft>>({});
   const targetOptions = diet.cycle_days.length
     ? diet.cycle_days.map((day) => ({
         key: day.key,
@@ -1592,7 +1632,8 @@ function MealPlanner({
           fat_g: diet.baseline_daily.fat_g,
         },
       ];
-  const foodById = new Map(foodLibrary.foods.map((food) => [food.id, food]));
+  const allFoods = [...foodLibrary.foods, ...customFoods];
+  const foodById = new Map(allFoods.map((food) => [food.id, food]));
   const mealTotals = Object.fromEntries(
     foodLibrary.meals.map((meal) => [meal.key, sumFoodSelections(mealSelections[meal.key] ?? [], foodById)])
   ) as Record<string, MacroTotals>;
@@ -1634,6 +1675,26 @@ function MealPlanner({
     }));
   }
 
+  function patchCustomDraft(mealKey: string, patch: Partial<CustomFoodDraft>) {
+    setCustomDrafts((current) => ({
+      ...current,
+      [mealKey]: { ...defaultCustomFoodDraft(), ...(current[mealKey] ?? {}), ...patch },
+    }));
+  }
+
+  function addCustomFood(mealKey: string) {
+    const draft = customDrafts[mealKey] ?? defaultCustomFoodDraft();
+    const food = buildCustomFood(mealKey, draft);
+    if (!food) return;
+
+    setCustomFoods((current) => [...current, food]);
+    setMealSelections((current) => ({
+      ...current,
+      [mealKey]: [...(current[mealKey] ?? []), defaultMealSelection(food)],
+    }));
+    setCustomDrafts((current) => ({ ...current, [mealKey]: defaultCustomFoodDraft() }));
+  }
+
   return (
     <section className="wide metric-span meal-planner">
       <Header
@@ -1657,7 +1718,9 @@ function MealPlanner({
         {foodLibrary.meals.map((meal) => {
           const selectedIds = mealSelections[meal.key] ?? [];
           const selectedFoodIdSet = new Set(selectedIds.map((item) => item.food_id));
-          const availableFoods = foodLibrary.foods.filter((food) => food.meal_tags.includes(meal.key));
+          const availableFoods = allFoods.filter((food) => food.meal_tags.includes(meal.key));
+          const customDraft = customDrafts[meal.key] ?? defaultCustomFoodDraft();
+          const canAddCustomFood = isCustomFoodDraftValid(customDraft);
           return (
             <article className="meal-card" key={meal.key}>
               <header>
@@ -1685,6 +1748,15 @@ function MealPlanner({
                     <small>每100g {stateCalories(food, food.default_state)} kcal · {food.states.length > 1 ? "可切换重量状态" : food.portion}</small>
                   </button>
                 ))}
+              </div>
+              <div className="custom-food-form">
+                <strong>没有找到？自定义食物</strong>
+                <input value={customDraft.name} onChange={(event) => patchCustomDraft(meal.key, { name: event.target.value })} placeholder="食物名称，例如：牛肉饭" />
+                <input type="number" min="1" value={customDraft.grams} onChange={(event) => patchCustomDraft(meal.key, { grams: event.target.value })} placeholder="吃了多少 g" />
+                <input type="number" min="0" step="0.1" value={customDraft.carbs} onChange={(event) => patchCustomDraft(meal.key, { carbs: event.target.value })} placeholder="每100g碳水 g" />
+                <input type="number" min="0" step="0.1" value={customDraft.protein} onChange={(event) => patchCustomDraft(meal.key, { protein: event.target.value })} placeholder="每100g蛋白质 g" />
+                <input type="number" min="0" step="0.1" value={customDraft.fat} onChange={(event) => patchCustomDraft(meal.key, { fat: event.target.value })} placeholder="每100g脂肪 g" />
+                <button className="ghost" type="button" onClick={() => addCustomFood(meal.key)} disabled={!canAddCustomFood}>加入本餐</button>
               </div>
               {selectedIds.length ? (
                 <div className="selected-food-list">
@@ -2348,6 +2420,18 @@ function tx(map: Record<string, string>, value: string) {
   return map[value] ?? value;
 }
 
+function canonicalVideoUrl(url: string) {
+  const cleanUrl = url.trim();
+  try {
+    const parsed = new URL(cleanUrl);
+    parsed.search = "";
+    parsed.hash = "";
+    return parsed.toString().replace(/\/$/, "").toLowerCase();
+  } catch {
+    return cleanUrl.split("?")[0].split("#")[0].replace(/\/$/, "").toLowerCase();
+  }
+}
+
 function selectDietTarget(diet: NonNullable<Nutrition["diet_plan"]>, selectedKey: string): MacroTotals & { key: string; label: string } {
   const selectedCycleDay = diet.cycle_days.find((day) => day.key === selectedKey) ?? diet.cycle_days[0];
   if (selectedCycleDay) {
@@ -2379,6 +2463,63 @@ function defaultMealSelection(food: FoodItem): MealFoodSelection {
     food_id: food.id,
     grams: food.default_grams,
     state: food.default_state,
+  };
+}
+
+function defaultCustomFoodDraft(): CustomFoodDraft {
+  return { name: "", grams: "", carbs: "", protein: "", fat: "" };
+}
+
+function isCustomFoodDraftValid(draft: CustomFoodDraft) {
+  const grams = Number(draft.grams);
+  const carbs = Number(draft.carbs);
+  const protein = Number(draft.protein);
+  const fat = Number(draft.fat);
+  return (
+    Boolean(draft.name.trim()) &&
+    Boolean(draft.grams.trim()) &&
+    Boolean(draft.carbs.trim()) &&
+    Boolean(draft.protein.trim()) &&
+    Boolean(draft.fat.trim()) &&
+    grams > 0 &&
+    carbs >= 0 &&
+    protein >= 0 &&
+    fat >= 0
+  );
+}
+
+function buildCustomFood(mealKey: string, draft: CustomFoodDraft): FoodItem | null {
+  if (!isCustomFoodDraftValid(draft)) return null;
+
+  const grams = Number(draft.grams);
+  const carbs = Number(draft.carbs);
+  const protein = Number(draft.protein);
+  const fat = Number(draft.fat);
+  const caloriesPer100g = carbs * 4 + protein * 4 + fat * 9;
+  const safeName = draft.name.trim().slice(0, 24);
+
+  return {
+    id: `custom_${mealKey}_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
+    name: safeName,
+    portion: `${grams}g 自定义`,
+    calories: Math.round((caloriesPer100g * grams) / 100),
+    carbs_g: roundMacro((carbs * grams) / 100),
+    protein_g: roundMacro((protein * grams) / 100),
+    fat_g: roundMacro((fat * grams) / 100),
+    meal_tags: [mealKey],
+    source_note: "用户自定义营养数据",
+    default_grams: grams,
+    default_state: "custom",
+    states: [
+      {
+        key: "custom",
+        label: "自定义",
+        calories_per_100g: Math.round(caloriesPer100g),
+        carbs_per_100g: carbs,
+        protein_per_100g: protein,
+        fat_per_100g: fat,
+      },
+    ],
   };
 }
 
