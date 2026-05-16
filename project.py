@@ -20,12 +20,12 @@ VALID_GOALS = {
 }
 
 CHECKIN_REWARD_PRIZES = [
-    "蛋白粉",
-    "肌酸",
-    "电解质饮料",
-    "摇摇杯",
-    "训练手套",
-    "补剂试用装",
+    "Protein Powder",
+    "Creatine",
+    "Electrolyte Drink",
+    "Shaker Bottle",
+    "Training Gloves",
+    "Supplement Sample",
 ]
 
 PREFERRED_VIDEO_CREATORS = [
@@ -1935,7 +1935,9 @@ def get_checkin_reward_status(checkin_dates: list[str], today: str | None = None
         "cycle_progress": cycle_progress,
         "cycle_goal": 7,
         "prizes": CHECKIN_REWARD_PRIZES,
-        "message": "已获得补剂抽奖资格。" if reward_tickets > 0 else f"再打卡 {first_ticket_remaining} 天可获得补剂抽奖资格。",
+        "message": "A supplement prize-wheel ticket is available."
+        if reward_tickets > 0
+        else f"Check in for {first_ticket_remaining} more day(s) to earn a supplement prize-wheel ticket.",
     }
 
 
@@ -1968,60 +1970,60 @@ def get_knowledge_card(topic: str) -> dict[str, str]:
     """Return a short beginner education card."""
     cards = {
         "spot_reduction": {
-            "title": "不能只瘦某一个部位",
-            "content": "局部减脂是最常见的误区之一。你可以训练腹肌、手臂或腿让该部位肌肉更强，但脂肪下降主要由整体热量缺口决定。想让某个部位更好看，正确路径是全身减脂 + 目标肌肉训练 + 长期记录围度变化。",
+            "title": "You cannot target fat loss in one body part",
+            "content": "Spot reduction is one of the most common beginner myths. You can train abs, arms, or legs to make those muscles stronger, but fat loss is mainly driven by an overall calorie deficit. The practical path is whole-body fat loss, targeted muscle training, and long-term measurement tracking.",
         },
         "bmi_limits": {
-            "title": "BMI 只适合粗略参考",
-            "content": "健身老手肌肉量更高，BMI 可能把肌肉误判成超重。判断体型要同时看体重、腰围、体脂率估算、照片、力量表现和恢复状态。对老手来说，腰围趋势和体脂趋势通常比单个 BMI 数字更有意义。",
+            "title": "BMI is only a rough reference",
+            "content": "Experienced lifters often carry more muscle, so BMI may mislabel muscle mass as excess weight. Judge body composition with weight, waist, estimated body-fat percentage, photos, strength performance, and recovery trends rather than one BMI number.",
         },
         "full_body_vs_split": {
-            "title": "新手也可以做简单分化",
-            "content": "新手不一定只能做全身训练，但分化必须足够简单、固定、可重复。GymPath 的新手四分化重点不是炫技，而是让用户按顺序跟练，先学会热身、动作路线和目标肌肉感受，再逐步增加重量。",
+            "title": "Beginners can use a simple split",
+            "content": "Beginners do not have to train full body only, but a split must stay simple, repeatable, and easy to follow. GymPath's beginner four-day split focuses on warm-ups, movement paths, and target-muscle sensation before adding load.",
         },
         "pain_rules": {
-            "title": "疼痛不等于努力",
-            "content": "肌肉酸胀、泵感和接近力竭的努力感可以是训练的一部分，但尖锐痛、放射痛、麻木、越来越痛、关节深处痛不是正常目标。出现这类信号时，应降重、缩短幅度、换动作或停止当天训练。",
+            "title": "Pain is not proof of effort",
+            "content": "Muscle burn, pump, and hard effort can be part of training. Sharp pain, radiating pain, numbness, worsening pain, or deep joint pain are different signals. If those appear, reduce load, shorten range, substitute the exercise, or stop that session.",
         },
         "calorie_deficit": {
-            "title": "减脂先看热量缺口",
-            "content": "减脂不是只靠少吃某一种食物，而是让长期平均摄入低于消耗。碳水、脂肪和蛋白质都可以吃，关键是总热量、蛋白质足够、训练能坚持。极端节食往往让训练崩掉，也更难长期维持。",
+            "title": "Fat loss starts with a calorie deficit",
+            "content": "Fat loss is not about banning one food. It comes from a long-term average intake below expenditure. Carbs, fats, and protein can all stay in the diet; the key is total calories, enough protein, and training that remains sustainable.",
         },
         "protein_target": {
-            "title": "蛋白质是恢复底线",
-            "content": "增肌和减脂都需要足够蛋白质。减脂期蛋白质更重要，因为它能帮助保留肌肉和提高饱腹感。实操上可以把蛋白分到 4-5 餐，每餐 20-40g，比一天只补一顿更容易执行。",
+            "title": "Protein is the recovery floor",
+            "content": "Muscle gain and fat loss both need enough protein. During fat loss, protein is especially useful for preserving muscle and improving fullness. A practical pattern is 4-5 meals, with about 20-40g protein per meal.",
         },
         "carb_cycle": {
-            "title": "高碳日不是放纵日",
-            "content": "碳循环的核心是把更多碳水放在高强度训练日前后，把低碳日放在休息或轻训练日。高碳日不是随便吃，而是提高训练表现；低碳日也不是断碳，而是控制总量。",
+            "title": "A high-carb day is not a cheat day",
+            "content": "Carb cycling puts more carbs around high-intensity training days and fewer carbs on rest or lighter days. High-carb days support performance; low-carb days control weekly totals. Both still need structure.",
         },
         "progressive_overload": {
-            "title": "进步来自可记录的渐进",
-            "content": "训练不是每次都练到崩溃，而是在动作质量稳定的前提下，让重量、次数、组数、控制能力或训练密度慢慢变好。只要能记录，就能判断自己是不是真的进步。",
+            "title": "Progress comes from trackable progression",
+            "content": "Training is not about failing every session. Progress means load, reps, sets, control, or density improves while technique stays stable. If it can be recorded, it can be adjusted.",
         },
         "deload": {
-            "title": "减载不是退步",
-            "content": "当训练热情连续下降、睡眠变差、重量明显掉、关节不舒服时，减载一周反而能让你走得更远。减载可以降重量、砍组数或减少高强度动作，它的目的不是偷懒，而是恢复系统。",
+            "title": "A deload is not regression",
+            "content": "When motivation drops for days, sleep worsens, loads fall, or joints feel irritated, a deload week can keep long-term progress alive. Reduce load, sets, or high-intensity work to restore the system.",
         },
         "soreness_vs_injury": {
-            "title": "酸痛和受伤要分开",
-            "content": "延迟性酸痛通常是大面积、钝痛、活动后会缓解；受伤风险更像局部尖锐痛、关节痛、放射痛或越练越痛。新手最该学会的不是硬扛，而是判断今天该练、该改还是该停。",
+            "title": "Separate soreness from injury signals",
+            "content": "Delayed soreness is usually broad, dull, and improves with movement. Injury risk feels more local, sharp, joint-centered, radiating, or worse as you train. Beginners should learn whether today calls for training, modification, or rest.",
         },
         "warmup": {
-            "title": "热身是为了进入训练状态",
-            "content": "有效热身不只是跑步出汗，而是让当天要练的关节、目标肌肉和动作模式准备好。练胸肩三头要做肩胛和肩袖激活，练腿要做髋、踝和膝的动态活动，再用正式动作逐步加重量。",
+            "title": "A warm-up prepares the exact training pattern",
+            "content": "A useful warm-up is not just sweating. Prepare the joints, target muscles, and movement pattern you will train today, then ramp into the working sets gradually.",
         },
         "restart_training": {
-            "title": "停练后不要按巅峰期重启",
-            "content": "间歇性训练者最容易高估自己。停练两周以上，前几次训练先降重量和组数，把动作手感、恢复和打卡节奏找回来。能持续重启，比一次练爆更重要。",
+            "title": "Do not restart at your peak loads",
+            "content": "After a break, reduce load and sets for the first few sessions. Rebuild movement feel, recovery, and check-in rhythm before pushing hard again. A sustainable restart beats one heroic session.",
         },
         "supplements": {
-            "title": "补剂不是基础的替代品",
-            "content": "肌酸、乳清、咖啡因等补剂可以提高便利性或训练表现，但不能替代训练计划、蛋白质、睡眠和热量管理。预算有限时，先把饮食和训练执行稳定，再考虑补剂。",
+            "title": "Supplements do not replace the basics",
+            "content": "Creatine, whey, caffeine, and electrolytes can help convenience or performance, but they cannot replace training consistency, protein, sleep, and calorie control. If budget is limited, stabilize food and training first.",
         },
         "photo_tracking": {
-            "title": "照片和围度能给你正反馈",
-            "content": "体重每天波动很正常，单看体重容易焦虑。固定光线、固定角度、每周记录体重、腰围和体脂率估算，更容易看到真实趋势，也能帮助判断饮食计划是否需要调整。",
+            "title": "Photos and measurements give better feedback",
+            "content": "Body weight fluctuates daily. Fixed lighting, fixed angles, weekly weight, waist, and body-fat estimates make real trends easier to see and help decide whether diet needs adjustment.",
         },
     }
     return cards.get(
@@ -2031,7 +2033,6 @@ def get_knowledge_card(topic: str) -> dict[str, str]:
             "content": "Train consistently, eat enough protein, sleep well, and adjust based on feedback.",
         },
     )
-
 
 def main() -> dict[str, Any]:
     """Return a sample plan so `python project.py` demonstrates useful logic."""
@@ -2105,16 +2106,16 @@ def _training_intensity_factor(training_intensity: str, level: str, gender: str)
     if normalized_gender in {"female", "woman", "f"} or normalized_level == "beginner":
         return 5
     if normalized_level == "experienced":
-        return 8
+        return 10
     return 8
 
 
 def _training_intensity_label(intensity: int) -> str:
     if intensity <= 5:
-        return "新手或女生训练强度"
+        return "Beginner or female training burn"
     if intensity >= 10:
-        return "大强度训练"
-    return "健身爱好者训练强度"
+        return "High-intensity training burn"
+    return "Fitness enthusiast training burn"
 
 
 MIN_REST_SECONDS = 120
@@ -3236,16 +3237,16 @@ def _default_substitutions(name: str) -> list[str]:
 
 
 AI_FITNESS_SYSTEM_PROMPT = """
-你是 GymPath 的中文健身问答助手。你的目标是帮助用户减少健身决策成本，建立正确认知，并给出可执行的训练、饮食、恢复建议。
+You are GymPath's English fitness Q&A coach. Your job is to reduce fitness decision cost, build correct training knowledge, and give practical training, nutrition, pain-modification, warm-up, recovery, and tracking advice.
 
-回答规则：
-1. 优先使用中文，语气直接、专业、鼓励，但不要夸大效果。
-2. 先给结论，再给具体做法；避免空泛鸡汤。
-3. 如果问题涉及疼痛、伤病、疾病、用药或明显异常症状，必须提醒这不是医疗诊断，并建议严重或持续情况找医生/康复师。
-4. 不要承诺局部减脂、快速暴瘦、无风险突破极限等不科学内容。
-5. 根据用户水平区分建议：新手要安全启动，重启者要降低门槛，老手要给进阶变量。
-6. 尽量把回答落到动作替代、组数次数、饮食宏量营养素、热身、恢复或下一步记录。
-7. 网页对话默认回答控制在 900-1200 个中文字符以内，先给结论，再给分步骤执行方案；用户追问时再展开理论细节。
+Answer rules:
+1. Reply in clear English by default, with a direct, professional, encouraging tone.
+2. Start with the conclusion, then give concrete steps. Avoid vague motivational filler.
+3. If the question involves pain, injury, illness, medication, numbness, radiating pain, or abnormal symptoms, state that this is not medical diagnosis and recommend a doctor or physiotherapist when symptoms are severe or persistent.
+4. Do not promise spot reduction, crash weight loss, risk-free max attempts, or other unscientific outcomes.
+5. Adjust advice by level: Beginner = safe start; Fitness Enthusiast = sustainable progression; High-Intensity Trainee = fatigue and advanced variable management.
+6. Make the answer actionable: exercise substitutions, sets/reps, macros, warm-up, recovery, or next data to record.
+7. For web chat, aim for about 500-900 English words when the question needs detail; be shorter for simple questions.
 """.strip()
 
 
@@ -3280,7 +3281,7 @@ def get_ai_fitness_reply(
             "provider": "local_fallback",
             "model": "rule_based",
             "used_api": False,
-            "warning": "未配置 DEEPSEEK_API_KEY，已使用本地兜底回答。",
+            "warning": "DEEPSEEK_API_KEY is not configured. GymPath used the local fallback answer.",
         }
 
     try:
@@ -3312,7 +3313,7 @@ def get_ai_fitness_reply(
             "provider": "local_fallback",
             "model": "rule_based",
             "used_api": False,
-            "warning": f"AI API 调用失败，已使用本地兜底回答：{type(error).__name__}",
+            "warning": f"AI API call failed, so GymPath used the local fallback answer: {type(error).__name__}",
         }
 
 
@@ -3340,7 +3341,7 @@ def _retry_ai_without_reasoning(
             "provider": "deepseek",
             "model": model,
             "used_api": True,
-            "warning": "当前 SDK 或模型不支持 reasoning_effort，已自动降级为普通对话。",
+            "warning": "The current SDK or model did not accept reasoning_effort, so GymPath retried without it.",
         }
     except Exception as error:
         return {
@@ -3348,7 +3349,7 @@ def _retry_ai_without_reasoning(
             "provider": "local_fallback",
             "model": "rule_based",
             "used_api": False,
-            "warning": f"AI API 降级调用失败，已使用本地兜底回答：{type(error).__name__}",
+            "warning": f"AI retry failed, so GymPath used the local fallback answer: {type(error).__name__}",
         }
 
 
@@ -3365,16 +3366,16 @@ def _clean_ai_messages(messages: list[dict[str, str]]) -> list[dict[str, str]]:
 
 def _ai_profile_context(profile: dict[str, Any]) -> str:
     if not profile:
-        return "用户未提供训练画像。回答时先询问必要信息，但仍给出可执行的安全建议。"
+        return "The user has not provided a training profile. Ask for missing critical details when needed, but still provide safe, actionable guidance."
     return (
-        "用户训练画像："
-        f"水平={profile.get('level', 'unknown')}；"
-        f"目标={profile.get('goal', 'unknown')}；"
-        f"单次训练时长={profile.get('minutes_per_session', 'unknown')}分钟；"
-        f"体重={profile.get('weight_kg', 'unknown')}kg；"
-        f"身高={profile.get('height_cm', 'unknown')}cm；"
-        f"年龄={profile.get('age', 'unknown')}；"
-        f"日常活动={profile.get('activity_level', 'unknown')}。"
+        "User training profile: "
+        f"level={profile.get('level', 'unknown')}; "
+        f"goal={profile.get('goal', 'unknown')}; "
+        f"session_length={profile.get('minutes_per_session', 'unknown')} minutes; "
+        f"weight={profile.get('weight_kg', 'unknown')}kg; "
+        f"height={profile.get('height_cm', 'unknown')}cm; "
+        f"age={profile.get('age', 'unknown')}; "
+        f"activity_level={profile.get('activity_level', 'unknown')}."
     )
 
 
@@ -3382,30 +3383,29 @@ def _local_fitness_reply(question: str, profile: dict[str, Any]) -> str:
     lower_question = question.lower()
     level = str(profile.get("level", "beginner"))
     goal = str(profile.get("goal", "muscle_gain"))
-    if any(word in question for word in ["疼", "痛", "受伤", "伤病", "麻", "刺痛"]):
+    if any(word in lower_question for word in ["pain", "hurt", "injury", "numb", "tingle", "sharp", "radiating"]):
         return (
-            "先判断疼痛性质：如果是尖锐痛、放射痛、麻木、越来越痛，今天不要硬练这个动作，建议改成无痛范围内的替代动作；"
-            "如果只是轻微不适，先降重量、缩短幅度、放慢节奏。这个建议不是医疗诊断，持续疼痛要找医生或康复师。"
+            "First decide what kind of pain it is. If it is sharp, radiating, numb, worsening, or deep in a joint, do not force that movement today. "
+            "Switch to a pain-free variation, reduce load and range of motion, and treat this as training guidance rather than medical diagnosis. Persistent or severe symptoms should be checked by a doctor or physiotherapist."
         )
-    if any(word in question for word in ["减脂", "瘦", "热量", "碳水"]):
+    if any(word in lower_question for word in ["fat loss", "cut", "calorie", "carb", "carbs", "diet"]):
         return (
-            "减脂先抓三件事：每天蛋白吃够、热量保持小幅亏空、训练表现不要崩。"
-            "不要追求只瘦某个部位；连续7-10天体重和腰围都不动，再小幅下调碳水或总热量。"
+            "For fat loss, control three things first: hit daily protein, keep a small calorie deficit, and protect training performance. "
+            "Do not chase fat loss from one body part. If 7-10 days of body weight and waist measurements do not move, reduce carbs or total calories slightly instead of making a crash adjustment."
         )
-    if any(word in question for word in ["增肌", "肌肥大", "长肌肉"]):
+    if any(word in lower_question for word in ["muscle", "hypertrophy", "bulk", "gain"]):
         return (
-            "增肌的核心是稳定训练容量 + 渐进超负荷 + 足够热量。"
-            f"你当前目标是 {goal}，如果动作感受差，优先换同部位动作，而不是盲目加重量；每个主练动作保留1-3次余力更适合长期进步。"
+            "Muscle gain depends on stable training volume, progressive overload, and enough energy intake. "
+            f"Your current goal is {goal}. If a movement feels poor, swap to another exercise for the same muscle before blindly adding load. Keep 1-3 reps in reserve on main lifts for sustainable progress."
         )
-    if any(word in question for word in ["增力", "力量", "卧推", "深蹲", "硬拉"]):
+    if any(word in lower_question for word in ["strength", "bench", "squat", "deadlift", "5x5"]):
         return (
-            "增力先固定主项，再控制疲劳。主项可以用5x5或3x3线性推进；卡住1-2周时先减载或降容量，"
-            "不要靠每次硬顶力竭解决平台。"
+            "Strength work starts with fixed main lifts and fatigue control. A 5x5 or 3x3 progression can work well. "
+            "If a lift stalls for 1-2 weeks, deload or reduce volume before forcing repeated max-effort attempts."
         )
     if level == "beginner":
-        return "新手先别追求复杂理论：固定计划、练前热身、动作不痛、每次完成后记录感受。先连续完成2-4周，比频繁换计划更重要。"
-    return "先把问题拆成训练、饮食、恢复三块看。告诉我你的目标、当前计划、最近一周训练表现和卡住的动作，我可以帮你做更具体的调整。"
-
+        return "As a beginner, do not chase complicated theory first. Use a fixed plan, warm up before training, avoid painful movements, and record how each session felt. Completing 2-4 consistent weeks matters more than constantly changing plans."
+    return "Break the issue into training, nutrition, and recovery. Share your goal, current plan, recent performance, and the movement that feels stuck, and GymPath can make a more specific adjustment."
 
 def _parse_date(value: str | date) -> date:
     if isinstance(value, date):

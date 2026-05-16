@@ -215,6 +215,58 @@ def test_generate_diet_plan_orange_carb_taper_uses_bmr_and_training_burn():
     assert plan["adjustment_protocol"]["carb_cut_if_stalled_g"] == "15-30"
 
 
+def test_orange_carb_taper_auto_training_burn_by_level():
+    beginner = generate_diet_plan(
+        90,
+        "fat_loss",
+        plan_type="orange_carb_taper",
+        height_cm=185,
+        age=20,
+        gender="male",
+        minutes_per_session=60,
+        level="beginner",
+        training_intensity="auto",
+    )
+    enthusiast = generate_diet_plan(
+        90,
+        "fat_loss",
+        plan_type="orange_carb_taper",
+        height_cm=185,
+        age=20,
+        gender="male",
+        minutes_per_session=60,
+        level="restarting",
+        training_intensity="auto",
+    )
+    high_intensity = generate_diet_plan(
+        90,
+        "fat_loss",
+        plan_type="orange_carb_taper",
+        height_cm=185,
+        age=20,
+        gender="male",
+        minutes_per_session=60,
+        level="experienced",
+        training_intensity="auto",
+    )
+    female_high_intensity = generate_diet_plan(
+        90,
+        "fat_loss",
+        plan_type="orange_carb_taper",
+        height_cm=185,
+        age=20,
+        gender="female",
+        minutes_per_session=60,
+        level="experienced",
+        training_intensity="auto",
+    )
+
+    assert beginner["training_burn"]["intensity_factor"] == 5
+    assert enthusiast["training_burn"]["intensity_factor"] == 8
+    assert high_intensity["training_burn"]["intensity_factor"] == 10
+    assert female_high_intensity["training_burn"]["intensity_factor"] == 5
+
+
 def test_generate_diet_plan_muscle_gain_uses_performance_nutrition_guide():
     plan = generate_diet_plan(
         72,
@@ -349,5 +401,5 @@ def test_get_checkin_reward_status_after_seven_days():
     assert status["streak"] == 7
     assert status["eligible"] is True
     assert status["reward_tickets"] == 1
-    assert "蛋白粉" in status["prizes"]
-    assert "肌酸" in status["prizes"]
+    assert "Protein Powder" in status["prizes"]
+    assert "Creatine" in status["prizes"]

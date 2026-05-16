@@ -178,11 +178,11 @@ class CommentCreateRequest(BaseModel):
 
 def current_user(authorization: str | None = Header(default=None)) -> dict[str, Any]:
     if not authorization or not authorization.lower().startswith("bearer "):
-        raise HTTPException(status_code=401, detail="请先登录")
+        raise HTTPException(status_code=401, detail="Please log in first.")
     token = authorization.split(" ", 1)[1].strip()
     user = get_user_by_token(token)
     if user is None:
-        raise HTTPException(status_code=401, detail="登录已过期，请重新登录")
+        raise HTTPException(status_code=401, detail="Login expired. Please log in again.")
     return user
 
 
@@ -202,13 +202,13 @@ async def _save_community_image(image: UploadFile | None) -> str | None:
 
     extension = COMMUNITY_IMAGE_TYPES.get(image.content_type or "")
     if extension is None:
-        raise HTTPException(status_code=400, detail="只支持 JPG、PNG、WebP 或 GIF 图片")
+        raise HTTPException(status_code=400, detail="Only JPG, PNG, WebP, or GIF images are supported.")
 
     data = await image.read()
     if not data:
         return None
     if len(data) > MAX_COMMUNITY_IMAGE_BYTES:
-        raise HTTPException(status_code=400, detail="图片不能超过 5MB")
+        raise HTTPException(status_code=400, detail="Image size cannot exceed 5MB.")
 
     COMMUNITY_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     filename = f"{secrets.token_hex(16)}{extension}"
@@ -275,11 +275,11 @@ async def community_create_post_with_image(
 def community_uploaded_image(filename: str) -> FileResponse:
     safe_name = Path(filename).name
     if safe_name != filename:
-        raise HTTPException(status_code=404, detail="图片不存在")
+        raise HTTPException(status_code=404, detail="Image not found.")
 
     image_path = COMMUNITY_UPLOAD_DIR / safe_name
     if not image_path.is_file():
-        raise HTTPException(status_code=404, detail="图片不存在")
+        raise HTTPException(status_code=404, detail="Image not found.")
     return FileResponse(image_path)
 
 
@@ -385,13 +385,13 @@ def nutrition(request: NutritionRequest) -> dict[str, Any]:
             "target_calories": diet_plan["training_day_calories"],
             "rest_day_calories": diet_plan["rest_day_calories"],
             "goal": request.goal,
-            "note": "训练日目标 = BMR + 生活消耗 + 训练消耗 + 约250 kcal；休息日目标 = BMR + 生活消耗 - 约600 kcal，且不低于 BMR。",
+            "note": "Training-day target = BMR + lifestyle burn + training burn + about 250 kcal; rest-day target = BMR + lifestyle burn - about 600 kcal, never below BMR.",
         }
     protein = calculate_protein_target(request.weight_kg, request.goal)
     bmi = calculate_bmi(request.weight_kg, request.height_cm)
     return {
         "bmi": bmi,
-        "bmi_note": "BMI 只作为粗略参考。肌肉量较高的训练者要结合围度、力量、照片和体脂趋势判断。",
+        "bmi_note": "BMI is only a rough reference. Muscular users should also review measurements, strength, photos, and body-fat trends.",
         "calories": calories,
         "protein": protein,
         "diet_plan": diet_plan,

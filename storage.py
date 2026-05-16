@@ -151,9 +151,9 @@ def register_user(username: str, password: str, email: str | None = None) -> dic
     username = username.strip()
     email = email.strip().lower() if email else None
     if len(username) < 2 or len(username) > 20:
-        raise ValueError("昵称需要 2-20 个字符")
+        raise ValueError("Nickname must be 2-20 characters.")
     if len(password) < 6:
-        raise ValueError("密码至少需要 6 位")
+        raise ValueError("Password must be at least 6 characters.")
 
     salt = secrets.token_hex(16)
     password_hash = _hash_password(password, salt)
@@ -171,7 +171,7 @@ def register_user(username: str, password: str, email: str | None = None) -> dic
             user_id = cursor.lastrowid
             row = conn.execute("SELECT id, username, email, created_at FROM users WHERE id = ?", (user_id,)).fetchone()
     except sqlite3.IntegrityError as exc:
-        raise ValueError("昵称或邮箱已被注册") from exc
+        raise ValueError("Nickname or email is already registered.") from exc
 
     return _issue_session(_public_user(row))
 
@@ -189,11 +189,11 @@ def login_user(identifier: str, password: str) -> dict[str, Any]:
         ).fetchone()
 
     if row is None:
-        raise ValueError("账号或密码错误")
+        raise ValueError("Incorrect account or password.")
 
     candidate_hash = _hash_password(password, row["salt"])
     if not hmac.compare_digest(candidate_hash, row["password_hash"]):
-        raise ValueError("账号或密码错误")
+        raise ValueError("Incorrect account or password.")
 
     return _issue_session(_public_user(row))
 
@@ -229,9 +229,9 @@ def create_post(user_id: int, title: str, content: str, image_path: str | None =
     title = title.strip()
     content = content.strip()
     if len(title) < 2:
-        raise ValueError("帖子标题至少需要 2 个字符")
+        raise ValueError("Post title must be at least 2 characters.")
     if len(content) < 5:
-        raise ValueError("帖子内容至少需要 5 个字符")
+        raise ValueError("Post content must be at least 5 characters.")
 
     now = _iso_now()
     with _connect() as conn:
@@ -249,12 +249,12 @@ def create_post(user_id: int, title: str, content: str, image_path: str | None =
 def add_comment(user_id: int, post_id: int, content: str) -> dict[str, Any]:
     content = content.strip()
     if len(content) < 2:
-        raise ValueError("评论至少需要 2 个字符")
+        raise ValueError("Comment must be at least 2 characters.")
     now = _iso_now()
     with _connect() as conn:
         post_exists = conn.execute("SELECT id FROM posts WHERE id = ?", (post_id,)).fetchone()
         if post_exists is None:
-            raise ValueError("帖子不存在")
+            raise ValueError("Post not found.")
         cursor = conn.execute(
             "INSERT INTO comments (post_id, user_id, content, created_at) VALUES (?, ?, ?, ?)",
             (post_id, user_id, content[:800], now),
@@ -277,7 +277,7 @@ def toggle_like(user_id: int, post_id: int) -> dict[str, Any]:
     with _connect() as conn:
         post_exists = conn.execute("SELECT id FROM posts WHERE id = ?", (post_id,)).fetchone()
         if post_exists is None:
-            raise ValueError("帖子不存在")
+            raise ValueError("Post not found.")
 
         existing = conn.execute(
             "SELECT post_id FROM post_likes WHERE post_id = ? AND user_id = ?",
@@ -337,7 +337,7 @@ def get_post(post_id: int, viewer_id: int | None = None) -> dict[str, Any]:
             (post_id,),
         ).fetchone()
         if row is None:
-            raise ValueError("帖子不存在")
+            raise ValueError("Post not found.")
         return _post_from_row(conn, row, viewer_id)
 
 
@@ -444,7 +444,7 @@ def list_checkins(user_id: int) -> list[str]:
 def add_checkin(user_id: int, checkin_date: str) -> list[str]:
     date = checkin_date.strip()
     if not date:
-        raise ValueError("打卡日期不能为空")
+        raise ValueError("Check-in date cannot be empty.")
     with _connect() as conn:
         conn.execute(
             "INSERT OR IGNORE INTO checkins (user_id, checkin_date, created_at) VALUES (?, ?, ?)",

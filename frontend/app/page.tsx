@@ -346,59 +346,52 @@ const initialProfile: Profile = {
 };
 
 const LEVELS: { value: Level; label: string; note: string }[] = [
-  { value: "beginner", label: "新手", note: "四分化视频跟练" },
-  { value: "restarting", label: "重启", note: "降低门槛，找回节奏" },
-  { value: "experienced", label: "老炮", note: "分化训练，追求突破" },
+  { value: "beginner", label: "Beginner", note: "Guided four-day video plan" },
+  { value: "restarting", label: "Fitness Enthusiast", note: "Structured training with manageable progression" },
+  { value: "experienced", label: "High-Intensity Trainee", note: "Hard training, specialization, and recovery control" },
 ];
 
 const GOALS: { value: Goal; label: string; note: string }[] = [
-  { value: "muscle_gain", label: "增肌", note: "容量与渐进" },
-  { value: "strength_gain", label: "增力", note: "复合动作优先" },
-  { value: "fat_loss", label: "减脂", note: "热量与坚持" },
-  { value: "health", label: "健康", note: "低阻力开始" },
+  { value: "muscle_gain", label: "Muscle Gain", note: "Volume and progression" },
+  { value: "strength_gain", label: "Strength", note: "Compound lifts first" },
+  { value: "fat_loss", label: "Fat Loss", note: "Calories and consistency" },
+  { value: "health", label: "Health", note: "Low-friction movement" },
 ];
 
 const FAT_LOSS_PLANS: { value: FatLossPlan; label: string; note: string }[] = [
-  { value: "kaisheng_carb_cycle", label: "凯圣王碳循环减脂", note: "高碳2 / 中碳3 / 低碳2" },
-  { value: "orange_carb_taper", label: "橙子碳水渐降减脂", note: "BMR + 训练消耗 + 卡点降碳" },
+  { value: "kaisheng_carb_cycle", label: "Kaisheng Carb-Cycle Cut", note: "2 high / 3 medium / 2 low-carb days" },
+  { value: "orange_carb_taper", label: "Orange Carb-Taper Cut", note: "BMR + training burn + staged carb drops" },
 ];
 
 const STRENGTH_PLANS: { value: StrengthPlan; label: string; note: string }[] = [
-  { value: "beginner_ab_linear", label: "小白A/B轮线性力量", note: "空杆起步 / 22法则 / 练一休一" },
-  { value: "advanced_linear_5x5", label: "老手线性5x5增力", note: "70% 1RM低开 / 轻训 / 减载" },
-  { value: "universal_5x5_split", label: "全人群5x5三分化", note: "推拉蹲 / 四周周期 / RPE控制" },
+  { value: "beginner_ab_linear", label: "Beginner A/B Linear Strength", note: "Empty bar start / 2+2 rule / train-rest cycle" },
+  { value: "advanced_linear_5x5", label: "Advanced Linear 5x5", note: "70% 1RM start / light day / deloads" },
+  { value: "universal_5x5_split", label: "Universal 5x5 Split", note: "Push-pull-squat / four-week cycle / RPE control" },
 ];
 
 const MUSCLE_GAIN_PLANS: { value: MuscleGainPlan; label: string; note: string }[] = [
-  { value: "tan_chengyi_beginner_follow", label: "谭成义新手跟练", note: "四次训练 / 视频顺序 / 新手启动" },
-  { value: "tan_kaisheng_three_split", label: "谭成义+凯圣王三分化", note: "胸肩三头 / 背后束二头 / 臀腿" },
-  { value: "orange_hypertrophy", label: "橙子增肌计划", note: "肌肥大 / 增肌增力 / 增力周期" },
+  { value: "tan_chengyi_beginner_follow", label: "Tan Chengyi Beginner Follow-Along", note: "Four sessions / video sequence / beginner launch" },
+  { value: "tan_kaisheng_three_split", label: "Tan + Kaisheng Three-Day Split", note: "Chest-shoulder-triceps / back-rear delts-biceps / glutes-legs" },
+  { value: "orange_hypertrophy", label: "Orange Hypertrophy Cycle", note: "Hypertrophy / mass-strength / strength phase" },
 ];
 
 const CARB_SENSITIVITY_OPTIONS: { value: CarbSensitivity; label: string; note: string }[] = [
-  { value: "standard", label: "标准比例", note: "碳水50 / 蛋白30 / 脂肪20" },
-  { value: "sensitive", label: "碳水敏感", note: "碳水40 / 蛋白40 / 脂肪20" },
-];
-
-const DIET_INTENSITY_OPTIONS: { value: DietTrainingIntensity; label: string; note: string }[] = [
-  { value: "auto", label: "自动判断", note: "按水平和性别估算" },
-  { value: "beginner_or_female", label: "新手 / 女生", note: "每分钟 5 kcal" },
-  { value: "fitness_enthusiast", label: "健身爱好者", note: "每分钟 8 kcal" },
-  { value: "high_intensity", label: "训练强度大", note: "每分钟 10 kcal" },
+  { value: "standard", label: "Standard", note: "Carbs 50 / protein 30 / fat 20" },
+  { value: "sensitive", label: "Carb Sensitive", note: "Carbs 40 / protein 40 / fat 20" },
 ];
 
 const VIEWS: { value: View; label: string; code: string }[] = [
-  { value: "plan", label: "训练计划", code: "TRAIN" },
-  { value: "nutrition", label: "饮食面板", code: "FUEL" },
-  { value: "feedback", label: "反馈调整", code: "ADAPT" },
-  { value: "lottery", label: "抽奖转盘", code: "SPIN" },
-  { value: "progress", label: "围度趋势", code: "TRACE" },
-  { value: "community", label: "社区交流", code: "CLUB" },
-  { value: "knowledge", label: "认知扫盲", code: "LEARN" },
-  { value: "coach", label: "AI问答", code: "AI" },
+  { value: "plan", label: "Training Plan", code: "TRAIN" },
+  { value: "nutrition", label: "Nutrition", code: "FUEL" },
+  { value: "feedback", label: "Feedback", code: "ADAPT" },
+  { value: "lottery", label: "Prize Wheel", code: "SPIN" },
+  { value: "progress", label: "Progress", code: "TRACE" },
+  { value: "community", label: "Community", code: "CLUB" },
+  { value: "knowledge", label: "Knowledge", code: "LEARN" },
+  { value: "coach", label: "AI Coach", code: "AI" },
 ];
 
-const DEFAULT_LOTTERY_PRIZES = ["蛋白粉", "肌酸", "电解质饮料", "摇摇杯", "训练手套", "补剂试用装"];
+const DEFAULT_LOTTERY_PRIZES = ["Protein Powder", "Creatine", "Electrolyte Drink", "Shaker Bottle", "Training Gloves", "Supplement Sample"];
 
 const EMPTY_LOTTERY_STATE: LotteryState = {
   trial_used: false,
@@ -636,26 +629,26 @@ const ANATOMY_IMAGE_URL = "/anatomy-muscles-zh.jpg";
 const ANATOMY_SOURCE_URL = "https://commons.wikimedia.org/wiki/File:1105_Anterior_and_Posterior_Views_of_Muscles_zh.jpg";
 
 const PAIN_JOINTS = [
-  { key: "shoulder", label: "肩", view: "front", x: 35.6, y: 10.2 },
-  { key: "elbow", label: "肘", view: "front", x: 31.2, y: 17.5 },
-  { key: "wrist", label: "腕", view: "front", x: 27.1, y: 23.5 },
-  { key: "hip", label: "髋", view: "front", x: 46.1, y: 24.6 },
-  { key: "knee", label: "膝", view: "front", x: 43.1, y: 33.5 },
-  { key: "ankle", label: "踝", view: "front", x: 43.1, y: 41.4 },
-  { key: "back", label: "腰背", view: "back", x: 49.4, y: 65.8 },
-  { key: "shoulder", label: "肩", view: "back", x: 63.2, y: 60.6 },
-  { key: "elbow", label: "肘", view: "back", x: 69.0, y: 66.1 },
-  { key: "wrist", label: "腕", view: "back", x: 72.1, y: 72.3 },
-  { key: "hip", label: "髋", view: "back", x: 51.2, y: 71.0 },
-  { key: "knee", label: "膝", view: "back", x: 44.2, y: 82.5 },
-  { key: "ankle", label: "踝", view: "back", x: 44.2, y: 92.3 },
+  { key: "shoulder", label: "Shoulder", view: "front", x: 35.6, y: 10.2 },
+  { key: "elbow", label: "Elbow", view: "front", x: 31.2, y: 17.5 },
+  { key: "wrist", label: "Wrist", view: "front", x: 27.1, y: 23.5 },
+  { key: "hip", label: "Hip", view: "front", x: 46.1, y: 24.6 },
+  { key: "knee", label: "Knee", view: "front", x: 43.1, y: 33.5 },
+  { key: "ankle", label: "Ankle", view: "front", x: 43.1, y: 41.4 },
+  { key: "back", label: "Low Back", view: "back", x: 49.4, y: 65.8 },
+  { key: "shoulder", label: "Shoulder", view: "back", x: 63.2, y: 60.6 },
+  { key: "elbow", label: "Elbow", view: "back", x: 69.0, y: 66.1 },
+  { key: "wrist", label: "Wrist", view: "back", x: 72.1, y: 72.3 },
+  { key: "hip", label: "Hip", view: "back", x: 51.2, y: 71.0 },
+  { key: "knee", label: "Knee", view: "back", x: 44.2, y: 82.5 },
+  { key: "ankle", label: "Ankle", view: "back", x: 44.2, y: 92.3 },
 ];
 
 export default function Home() {
   const resultRef = useRef<HTMLElement | null>(null);
   const [profile, setProfile] = useState<Profile>(initialProfile);
   const [view, setView] = useState<View>("plan");
-  const [status, setStatus] = useState("系统待命");
+  const [status, setStatus] = useState("System ready");
   const [loading, setLoading] = useState(false);
   const [plan, setPlan] = useState<WorkoutPlan | null>(null);
   const [nutrition, setNutrition] = useState<Nutrition | null>(null);
@@ -684,9 +677,9 @@ export default function Home() {
   const [knowledgeTopic, setKnowledgeTopic] = useState("spot_reduction");
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    { role: "assistant", content: "我是 GymPath AI 教练。你可以问我训练计划、动作替换、饮食、减脂、增肌、恢复和新手认知问题。" },
+    { role: "assistant", content: "I am the GymPath AI coach. Ask me about training plans, exercise substitutions, nutrition, cutting, bulking, recovery, and beginner fitness concepts." },
   ]);
-  const [chatInput, setChatInput] = useState("卧推肩膀不舒服，今天还能练胸吗？");
+  const [chatInput, setChatInput] = useState("My shoulder feels uncomfortable during bench press. Can I still train chest today?");
   const [chatLoading, setChatLoading] = useState(false);
   const [chatMeta, setChatMeta] = useState("");
   const [authToken, setAuthToken] = useState<string | null>(null);
@@ -748,7 +741,7 @@ export default function Home() {
 
   async function generatePlan() {
     setLoading(true);
-    setStatus("正在生成训练与饮食方案");
+    setStatus("Generating training and nutrition plans");
     try {
       const nextPlan = await postJson<WorkoutPlan>("/api/plan", {
         level: profile.level,
@@ -771,14 +764,14 @@ export default function Home() {
         diet_plan_type: profile.fat_loss_plan,
         carb_sensitivity: profile.carb_sensitivity,
         target_weight_kg: profile.target_weight_kg,
-        diet_training_intensity: profile.diet_training_intensity,
+        diet_training_intensity: "auto",
       });
       setPlan(nextPlan);
       setNutrition(nextNutrition);
-      setStatus("计划已更新，可以开始执行");
+      setStatus("Plan updated. You can start training.");
       requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch (error) {
-      setStatus(error instanceof Error ? `API 连接失败：${error.message}` : "API 连接失败");
+      setStatus(error instanceof Error ? `API connection failed: ${error.message}` : "API connection failed");
     } finally {
       setLoading(false);
     }
@@ -791,13 +784,13 @@ export default function Home() {
 
   async function requestPainGuidance(nextPain: PainInput) {
     setFeedback((current) => ({ ...current, pain_level: nextPain.pain_level }));
-    setStatus("正在判断疼痛和替换动作");
+    setStatus("Checking pain response and substitutions");
     try {
       const result = await postJson<PainResult>("/api/pain", { ...nextPain, goal: profile.goal });
       setPainResult(result);
-      setStatus("疼痛建议已生成");
+      setStatus("Pain guidance ready");
     } catch (error) {
-      setStatus(error instanceof Error ? `疼痛判断失败：${error.message}` : "疼痛判断失败");
+      setStatus(error instanceof Error ? `Pain check failed: ${error.message}` : "Pain check failed");
     }
   }
 
@@ -816,7 +809,7 @@ export default function Home() {
       });
       setCheckinReward(result);
     } catch (error) {
-      setStatus(error instanceof Error ? `打卡奖励加载失败：${error.message}` : "打卡奖励加载失败");
+      setStatus(error instanceof Error ? `Check-in rewards failed to load: ${error.message}` : "Check-in rewards failed to load");
     }
   }
 
@@ -840,9 +833,9 @@ export default function Home() {
       await analyzeProgress(accountMeasurements);
       setCheckins(savedCheckins.checkin_dates);
       await refreshCheckinReward(savedCheckins.checkin_dates);
-      setStatus("账号数据已同步");
+      setStatus("Account data synced");
     } catch (error) {
-      setStatus(error instanceof Error ? `账号数据同步失败：${error.message}` : "账号数据同步失败");
+      setStatus(error instanceof Error ? `Account sync failed: ${error.message}` : "Account sync failed");
     }
   }
 
@@ -854,9 +847,9 @@ export default function Home() {
         : Array.from(new Set([...checkins, today])).sort();
       setCheckins(nextDates);
       await refreshCheckinReward(nextDates);
-      setStatus(nextDates.length === checkins.length ? "今日已经完成打卡" : "今日打卡已记录");
+      setStatus(nextDates.includes(today) ? "Today's check-in is recorded" : "Check-in updated");
     } catch (error) {
-      setStatus(error instanceof Error ? `打卡保存失败：${error.message}` : "打卡保存失败");
+      setStatus(error instanceof Error ? `Check-in failed: ${error.message}` : "Check-in failed");
     }
   }
 
@@ -870,7 +863,7 @@ export default function Home() {
     const chances = lotteryChances(checkinReward, lotteryState);
     if (lotterySpinning) return;
     if (chances.total_available <= 0) {
-      setStatus("暂时没有抽奖机会。继续打卡，坚持到第7天就能获得下一次抽奖资格。");
+      setStatus("No draw chance yet. Keep checking in; every 7-day streak unlocks one draw.");
       return;
     }
 
@@ -884,7 +877,7 @@ export default function Home() {
     setLotterySpinning(true);
     setLotteryResult(null);
     setLotteryRotation(nextRotation);
-    setStatus(drawType === "trial" ? "正在进行第一次试抽" : "正在消耗一次打卡抽奖资格");
+    setStatus(drawType === "trial" ? "Running your first trial draw" : "Using one check-in draw ticket");
 
     window.setTimeout(() => {
       const draw: LotteryDraw = {
@@ -901,17 +894,17 @@ export default function Home() {
       saveLotteryState(nextState);
       setLotteryResult(draw);
       setLotterySpinning(false);
-      setStatus(`抽奖完成：${draw.prize}`);
+      setStatus(`Draw complete: ${enText(draw.prize)}`);
     }, 3200);
   }
 
   async function submitFeedback(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!plan) {
-      setStatus("请先生成训练计划");
+      setStatus("Generate a training plan first");
       return;
     }
-    setStatus("正在根据练后反馈调整");
+    setStatus("Adjusting from post-workout feedback");
     try {
       const mergedFeedback = {
         ...feedback,
@@ -925,9 +918,9 @@ export default function Home() {
       if (feedback.completed) {
         await completeTodayCheckin();
       }
-      setStatus("反馈调整已完成");
+      setStatus("Feedback adjustment complete");
     } catch (error) {
-      setStatus(error instanceof Error ? `反馈失败：${error.message}` : "反馈失败");
+      setStatus(error instanceof Error ? `Feedback failed: ${error.message}` : "Feedback failed");
     }
   }
 
@@ -936,7 +929,7 @@ export default function Home() {
       const result = await postJson<ProgressResult>("/api/progress", { measurements: nextMeasurements });
       setProgress(result);
     } catch (error) {
-      setStatus(error instanceof Error ? `趋势分析失败：${error.message}` : "趋势分析失败");
+      setStatus(error instanceof Error ? `Progress analysis failed: ${error.message}` : "Progress analysis failed");
     }
   }
 
@@ -947,9 +940,9 @@ export default function Home() {
         : measurements;
       setMeasurements(nextMeasurements);
       await analyzeProgress(nextMeasurements);
-      setStatus(authToken ? "围度趋势已保存到账号" : "游客趋势已在本页更新");
+      setStatus(authToken ? "Progress saved to your account" : "Guest progress updated on this page");
     } catch (error) {
-      setStatus(error instanceof Error ? `围度保存失败：${error.message}` : "围度保存失败");
+      setStatus(error instanceof Error ? `Progress save failed: ${error.message}` : "Progress save failed");
     }
   }
 
@@ -959,7 +952,7 @@ export default function Home() {
       const result = await getJson<Knowledge>(`/api/knowledge/${topic}`);
       setKnowledge(result);
     } catch (error) {
-      setStatus(error instanceof Error ? `知识卡片加载失败：${error.message}` : "知识卡片加载失败");
+      setStatus(error instanceof Error ? `Knowledge card failed to load: ${error.message}` : "Knowledge card failed to load");
     }
   }
 
@@ -972,7 +965,7 @@ export default function Home() {
     setChatMessages(nextMessages);
     setChatInput("");
     setChatLoading(true);
-    setStatus("AI教练正在思考");
+    setStatus("AI coach is thinking");
     try {
       const result = await postJson<AiChatResponse>("/api/ai-chat", {
         messages: nextMessages,
@@ -999,12 +992,12 @@ export default function Home() {
         },
       });
       setChatMessages([...nextMessages, { role: "assistant", content: result.reply }]);
-      setChatMeta(`${result.used_api ? "DeepSeek API" : "本地兜底"} / ${result.model}${result.warning ? ` / ${result.warning}` : ""}`);
-      setStatus("AI教练已回复");
+      setChatMeta(`${result.used_api ? "DeepSeek API" : "Local fallback"} / ${result.model}${result.warning ? ` / ${result.warning}` : ""}`);
+      setStatus("AI coach replied");
     } catch (error) {
-      setChatMessages([...nextMessages, { role: "assistant", content: "AI问答暂时不可用。你可以先把目标、动作、疼痛位置、训练表现和饮食记录说清楚，我会继续帮你排查。" }]);
-      setChatMeta(error instanceof Error ? error.message : "AI请求失败");
-      setStatus("AI问答请求失败");
+      setChatMessages([...nextMessages, { role: "assistant", content: "AI coaching is temporarily unavailable. Describe your goal, exercise, pain location, training performance, and diet record clearly, and I can still help you troubleshoot." }]);
+      setChatMeta(error instanceof Error ? error.message : "AI request failed");
+      setStatus("AI request failed");
     } finally {
       setChatLoading(false);
     }
@@ -1026,9 +1019,9 @@ export default function Home() {
       setAuthForm({ username: "", email: "", password: "" });
       setAuthError("");
       setCommunityError("");
-      setStatus(authMode === "register" ? "注册成功，已登录" : "登录成功");
+      setStatus(authMode === "register" ? "Account created and signed in" : "Signed in");
     } catch (error) {
-      setAuthError(error instanceof Error ? error.message : "登录失败");
+      setAuthError(error instanceof Error ? error.message : "Sign-in failed");
     }
   }
 
@@ -1037,7 +1030,7 @@ export default function Home() {
     setAuthToken(null);
     setUser(null);
     setGuestMode(false);
-    setStatus("已退出登录");
+    setStatus("Signed out");
   }
 
   async function loadCommunity(token = authToken) {
@@ -1045,7 +1038,7 @@ export default function Home() {
       const result = await getJson<{ posts: CommunityPost[] }>("/api/community/posts", token);
       setCommunityPosts(result.posts);
     } catch (error) {
-      setStatus(error instanceof Error ? `社区加载失败：${error.message}` : "社区加载失败");
+      setStatus(error instanceof Error ? `Community failed to load: ${error.message}` : "Community failed to load");
     }
   }
 
@@ -1053,11 +1046,11 @@ export default function Home() {
     event.preventDefault();
     setCommunityError("");
     if (!authToken) {
-      setCommunityError("请先登录再发帖");
+      setCommunityError("Sign in before posting");
       return;
     }
     if (postImage && postImage.size > 5 * 1024 * 1024) {
-      setCommunityError("图片不能超过 5MB");
+      setCommunityError("Image must be under 5 MB");
       return;
     }
     try {
@@ -1071,23 +1064,23 @@ export default function Home() {
       setPostDraft({ title: "", content: "" });
       setPostImage(null);
       await loadCommunity(authToken);
-      setStatus("帖子已发布");
+      setStatus("Post published");
     } catch (error) {
-      setCommunityError(error instanceof Error ? error.message : "发帖失败");
+      setCommunityError(error instanceof Error ? error.message : "Post failed");
     }
   }
 
   async function likePost(postId: number) {
     setCommunityError("");
     if (!authToken) {
-      setCommunityError("请先登录再点赞");
+      setCommunityError("Sign in before liking posts");
       return;
     }
     try {
       await postJson<{ post_id: number; liked: boolean; like_count: number }>(`/api/community/posts/${postId}/like`, {}, authToken);
       await loadCommunity(authToken);
     } catch (error) {
-      setCommunityError(error instanceof Error ? error.message : "点赞失败");
+      setCommunityError(error instanceof Error ? error.message : "Like failed");
     }
   }
 
@@ -1095,7 +1088,7 @@ export default function Home() {
     event.preventDefault();
     setCommunityError("");
     if (!authToken) {
-      setCommunityError("请先登录再评论");
+      setCommunityError("Sign in before commenting");
       return;
     }
     const content = (commentDrafts[postId] ?? "").trim();
@@ -1105,7 +1098,7 @@ export default function Home() {
       setCommentDrafts((current) => ({ ...current, [postId]: "" }));
       await loadCommunity(authToken);
     } catch (error) {
-      setCommunityError(error instanceof Error ? error.message : "评论失败");
+      setCommunityError(error instanceof Error ? error.message : "Comment failed");
     }
   }
 
@@ -1145,7 +1138,7 @@ export default function Home() {
           </div>
         </div>
 
-        <nav className="nav" aria-label="主导航">
+        <nav className="nav" aria-label="Main navigation">
           {VIEWS.map((item) => (
             <button
               key={item.value}
@@ -1165,77 +1158,77 @@ export default function Home() {
         <header className="hero">
           <div>
             <p className="kicker">BLACK / WHITE / NATIVE UI</p>
-            <h1>训练不该靠猜。</h1>
+            <h1>Stop guessing your training.</h1>
             <p>
-              GymPath 把水平、目标、训练天数、热身、动作教学、饮食、疼痛替换和练后反馈压进一个清晰流程。
+              GymPath turns level, goal, warm-ups, exercise teaching, nutrition, pain substitutions, post-workout feedback, and rewards into one clear workflow.
             </p>
           </div>
         </header>
 
         {showSetup ? (
         <section className="setup-grid">
-          <Panel code="PROFILE" title="训练画像">
-            <Segment label="训练水平" options={LEVELS} value={profile.level} onChange={(value) => patchProfile("level", value)} />
-            <Segment label="目标" options={GOALS} value={profile.goal} onChange={(value) => patchProfile("goal", value)} />
+          <Panel code="PROFILE" title="Training Profile">
+            <Segment label="Training Level" options={LEVELS} value={profile.level} onChange={(value) => patchProfile("level", value)} />
+            <Segment label="Goal" options={GOALS} value={profile.goal} onChange={(value) => patchProfile("goal", value)} />
             {view === "plan" && profile.goal === "muscle_gain" ? (
               <div className="fat-loss-config">
-                <Segment label="增肌计划" options={MUSCLE_GAIN_PLANS} value={profile.muscle_gain_plan} onChange={(value) => patchProfile("muscle_gain_plan", value)} />
+                <Segment label="Muscle-Gain Plan" options={MUSCLE_GAIN_PLANS} value={profile.muscle_gain_plan} onChange={(value) => patchProfile("muscle_gain_plan", value)} />
               </div>
             ) : null}
             {view === "plan" && profile.goal === "strength_gain" ? (
               <div className="fat-loss-config">
-                <Segment label="增力计划" options={STRENGTH_PLANS} value={profile.strength_plan} onChange={(value) => patchProfile("strength_plan", value)} />
+                <Segment label="Strength Plan" options={STRENGTH_PLANS} value={profile.strength_plan} onChange={(value) => patchProfile("strength_plan", value)} />
               </div>
             ) : null}
             {profile.goal === "fat_loss" ? (
               <div className="fat-loss-config">
-                <Segment label="减脂饮食方案" options={FAT_LOSS_PLANS} value={profile.fat_loss_plan} onChange={(value) => patchProfile("fat_loss_plan", value)} />
+                <Segment label="Fat-Loss Nutrition Plan" options={FAT_LOSS_PLANS} value={profile.fat_loss_plan} onChange={(value) => patchProfile("fat_loss_plan", value)} />
                 {profile.fat_loss_plan === "orange_carb_taper" ? (
                   <>
-                    <Segment label="橙子方案比例" options={CARB_SENSITIVITY_OPTIONS} value={profile.carb_sensitivity} onChange={(value) => patchProfile("carb_sensitivity", value)} />
-                    <Segment label="训练强度系数" options={DIET_INTENSITY_OPTIONS} value={profile.diet_training_intensity} onChange={(value) => patchProfile("diet_training_intensity", value)} />
-                    <Field label={`目标体重 ${targetWeightValue} kg`}>
+                    <Segment label="Orange Macro Ratio" options={CARB_SENSITIVITY_OPTIONS} value={profile.carb_sensitivity} onChange={(value) => patchProfile("carb_sensitivity", value)} />
+                    <p className="soft">Training burn is now automatic: Beginner or female = 5 kcal/min, Fitness Enthusiast = 8 kcal/min, High-Intensity Trainee = 10 kcal/min.</p>
+                    <Field label={`Target weight ${targetWeightValue} kg`}>
                       <input type="range" min="40" max={targetWeightMax} step="1" value={targetWeightValue} onChange={(event) => patchProfile("target_weight_kg", Number(event.target.value))} />
                     </Field>
                   </>
                 ) : null}
               </div>
             ) : null}
-            <Field label={`单次 ${profile.minutes_per_session} 分钟`}>
+            <Field label={`Session length ${profile.minutes_per_session} min`}>
               <input type="range" min="20" max="120" step="5" value={profile.minutes_per_session} onChange={(event) => patchProfile("minutes_per_session", Number(event.target.value))} />
             </Field>
             <button className="primary" type="button" onClick={generatePlan} disabled={loading}>
-              {loading ? "正在生成" : view === "nutrition" ? "生成饮食方案" : "生成黑白训练方案"}
+              {loading ? "Generating" : view === "nutrition" ? "Generate Nutrition Plan" : "Generate Training Plan"}
             </button>
           </Panel>
 
           {showSetup ? (
-            <Panel code="BODY" title="身体数据">
+            <Panel code="BODY" title="Body Data">
               <div className="body-grid">
-                <Field label="体重 kg">
+                <Field label="Weight kg">
                   <input type="number" value={profile.weight_kg} onChange={(event) => patchProfile("weight_kg", Number(event.target.value))} />
                 </Field>
-                <Field label="身高 cm">
+                <Field label="Height cm">
                   <input type="number" value={profile.height_cm} onChange={(event) => patchProfile("height_cm", Number(event.target.value))} />
                 </Field>
-                <Field label="年龄">
+                <Field label="Age">
                   <input type="number" value={profile.age} onChange={(event) => patchProfile("age", Number(event.target.value))} />
                 </Field>
-                <Field label="性别">
+                <Field label="Sex">
                   <select value={profile.gender} onChange={(event) => patchProfile("gender", event.target.value as Gender)}>
-                    <option value="male">男</option>
-                    <option value="female">女</option>
-                    <option value="other">其他 / 不指定</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other / Not specified</option>
                   </select>
                 </Field>
-                <Field label="日常活动（影响热量）">
+                <Field label="Daily activity">
                   <select value={profile.activity_level} onChange={(event) => patchProfile("activity_level", event.target.value as Activity)}>
-                    <option value="sedentary">久坐</option>
-                    <option value="light">轻度活动</option>
-                    <option value="moderate">中等活动</option>
-                    <option value="active">高活动量</option>
+                    <option value="sedentary">Sedentary</option>
+                    <option value="light">Light activity</option>
+                    <option value="moderate">Moderate activity</option>
+                    <option value="active">High activity</option>
                   </select>
-                  <small className="field-note">用于估算维持热量、目标热量和生活消耗。</small>
+                  <small className="field-note">Used to estimate maintenance calories, target calories, and lifestyle burn.</small>
                 </Field>
               </div>
             </Panel>
@@ -1270,7 +1263,8 @@ export default function Home() {
               spinning={lotterySpinning}
               result={lotteryResult}
               onSpin={spinLottery}
-              onCheckin={() => void completeTodayCheckin()}
+              todayChecked={checkins.includes(todayIso())}
+              onCheckin={completeTodayCheckin}
             />
           )}
           {view === "progress" && (
@@ -1341,8 +1335,8 @@ function AuthLoading() {
     <main className="auth-gate">
       <section className="auth-panel">
         <p className="kicker">GYMPATH ACCOUNT</p>
-        <h1>正在进入。</h1>
-        <p>正在检查本地登录状态。</p>
+        <h1>Entering GymPath.</h1>
+        <p>Checking your local login session.</p>
       </section>
     </main>
   );
@@ -1369,30 +1363,30 @@ function AuthGate({
     <main className="auth-gate">
       <section className="auth-hero">
         <p className="kicker">GYMPATH / TRAINING OS</p>
-        <h1>先进入你的训练账户。</h1>
-        <p>注册后可以发帖、点赞、评论，并让 GymPath 从一次演示变成真正可多人使用的健身 Web App。</p>
+        <h1>Enter your training account first.</h1>
+        <p>Create an account to post, like, and comment, while keeping GymPath usable as a real multi-user fitness web app.</p>
       </section>
       <section className="auth-panel">
-        <Header code="ACCOUNT" title={authMode === "register" ? "创建账户" : "登录账户"} right="MVP 本地账号" />
+        <Header code="ACCOUNT" title={authMode === "register" ? "Create Account" : "Log In"} right="Local MVP account" />
         <form className="auth-form" onSubmit={onAuthSubmit}>
-          <div className="auth-tabs" role="tablist" aria-label="账户模式">
-            <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>登录</button>
-            <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>注册</button>
+          <div className="auth-tabs" role="tablist" aria-label="Account mode">
+            <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>Log In</button>
+            <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>Register</button>
           </div>
-          <Field label={authMode === "register" ? "昵称" : "昵称或邮箱"}>
-            <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="例如：练肩不耸肩" />
+          <Field label={authMode === "register" ? "Nickname" : "Nickname or Email"}>
+            <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="e.g. No-Shrug Shoulders" />
           </Field>
           {authMode === "register" ? (
-            <Field label="邮箱（可选）">
-              <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder="用于以后找回账号" />
+            <Field label="Email (optional)">
+              <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder="For future account recovery" />
             </Field>
           ) : null}
-          <Field label="密码">
-            <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="至少 6 位" />
+          <Field label="Password">
+            <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="At least 6 characters" />
           </Field>
           {authError ? <p className="form-error">{cleanApiError(authError)}</p> : null}
-          <button className="primary" type="submit">{authMode === "register" ? "创建账户并进入" : "登录并进入"}</button>
-          <button className="ghost guest-entry" type="button" onClick={onGuest}>先游客浏览，社区互动稍后登录</button>
+          <button className="primary" type="submit">{authMode === "register" ? "Create Account & Enter" : "Log In & Enter"}</button>
+          <button className="ghost guest-entry" type="button" onClick={onGuest}>Preview as guest; log in later for community actions</button>
         </form>
       </section>
     </main>
@@ -1426,17 +1420,17 @@ function Segment<T extends string>({
 }
 
 function PlanView({ plan }: { plan: WorkoutPlan | null }) {
-  if (!plan) return <Empty title="尚未生成计划" text="填写训练画像后点击生成，系统会返回训练日、热身、动作和教学入口。" />;
+  if (!plan) return <Empty title="No plan yet" text="Fill in the training profile and generate a plan to see training days, warm-ups, exercises, and teaching links." />;
 
   return (
     <section className="wide">
-      <Header code="WEEK PLAN" title={tx(SPLIT_CN, plan.split.split_name)} right={`${plan.days_per_week} 天 / ${plan.minutes_per_session} 分钟`} />
+      <Header code="WEEK PLAN" title={tx(SPLIT_CN, plan.split.split_name)} right={`${plan.days_per_week} days / ${plan.minutes_per_session} min`} />
       {plan.muscle_gain_plan ? (
         <ProgramBriefView code="MUSCLE PLAN" plan={plan.muscle_gain_plan} />
       ) : plan.strength_plan ? (
         <ProgramBriefView code="STRENGTH PLAN" plan={plan.strength_plan} />
       ) : (
-        <p className="soft">按当前目标生成训练日、热身、动作和反馈调整入口。</p>
+        <p className="soft">Generated from the current goal, with training days, warm-ups, exercises, and feedback adjustment entry points.</p>
       )}
       <div className="day-stack">
         {plan.weekly_schedule.map((day, index) => {
@@ -1453,8 +1447,8 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
             </div>
             {day.is_rest_day ? (
               <div className="rest-card">
-                <strong>恢复安排</strong>
-                <p>{day.rest_note ?? "今天不安排正式训练，保证恢复。"}</p>
+                <strong>Recovery Plan</strong>
+                <p>{enText(day.rest_note ?? "No formal training today. Prioritize recovery.")}</p>
               </div>
             ) : (
               <>
@@ -1467,14 +1461,14 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
                   ))}
                 </div>
                 <details>
-                  <summary>训练前热身 / 激活</summary>
+                  <summary>Warm-up / Activation</summary>
                   <ul className="chip-row">
                     {day.warmup.map((item) => <li key={item}>{tx(WARMUP_CN, item)}</li>)}
                   </ul>
                 </details>
                 {day.learning_points?.length ? (
                   <div className="rule-list compact-rules">
-                    {day.learning_points.map((point) => <p key={point}>{point}</p>)}
+                    {day.learning_points.map((point) => <p key={point}>{enText(point)}</p>)}
                   </div>
                 ) : null}
                 <div className="exercise-grid">
@@ -1488,10 +1482,10 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
                       <article className="exercise" key={`${exercise.name}-${exerciseIndex}`}>
                         <header>
                           <span>{exercise.phase ?? exercise.target_muscle}</span>
-                          {showTeachingVideo ? <a href={exercise.teaching_url} target="_blank" rel="noreferrer">跟练视频</a> : null}
+                          {showTeachingVideo ? <a href={exercise.teaching_url} target="_blank" rel="noreferrer">Teaching video</a> : null}
                         </header>
                         <h4>{tx(EXERCISE_CN, exercise.name)}</h4>
-                        <p>{exercise.sets} 组 / {exercise.reps} 次 / 组间休息 {formatRest(exercise.rest_seconds)}</p>
+                        <p>{exercise.sets} sets / {exercise.reps} reps / rest {formatRest(exercise.rest_seconds)}</p>
                       </article>
                     );
                   })}
@@ -1509,8 +1503,8 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
 function uniqueDayVideoLinks(day: WorkoutDay) {
   const seen = new Set<string>();
   return [
-    { key: "session", label: "本次训练视频", url: day.session_video_url },
-    { key: "warmup", label: "热身讲解视频", url: day.warmup_video_url },
+    { key: "session", label: "Session video", url: day.session_video_url },
+    { key: "warmup", label: "Warm-up video", url: day.warmup_video_url },
   ].filter((link): link is { key: string; label: string; url: string } => {
     if (!link.url) return false;
     const videoKey = canonicalVideoUrl(link.url);
@@ -1525,28 +1519,28 @@ function ProgramBriefView({ code, plan }: { code: string; plan: ProgramBrief }) 
     <section className="strength-brief">
       <div>
         <p className="kicker">{code}</p>
-        <h3>{plan.title}</h3>
-        <p>{plan.source_basis}</p>
-        <p>{plan.audience}</p>
+        <h3>{enText(plan.title)}</h3>
+        <p>{enText(plan.source_basis)}</p>
+        <p>{enText(plan.audience)}</p>
       </div>
       <div className="strength-grid">
         <article>
-          <strong>底层逻辑</strong>
-          {plan.logic_points.map((item) => <span key={item}>{item}</span>)}
+          <strong>Core Logic</strong>
+          {plan.logic_points.map((item) => <span key={item}>{enText(item)}</span>)}
         </article>
         <article>
-          <strong>推进规则</strong>
-          {plan.progression_rules.map((item) => <span key={item}>{item}</span>)}
+          <strong>Progression Rules</strong>
+          {plan.progression_rules.map((item) => <span key={item}>{enText(item)}</span>)}
         </article>
         {plan.stall_strategy?.length ? (
           <article>
-            <strong>停滞处理</strong>
-            {plan.stall_strategy.map((item) => <span key={item}>{item}</span>)}
+            <strong>Stall Strategy</strong>
+            {plan.stall_strategy.map((item) => <span key={item}>{enText(item)}</span>)}
           </article>
         ) : null}
         <article>
-          <strong>风险提醒</strong>
-          {plan.warnings.map((item) => <span key={item}>{item}</span>)}
+          <strong>Risk Notes</strong>
+          {plan.warnings.map((item) => <span key={item}>{enText(item)}</span>)}
         </article>
       </div>
     </section>
@@ -1586,76 +1580,76 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
     };
   }, []);
 
-  if (!nutrition) return <Empty title="等待身体数据" text="生成计划时会同时计算热量、蛋白质和 BMI 参考。" />;
+  if (!nutrition) return <Empty title="Waiting for body data" text="Generating a plan also calculates calories, protein, and a rough BMI reference." />;
   const diet = nutrition.diet_plan;
   const dietTarget = diet ? selectDietTarget(diet, selectedDietDay) : null;
   const proteinValue = diet ? String(diet.baseline_daily.protein_g) : `${nutrition.protein.min_grams}-${nutrition.protein.max_grams}`;
   const isPerformanceDiet = diet?.type === "performance_macros";
   const calorieNote = isPerformanceDiet
-    ? `训练日 ${diet.training_day_calories} kcal / 休息日 ${diet.rest_day_calories} kcal`
-    : `维持热量 ${nutrition.calories.maintenance_calories} kcal`;
+    ? `Training day ${diet.training_day_calories} kcal / rest day ${diet.rest_day_calories} kcal`
+    : `Maintenance ${nutrition.calories.maintenance_calories} kcal`;
   const proteinNote = isPerformanceDiet
-    ? "按总热量25%供能 ÷ 4 kcal/g"
-    : diet ? "按当前饮食计划计算" : "分到 3-5 餐更容易坚持";
-  const dailyPrefix = isPerformanceDiet ? "训练日" : "每日";
+    ? "25% of total calories ÷ 4 kcal/g"
+    : diet ? "Calculated from the selected nutrition plan" : "Easier to sustain across 3-5 meals";
+  const dailyPrefix = isPerformanceDiet ? "Training-day" : "Daily";
   return (
     <div className="metric-grid">
-      <Metric label="目标热量" value={String(nutrition.calories.target_calories)} suffix="kcal" note={calorieNote} />
-      <Metric label="计划蛋白质" value={proteinValue} suffix="g" note={proteinNote} />
-      <Metric label="BMI" value={String(nutrition.bmi)} suffix="" note="老炮只作粗略参考" />
+      <Metric label="Target Calories" value={String(nutrition.calories.target_calories)} suffix="kcal" note={calorieNote} />
+      <Metric label="Protein Target" value={proteinValue} suffix="g" note={proteinNote} />
+      <Metric label="BMI" value={String(nutrition.bmi)} suffix="" note="Only a rough reference for muscular lifters" />
       {diet ? (
         <>
-          <Metric label={`${dailyPrefix}碳水目标`} value={String(diet.baseline_daily.carbs_g)} suffix="g" note={`每周 ${diet.weekly_totals.carbs_g}g`} />
-          <Metric label={`${dailyPrefix}脂肪目标`} value={String(diet.baseline_daily.fat_g)} suffix="g" note={`每周 ${diet.weekly_totals.fat_g}g`} />
-          <Metric label="单餐蛋白" value={diet.meal_timing.protein_per_meal_g} suffix="g" note={`${diet.meal_timing.meals_per_day} 餐 / 间隔 ${diet.meal_timing.meal_interval_hours} 小时`} />
+          <Metric label={`${dailyPrefix} Carb Target`} value={String(diet.baseline_daily.carbs_g)} suffix="g" note={`${diet.weekly_totals.carbs_g}g per week`} />
+          <Metric label={`${dailyPrefix} Fat Target`} value={String(diet.baseline_daily.fat_g)} suffix="g" note={`${diet.weekly_totals.fat_g}g per week`} />
+          <Metric label="Protein Per Meal" value={diet.meal_timing.protein_per_meal_g} suffix="g" note={`${diet.meal_timing.meals_per_day} meals / every ${diet.meal_timing.meal_interval_hours} hours`} />
         </>
       ) : null}
       {diet?.type === "performance_macros" ? (
         <section className="wide metric-span">
-          <Header code="PERFORMANCE FUEL" title={diet.title} right={diet.macro_ratio?.label ?? "5:2.5:2.5"} />
+          <Header code="PERFORMANCE FUEL" title={enText(diet.title)} right={enText(diet.macro_ratio?.label ?? "5:2.5:2.5")} />
           <div className="macro-cycle orange-cycle">
             <article className="macro-card">
-              <header><span>BMR</span><strong>基础代谢</strong></header>
-              <div className="macro-row"><span>公式结果</span><b>{diet.bmr} kcal</b></div>
-              <p>{diet.bmr_formula}</p>
+              <header><span>BMR</span><strong>Basal Metabolic Rate</strong></header>
+              <div className="macro-row"><span>Formula result</span><b>{diet.bmr} kcal</b></div>
+              <p>{enText(diet.bmr_formula ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>LIFE</span><strong>生活消耗</strong></header>
-              <div className="macro-row"><span>估算值</span><b>{diet.life_burn} kcal</b></div>
-              <p>{diet.life_burn_note}</p>
+              <header><span>LIFE</span><strong>Lifestyle Burn</strong></header>
+              <div className="macro-row"><span>Estimate</span><b>{diet.life_burn} kcal</b></div>
+              <p>{enText(diet.life_burn_note ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TRAIN</span><strong>训练消耗</strong></header>
-              <div className="macro-row"><span>训练时长</span><b>{diet.training_burn?.minutes} 分钟</b></div>
-              <div className="macro-row"><span>强度系数</span><b>{diet.training_burn?.intensity_factor}</b></div>
-              <div className="macro-row"><span>估算消耗</span><b>{diet.training_burn?.calories} kcal</b></div>
-              <p>{diet.training_burn?.label}</p>
+              <header><span>TRAIN</span><strong>Training Burn</strong></header>
+              <div className="macro-row"><span>Duration</span><b>{diet.training_burn?.minutes} min</b></div>
+              <div className="macro-row"><span>Intensity factor</span><b>{diet.training_burn?.intensity_factor}</b></div>
+              <div className="macro-row"><span>Estimated burn</span><b>{diet.training_burn?.calories} kcal</b></div>
+              <p>{enText(diet.training_burn?.label ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TARGET</span><strong>热量策略</strong></header>
-              <div className="macro-row"><span>训练日</span><b>{diet.training_day_calories} kcal</b></div>
-              <div className="macro-row"><span>休息日</span><b>{diet.rest_day_calories} kcal</b></div>
-              <div className="macro-row"><span>最低底线</span><b>{diet.calorie_floor} kcal</b></div>
-              <p>训练日约 +250 kcal；休息日约 -600 kcal，但任何一天都不低于基础代谢。</p>
+              <header><span>TARGET</span><strong>Calorie Strategy</strong></header>
+              <div className="macro-row"><span>Training day</span><b>{diet.training_day_calories} kcal</b></div>
+              <div className="macro-row"><span>Rest day</span><b>{diet.rest_day_calories} kcal</b></div>
+              <div className="macro-row"><span>Floor</span><b>{diet.calorie_floor} kcal</b></div>
+              <p>Training days sit around +250 kcal; rest days sit around -600 kcal, but no day goes below BMR.</p>
             </article>
           </div>
         </section>
       ) : null}
       {diet?.type === "fat_loss_carb_cycle" ? (
         <section className="wide metric-span">
-          <Header code="CARB CYCLE" title="减脂碳循环" right="高碳 2 / 中碳 3 / 低碳 2" />
+          <Header code="CARB CYCLE" title="Fat-Loss Carb Cycle" right="2 high / 3 medium / 2 low" />
           <div className="macro-cycle">
             {diet.cycle_days.map((day) => (
               <article className="macro-card" key={day.key}>
                 <header>
-                  <span>{day.days_per_week} 天 / 周</span>
-                  <strong>{day.label}</strong>
+                  <span>{day.days_per_week} days / week</span>
+                  <strong>{enText(day.label)}</strong>
                 </header>
-                <div className="macro-row"><span>碳水</span><b>{day.carbs_g}g</b></div>
-                <div className="macro-row"><span>蛋白</span><b>{day.protein_g}g</b></div>
-                <div className="macro-row"><span>脂肪</span><b>{day.fat_g}g</b></div>
-                <div className="macro-row"><span>热量</span><b>{day.calories} kcal</b></div>
-                <p>{day.timing}</p>
+                <div className="macro-row"><span>Carbs</span><b>{day.carbs_g}g</b></div>
+                <div className="macro-row"><span>Protein</span><b>{day.protein_g}g</b></div>
+                <div className="macro-row"><span>Fat</span><b>{day.fat_g}g</b></div>
+                <div className="macro-row"><span>Calories</span><b>{day.calories} kcal</b></div>
+                <p>{enText(day.timing)}</p>
               </article>
             ))}
           </div>
@@ -1663,42 +1657,42 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
       ) : null}
       {diet?.type === "orange_carb_taper" ? (
         <section className="wide metric-span">
-          <Header code="CARB TAPER" title="橙子碳水渐降减脂" right={diet.macro_ratio?.label ?? "BMR + 训练消耗"} />
+          <Header code="CARB TAPER" title="Orange Carb-Taper Cut" right={enText(diet.macro_ratio?.label ?? "BMR + training burn")} />
           <div className="macro-cycle orange-cycle">
             <article className="macro-card">
-              <header><span>BMR</span><strong>基础代谢</strong></header>
-              <div className="macro-row"><span>公式结果</span><b>{diet.bmr} kcal</b></div>
-              <p>男性：10x体重 + 6.25x身高 - 5x年龄 + 5；女性最后改为 -161。</p>
+              <header><span>BMR</span><strong>Basal Metabolic Rate</strong></header>
+              <div className="macro-row"><span>Formula result</span><b>{diet.bmr} kcal</b></div>
+              <p>Male: 10x bodyweight + 6.25x height - 5x age + 5. Female: same formula but ending with -161.</p>
             </article>
             <article className="macro-card">
-              <header><span>TRAIN</span><strong>训练消耗</strong></header>
-              <div className="macro-row"><span>强度系数</span><b>{diet.training_burn?.intensity_factor}</b></div>
-              <div className="macro-row"><span>本次时长</span><b>{diet.training_burn?.minutes} 分钟</b></div>
-              <div className="macro-row"><span>估算消耗</span><b>{diet.training_burn?.calories} kcal</b></div>
-              <p>{diet.training_burn?.label}</p>
+              <header><span>TRAIN</span><strong>Training Burn</strong></header>
+              <div className="macro-row"><span>Auto factor</span><b>{diet.training_burn?.intensity_factor}</b></div>
+              <div className="macro-row"><span>Duration</span><b>{diet.training_burn?.minutes} min</b></div>
+              <div className="macro-row"><span>Estimated burn</span><b>{diet.training_burn?.calories} kcal</b></div>
+              <p>{enText(diet.training_burn?.label ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TOTAL</span><strong>一天消耗</strong></header>
-              <div className="macro-row"><span>基础热量</span><b>{diet.daily_expenditure} kcal</b></div>
-              <div className="macro-row"><span>碳水</span><b>{diet.baseline_daily.carbs_g}g</b></div>
-              <div className="macro-row"><span>蛋白</span><b>{diet.baseline_daily.protein_g}g</b></div>
-              <div className="macro-row"><span>脂肪</span><b>{diet.baseline_daily.fat_g}g</b></div>
+              <header><span>TOTAL</span><strong>Daily Expenditure</strong></header>
+              <div className="macro-row"><span>Base total</span><b>{diet.daily_expenditure} kcal</b></div>
+              <div className="macro-row"><span>Carbs</span><b>{diet.baseline_daily.carbs_g}g</b></div>
+              <div className="macro-row"><span>Protein</span><b>{diet.baseline_daily.protein_g}g</b></div>
+              <div className="macro-row"><span>Fat</span><b>{diet.baseline_daily.fat_g}g</b></div>
             </article>
             {diet.target_timeline ? (
               <article className="macro-card">
-                <header><span>TARGET</span><strong>减脂目标</strong></header>
-                <div className="macro-row"><span>目标体重</span><b>{diet.target_timeline.target_weight_kg}kg</b></div>
-                <div className="macro-row"><span>目标下降</span><b>{diet.target_timeline.target_loss_kg}kg</b></div>
-                <div className="macro-row"><span>3% 速度</span><b>{diet.target_timeline.conservative_months_3_percent} 月</b></div>
-                <div className="macro-row"><span>5% 速度</span><b>{diet.target_timeline.aggressive_months_5_percent} 月</b></div>
-                <p>{diet.target_timeline.note}</p>
+                <header><span>TARGET</span><strong>Fat-Loss Target</strong></header>
+                <div className="macro-row"><span>Target weight</span><b>{diet.target_timeline.target_weight_kg}kg</b></div>
+                <div className="macro-row"><span>Total loss</span><b>{diet.target_timeline.target_loss_kg}kg</b></div>
+                <div className="macro-row"><span>3% pace</span><b>{diet.target_timeline.conservative_months_3_percent} months</b></div>
+                <div className="macro-row"><span>5% pace</span><b>{diet.target_timeline.aggressive_months_5_percent} months</b></div>
+                <p>{enText(diet.target_timeline.note)}</p>
               </article>
             ) : null}
           </div>
           {diet.adjustment_protocol ? (
             <div className="rule-list compact-rules">
-              <p>{diet.adjustment_protocol.rule}</p>
-              <p>按 3% 速度，当前每周目标约 {diet.adjustment_protocol.weekly_loss_target_kg}kg；卡住后每日碳水下调 {diet.adjustment_protocol.carb_cut_if_stalled_g}g。</p>
+              <p>{enText(diet.adjustment_protocol.rule)}</p>
+              <p>At a 3% monthly pace, the current weekly loss target is about {diet.adjustment_protocol.weekly_loss_target_kg}kg. If progress stalls, reduce daily carbs by {diet.adjustment_protocol.carb_cut_if_stalled_g}g.</p>
             </div>
           ) : null}
         </section>
@@ -1716,14 +1710,14 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
         />
       ) : null}
       <section className="wide metric-span">
-        <Header code="FUEL RULE" title="饮食执行线" right="" />
+        <Header code="FUEL RULE" title="Nutrition Execution Rules" right="" />
         <div className="rule-list">
-          {diet?.rules.map((rule) => <p key={rule}>{rule}</p>)}
-          {diet ? <p>{diet.meal_timing.note}</p> : null}
-          {!diet ? <p>先打满蛋白质，再看总热量。</p> : null}
-          {!diet ? <p>增肌不等于乱吃，减脂不等于极端少吃。</p> : null}
-          {!diet ? <p>连续两周体重和围度没有变化，再调整热量。</p> : null}
-          <p>BMI 对肌肉量高的人不敏感，要结合围度、力量、照片和体脂趋势。</p>
+          {diet?.rules.map((rule) => <p key={rule}>{enText(rule)}</p>)}
+          {diet ? <p>{enText(diet.meal_timing.note)}</p> : null}
+          {!diet ? <p>Hit protein first, then check total calories.</p> : null}
+          {!diet ? <p>Bulking is not random eating; cutting is not extreme restriction.</p> : null}
+          {!diet ? <p>Adjust calories only after two weeks without body-weight or measurement change.</p> : null}
+          <p>BMI is weak for muscular users. Combine it with measurements, strength, photos, and body-fat trends.</p>
         </div>
       </section>
     </div>
@@ -1762,7 +1756,7 @@ function MealPlanner({
     : [
         {
           key: "baseline",
-          label: "今日基准",
+          label: "Baseline",
           calories: diet.baseline_daily.calories,
           carbs_g: diet.baseline_daily.carbs_g,
           protein_g: diet.baseline_daily.protein_g,
@@ -1836,21 +1830,21 @@ function MealPlanner({
     <section className="wide metric-span meal-planner">
       <Header
         code="MEAL LOG"
-        title="饮食记录"
+        title="Food Log"
         right={
           <select value={target.key} onChange={(event) => setSelectedDietDay(event.target.value)}>
             {targetOptions.map((option) => (
-              <option key={option.key} value={option.key}>{option.label}</option>
+              <option key={option.key} value={option.key}>{enText(option.label)}</option>
             ))}
           </select>
         }
       />
       <div className="meal-target">
-        <MacroBadge label="今日目标" totals={target} />
-        <MacroBadge label="已选合计" totals={dailyTotal} />
-        <MacroBadge label="剩余额度" totals={remaining} />
+        <MacroBadge label="Today Target" totals={target} />
+        <MacroBadge label="Selected Total" totals={dailyTotal} />
+        <MacroBadge label="Remaining" totals={remaining} />
       </div>
-      <p className="meal-note">这些食物热量是按常见一份估算，包装食品以营养成分表为准。点选多个食物后，每餐顶部会实时汇总三大营养素和热量。</p>
+      <p className="meal-note">Food values are practical estimates for common portions. For packaged foods, use the nutrition label. After selecting multiple foods, each meal header updates calories and macros in real time.</p>
       <div className="meal-stack">
         {foodLibrary.meals.map((meal) => {
           const selectedIds = mealSelections[meal.key] ?? [];
@@ -1862,16 +1856,16 @@ function MealPlanner({
             <article className="meal-card" key={meal.key}>
               <header>
                 <div>
-                  <span>{meal.label}</span>
+                  <span>{enText(meal.label)}</span>
                   <strong>{mealTotals[meal.key]?.calories ?? 0} kcal</strong>
                 </div>
                 <div className="meal-macros">
-                  <b>碳 {mealTotals[meal.key]?.carbs_g ?? 0}g</b>
-                  <b>蛋 {mealTotals[meal.key]?.protein_g ?? 0}g</b>
-                  <b>脂 {mealTotals[meal.key]?.fat_g ?? 0}g</b>
+                  <b>Carbs {mealTotals[meal.key]?.carbs_g ?? 0}g</b>
+                  <b>Protein {mealTotals[meal.key]?.protein_g ?? 0}g</b>
+                  <b>Fat {mealTotals[meal.key]?.fat_g ?? 0}g</b>
                 </div>
               </header>
-              <p>{meal.note}</p>
+              <p>{enText(meal.note)}</p>
               <div className="food-choice-grid">
                 {availableFoods.map((food) => (
                   <button
@@ -1880,20 +1874,20 @@ function MealPlanner({
                     type="button"
                     onClick={() => toggleFood(meal.key, food.id)}
                   >
-                    <strong>{food.name}</strong>
-                    <span>{food.default_grams}g · {stateLabel(food, food.default_state)}</span>
-                    <small>每100g {stateCalories(food, food.default_state)} kcal · {food.states.length > 1 ? "可切换重量状态" : food.portion}</small>
+                    <strong>{enText(food.name)}</strong>
+                    <span>{food.default_grams}g · {enText(stateLabel(food, food.default_state))}</span>
+                    <small>Per 100g {stateCalories(food, food.default_state)} kcal · {food.states.length > 1 ? "switch raw/cooked or dry/cooked state" : enText(food.portion)}</small>
                   </button>
                 ))}
               </div>
               <div className="custom-food-form">
-                <strong>没有找到？自定义食物</strong>
-                <input value={customDraft.name} onChange={(event) => patchCustomDraft(meal.key, { name: event.target.value })} placeholder="食物名称，例如：牛肉饭" />
-                <input type="number" min="1" value={customDraft.grams} onChange={(event) => patchCustomDraft(meal.key, { grams: event.target.value })} placeholder="吃了多少 g" />
-                <input type="number" min="0" step="0.1" value={customDraft.carbs} onChange={(event) => patchCustomDraft(meal.key, { carbs: event.target.value })} placeholder="每100g碳水 g" />
-                <input type="number" min="0" step="0.1" value={customDraft.protein} onChange={(event) => patchCustomDraft(meal.key, { protein: event.target.value })} placeholder="每100g蛋白质 g" />
-                <input type="number" min="0" step="0.1" value={customDraft.fat} onChange={(event) => patchCustomDraft(meal.key, { fat: event.target.value })} placeholder="每100g脂肪 g" />
-                <button className="ghost" type="button" onClick={() => addCustomFood(meal.key)} disabled={!canAddCustomFood}>加入本餐</button>
+                <strong>Not listed? Add a custom food</strong>
+                <input value={customDraft.name} onChange={(event) => patchCustomDraft(meal.key, { name: event.target.value })} placeholder="Food name, e.g. beef rice bowl" />
+                <input type="number" min="1" value={customDraft.grams} onChange={(event) => patchCustomDraft(meal.key, { grams: event.target.value })} placeholder="Amount eaten, g" />
+                <input type="number" min="0" step="0.1" value={customDraft.carbs} onChange={(event) => patchCustomDraft(meal.key, { carbs: event.target.value })} placeholder="Carbs per 100g" />
+                <input type="number" min="0" step="0.1" value={customDraft.protein} onChange={(event) => patchCustomDraft(meal.key, { protein: event.target.value })} placeholder="Protein per 100g" />
+                <input type="number" min="0" step="0.1" value={customDraft.fat} onChange={(event) => patchCustomDraft(meal.key, { fat: event.target.value })} placeholder="Fat per 100g" />
+                <button className="ghost" type="button" onClick={() => addCustomFood(meal.key)} disabled={!canAddCustomFood}>Add to meal</button>
               </div>
               {selectedIds.length ? (
                 <div className="selected-food-list">
@@ -1904,11 +1898,11 @@ function MealPlanner({
                     return (
                       <div className="selected-food-row" key={`${meal.key}-${selection.food_id}`}>
                         <div>
-                          <strong>{food.name}</strong>
-                          <span>{Math.round(itemTotals.calories)} kcal · 碳{itemTotals.carbs_g}g / 蛋{itemTotals.protein_g}g / 脂{itemTotals.fat_g}g</span>
+                          <strong>{enText(food.name)}</strong>
+                          <span>{Math.round(itemTotals.calories)} kcal · carbs {itemTotals.carbs_g}g / protein {itemTotals.protein_g}g / fat {itemTotals.fat_g}g</span>
                         </div>
                         <input
-                          aria-label={`${food.name} 克数`}
+                          aria-label={`${enText(food.name)} grams`}
                           type="number"
                           min="1"
                           step="1"
@@ -1916,7 +1910,7 @@ function MealPlanner({
                           onChange={(event) => updateFoodSelection(meal.key, food.id, { grams: Number(event.target.value) })}
                         />
                         <select value={selection.state} onChange={(event) => updateFoodSelection(meal.key, food.id, { state: event.target.value })}>
-                          {food.states.map((state) => <option key={state.key} value={state.key}>{state.label}</option>)}
+                          {food.states.map((state) => <option key={state.key} value={state.key}>{enText(state.label)}</option>)}
                         </select>
                       </div>
                     );
@@ -1928,7 +1922,7 @@ function MealPlanner({
         })}
       </div>
       <details className="source-details">
-        <summary>营养数据来源</summary>
+        <summary>Nutrition data sources</summary>
         <ul>
           {foodLibrary.macro_sources.map((source) => <li key={source}>{source}</li>)}
         </ul>
@@ -1942,7 +1936,7 @@ function MacroBadge({ label, totals }: { label: string; totals: MacroTotals }) {
     <article>
       <span>{label}</span>
       <strong>{Math.round(totals.calories)} kcal</strong>
-      <p>碳 {roundMacro(totals.carbs_g)}g / 蛋 {roundMacro(totals.protein_g)}g / 脂 {roundMacro(totals.fat_g)}g</p>
+      <p>Carbs {roundMacro(totals.carbs_g)}g / Protein {roundMacro(totals.protein_g)}g / Fat {roundMacro(totals.fat_g)}g</p>
     </article>
   );
 }
@@ -1970,35 +1964,35 @@ function PainView({
       <section className="pain-layout">
         <HumanPainMap selected={pain.pain_location} onSelect={onJointSelect} />
         <form className="wide form" onSubmit={onSubmit}>
-          <Header code="PAIN CHECK" title="动作疼痛判断" right="非医疗诊断" />
+          <Header code="PAIN CHECK" title="Pain Check" right="Not medical diagnosis" />
           <div className="body-grid">
-            <Field label="当前动作">
+            <Field label="Current exercise">
               <select value={pain.exercise_name} onChange={(event) => setPain((current) => ({ ...current, exercise_name: event.target.value }))}>
                 {names.map((name) => <option key={name} value={name}>{tx(EXERCISE_CN, name)}</option>)}
               </select>
             </Field>
-            <Field label="不适位置">
+            <Field label="Pain location">
               <select value={pain.pain_location} onChange={(event) => setPain((current) => ({ ...current, pain_location: event.target.value }))}>
-                <option value="shoulder">肩</option>
-                <option value="elbow">肘</option>
-                <option value="wrist">手腕</option>
-                <option value="back">下背</option>
-                <option value="hip">髋</option>
-                <option value="knee">膝</option>
-                <option value="ankle">踝</option>
+                <option value="shoulder">Shoulder</option>
+                <option value="elbow">Elbow</option>
+                <option value="wrist">Wrist</option>
+                <option value="back">Low back</option>
+                <option value="hip">Hip</option>
+                <option value="knee">Knee</option>
+                <option value="ankle">Ankle</option>
               </select>
             </Field>
-            <Field label="疼痛类型">
+            <Field label="Pain type">
               <select value={pain.pain_type} onChange={(event) => setPain((current) => ({ ...current, pain_type: event.target.value }))}>
-                <option value="burn">肌肉灼烧</option>
-                <option value="pinch">夹挤感</option>
-                <option value="joint">关节不适</option>
-                <option value="sharp">尖锐痛</option>
-                <option value="radiating">放射痛</option>
-                <option value="worsening">越来越痛</option>
+                <option value="burn">Muscle burn</option>
+                <option value="pinch">Pinching</option>
+                <option value="joint">Joint discomfort</option>
+                <option value="sharp">Sharp pain</option>
+                <option value="radiating">Radiating pain</option>
+                <option value="worsening">Getting worse</option>
               </select>
             </Field>
-            <Field label={`疼痛等级 ${pain.pain_level}/10`}>
+            <Field label={`Pain level ${pain.pain_level}/10`}>
               <input
                 type="range"
                 min="0"
@@ -2012,7 +2006,7 @@ function PainView({
               />
             </Field>
           </div>
-          <button className="primary" type="submit">判断能不能继续练</button>
+          <button className="primary" type="submit">Check whether to continue</button>
         </form>
       </section>
       {result && (
@@ -2025,26 +2019,26 @@ function PainView({
           {result.joint_guidance ? (
             <div className="joint-guidance">
               <article>
-                <strong>{result.joint_guidance.label}替代动作</strong>
+                <strong>{enText(result.joint_guidance.label)} substitutions</strong>
                 <div className="chip-row">
                   {result.joint_guidance.substitutions.map((item) => <span key={item}>{tx(EXERCISE_CN, item)}</span>)}
                 </div>
               </article>
               <article>
-                <strong>缓解方式</strong>
-                <ul>{result.joint_guidance.relief_methods.map((item) => <li key={item}>{item}</li>)}</ul>
+                <strong>Relief options</strong>
+                <ul>{result.joint_guidance.relief_methods.map((item) => <li key={item}>{enText(item)}</li>)}</ul>
               </article>
               <article>
-                <strong>康复训练</strong>
-                <ul>{result.joint_guidance.rehab_drills.map((item) => <li key={item}>{item}</li>)}</ul>
+                <strong>Rehab drills</strong>
+                <ul>{result.joint_guidance.rehab_drills.map((item) => <li key={item}>{enText(item)}</li>)}</ul>
               </article>
               <article>
-                <strong>视频链接</strong>
+                <strong>Video links</strong>
                 <div className="day-actions">
-                  {result.joint_guidance.video_links.map((item) => <a key={item.url} href={item.url} target="_blank" rel="noreferrer">{item.label}</a>)}
+                  {result.joint_guidance.video_links.map((item) => <a key={item.url} href={item.url} target="_blank" rel="noreferrer">{enText(item.label)}</a>)}
                 </div>
               </article>
-              <p className="medical-note">{result.joint_guidance.medical_note}</p>
+              <p className="medical-note">{enText(result.joint_guidance.medical_note)}</p>
             </div>
           ) : null}
         </section>
@@ -2056,10 +2050,10 @@ function PainView({
 function HumanPainMap({ selected, onSelect }: { selected: string; onSelect: (location: string) => void }) {
   return (
     <section className="wide human-map-card">
-      <Header code="ANATOMY MAP" title="真实肌肉关节图" right="点击关节" />
+      <Header code="ANATOMY MAP" title="Muscle and Joint Map" right="Click a joint" />
       <div className="human-map anatomy-photo-board">
         <div className="anatomy-photo-frame">
-          <img src={ANATOMY_IMAGE_URL} alt="人体肌肉前后视图" loading="lazy" />
+          <img src={ANATOMY_IMAGE_URL} alt="Anterior and posterior muscle anatomy" loading="lazy" />
           {PAIN_JOINTS.map((joint, index) => (
             <button
               key={`${joint.key}-${joint.view}-${index}`}
@@ -2067,17 +2061,17 @@ function HumanPainMap({ selected, onSelect }: { selected: string; onSelect: (loc
               type="button"
               style={{ left: `${joint.x}%`, top: `${joint.y}%` }}
               onClick={() => onSelect(joint.key)}
-              aria-label={`选择${joint.label}疼痛`}
+              aria-label={`Select ${enText(joint.label)} pain`}
             >
-              <span>{joint.label}</span>
+              <span>{enText(joint.label)}</span>
             </button>
           ))}
         </div>
         <a className="image-source-link" href={ANATOMY_SOURCE_URL} target="_blank" rel="noreferrer">
-          图片来源：Wikimedia Commons / OpenStax Anatomy and Physiology / CC BY 4.0
+          Image source: Wikimedia Commons / OpenStax Anatomy and Physiology / CC BY 4.0
         </a>
       </div>
-      <p className="map-help">点选疼痛关节后，系统会立刻给出替代动作、缓解方式、康复动作和视频入口。</p>
+      <p className="map-help">Click the painful joint to get substitutions, relief options, rehab drills, and video links.</p>
     </section>
   );
 }
@@ -2119,16 +2113,16 @@ function FeedbackView({
         syncPainLevel={(level) => setFeedback((current) => ({ ...current, pain_level: level }))}
       />
       <form className="wide form" onSubmit={onSubmit}>
-        <Header code="POST SESSION" title="疲劳 + 疼痛调整下次计划" right={hasPlan ? "已连接计划" : "先生成计划"} />
+        <Header code="POST SESSION" title="Adjust Next Session From Fatigue + Pain" right={hasPlan ? "Plan connected" : "Generate a plan first"} />
         <label className="check-row">
           <input type="checkbox" checked={feedback.completed} onChange={(event) => setFeedback((current) => ({ ...current, completed: event.target.checked }))} />
-          今天是否完成训练
+          Training completed today
         </label>
         <div className="body-grid">
-          <Field label={`疲劳 ${feedback.fatigue_level}/10`}>
+          <Field label={`Fatigue ${feedback.fatigue_level}/10`}>
             <input type="range" min="0" max="10" value={feedback.fatigue_level} onChange={(event) => setFeedback((current) => ({ ...current, fatigue_level: Number(event.target.value) }))} />
           </Field>
-          <Field label={`疼痛 ${feedback.pain_level}/10`}>
+          <Field label={`Pain ${feedback.pain_level}/10`}>
             <input
               type="range"
               min="0"
@@ -2141,28 +2135,28 @@ function FeedbackView({
               }}
             />
           </Field>
-          <Field label="训练时长 min">
+          <Field label="Session duration, min">
             <input type="number" value={feedback.duration_min} onChange={(event) => setFeedback((current) => ({ ...current, duration_min: Number(event.target.value) }))} />
           </Field>
         </div>
-        <p className="soft">下次计划会综合疲劳、疼痛等级、疼痛类型和疼痛部位判断：疼痛和疲劳越高，越倾向于减量、延长休息或替换动作。</p>
-        <button className="primary" type="submit" disabled={!hasPlan}>根据反馈调整下次计划</button>
+        <p className="soft">The next-session recommendation combines fatigue, pain level, pain type, and pain location. Higher pain plus higher fatigue pushes the plan toward lower volume, longer rest, or exercise substitution.</p>
+        <button className="primary" type="submit" disabled={!hasPlan}>Adjust next session</button>
       </form>
       {result && (
         <section className="wide">
           <Header
             code="ADAPT"
             title={nextFocusLabel(result.next_session_focus)}
-            right={`${decisionLevelLabel(result.decision_level)} / 负荷分 ${result.combined_load_score ?? "--"}`}
+            right={`${decisionLevelLabel(result.decision_level)} / load score ${result.combined_load_score ?? "--"}`}
           />
           <div className="adjustment-summary">
-            <span>{Math.round(result.volume_multiplier * 100)}% 训练量</span>
-            <span>组间休息 {formatRest(result.recommended_rest_seconds ?? 120)}</span>
-            <span>{result.replace_exercise ? "下次先替换疼痛动作" : "动作可继续观察"}</span>
+            <span>{Math.round(result.volume_multiplier * 100)}% volume</span>
+            <span>Rest {formatRest(result.recommended_rest_seconds ?? 120)}</span>
+            <span>{result.replace_exercise ? "Substitute the painful movement next time" : "Movement can be monitored"}</span>
           </div>
           {result.pain_context ? (
             <p className="soft">
-              疼痛记录：{tx(EXERCISE_CN, result.pain_context.exercise_name)} / {painLocationLabel(result.pain_context.pain_location)} / {painTypeLabel(result.pain_context.pain_type)} / {result.pain_context.pain_level}/10
+              Pain record: {tx(EXERCISE_CN, result.pain_context.exercise_name)} / {painLocationLabel(result.pain_context.pain_location)} / {painTypeLabel(result.pain_context.pain_type)} / {result.pain_context.pain_level}/10
             </p>
           ) : null}
           <div className="rule-list">{result.notes.map((note) => <p key={note}>{feedbackNote(note)}</p>)}</div>
@@ -2179,6 +2173,7 @@ function LotteryView({
   rotation,
   spinning,
   result,
+  todayChecked,
   onSpin,
   onCheckin,
 }: {
@@ -2188,8 +2183,9 @@ function LotteryView({
   rotation: number;
   spinning: boolean;
   result: LotteryDraw | null;
+  todayChecked: boolean;
   onSpin: () => void;
-  onCheckin: () => void;
+  onCheckin: () => Promise<void>;
 }) {
   const prizes = reward?.prizes?.length ? reward.prizes : DEFAULT_LOTTERY_PRIZES;
   const chances = lotteryChances(reward, lotteryState);
@@ -2211,16 +2207,16 @@ function LotteryView({
         <div>
           <Header
             code="SUPPLEMENT LOTTERY"
-            title="打卡转盘抽奖"
-            right={chances.total_available > 0 ? `可抽 ${chances.total_available} 次` : "继续加油"}
+            title="Check-In Prize Wheel"
+            right={chances.total_available > 0 ? `${chances.total_available} draw(s) available` : "Keep going"}
           />
           <p className="big-copy">
-            第一次可以免费试抽；之后每坚持打卡 7 天获得一次抽奖资格。奖品包含蛋白粉、肌酸和训练周边，适合做课程演示和社区激励。
+            Your first spin is a free trial. After that, every 7-day check-in streak earns one real draw ticket. Prizes include protein powder, creatine, and training accessories.
           </p>
           <div className="lottery-stats">
-            <article><span>免费试抽</span><strong>{chances.trial_available ? "可用" : "已使用"}</strong></article>
-            <article><span>打卡资格</span><strong>{chances.ticket_available}</strong></article>
-            <article><span>连续打卡</span><strong>{reward?.streak ?? 0} 天</strong></article>
+            <article><span>Trial Spin</span><strong>{chances.trial_available ? "Ready" : "Used"}</strong></article>
+            <article><span>Draw Tickets</span><strong>{chances.ticket_available}</strong></article>
+            <article><span>Current Streak</span><strong>{reward?.streak ?? 0} days</strong></article>
           </div>
         </div>
         <div className="lottery-wheel-shell" aria-live="polite">
@@ -2237,57 +2233,59 @@ function LotteryView({
                   className="wheel-label"
                   style={{ transform: `rotate(${angle}deg) translateY(-7.2rem) rotate(${-angle}deg)` }}
                 >
-                  {prize}
+                  {enText(prize)}
                 </span>
               );
             })}
           </div>
           <button className="wheel-center" type="button" onClick={onSpin} disabled={spinning}>
-            {spinning ? "转动中" : "开抽"}
+            {spinning ? "Spinning" : "Spin"}
           </button>
         </div>
       </section>
 
       <section className="wide keep-going-card">
-        <Header code="KEEP GOING" title="继续加油" right={`${progress}/${goal}`} />
+        <Header code="KEEP GOING" title="Keep Going" right={`${progress}/${goal}`} />
         <div className="checkin-meter">
           <div>
-            <strong>{chances.total_available > 0 ? "现在可以抽奖" : `再坚持 ${daysLeft} 天`}</strong>
+            <strong>{chances.total_available > 0 ? "You can spin now" : `${daysLeft} day(s) to the next ticket`}</strong>
             <p>
               {chances.total_available > 0
-                ? "先用免费试抽或已获得的打卡资格。抽完后继续打卡，下一轮 7 天会再次解锁。"
-                : "完成训练后记得打卡。只要连续坚持到第 7 天，就会获得一次正式抽奖资格。"}
+                ? "Use the free trial or an earned check-in ticket. After spinning, keep checking in to unlock the next 7-day ticket."
+                : "Check in after training. A 7-day streak unlocks one formal prize-wheel ticket."}
             </p>
           </div>
           <progress value={progress} max={goal} />
         </div>
-        <button className="ghost" type="button" onClick={onCheckin}>完成今日打卡</button>
+        <button className={todayChecked ? "ghost active" : "ghost"} type="button" onClick={() => void onCheckin()}>
+          {todayChecked ? "Today's check-in recorded" : "Complete today's check-in"}
+        </button>
       </section>
 
       <section className="wide">
-        <Header code="PRIZE POOL" title="奖池与结果" right={result ? `${result.draw_type === "trial" ? "试抽" : "资格抽"}：${result.prize}` : "等待开抽"} />
+        <Header code="PRIZE POOL" title="Prize Pool and Result" right={result ? `${result.draw_type === "trial" ? "Trial" : "Ticket"}: ${enText(result.prize)}` : "Ready to spin"} />
         {result ? (
           <div className="lottery-result">
-            <span>本次抽中</span>
-            <strong>{result.prize}</strong>
-            <p>{result.draw_type === "trial" ? "这是第一次试抽，不消耗七天打卡资格。" : "已消耗 1 次七天打卡抽奖资格。"}</p>
+            <span>You won</span>
+            <strong>{enText(result.prize)}</strong>
+            <p>{result.draw_type === "trial" ? "This was the first free trial spin, so it did not consume a 7-day ticket." : "This consumed one 7-day check-in draw ticket."}</p>
           </div>
         ) : null}
         <div className="prize-grid">
-          {prizes.map((item) => <span key={item}>{item}</span>)}
+          {prizes.map((item) => <span key={item}>{enText(item)}</span>)}
         </div>
         {lotteryState.history.length ? (
           <div className="lottery-history">
             {lotteryState.history.map((draw) => (
               <p key={draw.id}>
-                <span>{draw.draw_type === "trial" ? "试抽" : "资格抽"}</span>
-                <strong>{draw.prize}</strong>
+                <span>{draw.draw_type === "trial" ? "Trial" : "Ticket"}</span>
+                <strong>{enText(draw.prize)}</strong>
                 <time>{formatCommunityTime(draw.created_at)}</time>
               </p>
             ))}
           </div>
         ) : (
-          <p className="soft">还没有抽奖记录。先点“开抽”体验第一次试抽。</p>
+          <p className="soft">No draw history yet. Press “Spin” to use your first trial spin.</p>
         )}
       </section>
     </div>
@@ -2310,10 +2308,10 @@ function ProgressView({
   return (
     <div className="stack">
       <section className="wide">
-        <Header code="MEASUREMENTS" title="围度趋势" right={<button className="ghost" type="button" onClick={addMeasurement}>新增记录</button>} />
-        <p className="soft">日期、体重、腰围和体脂率都可以直接自定义；折线图会按日期自动排序。</p>
+        <Header code="MEASUREMENTS" title="Measurement Trends" right={<button className="ghost" type="button" onClick={addMeasurement}>Add Record</button>} />
+        <p className="soft">Customize date, body weight, waist, and body-fat percentage. The line chart sorts entries by date automatically.</p>
         <div className="table">
-          <div className="table-row progress-row head"><span>日期</span><span>体重</span><span>腰围</span><span>体脂率</span></div>
+          <div className="table-row progress-row head"><span>Date</span><span>Weight</span><span>Waist</span><span>Body Fat</span></div>
           {measurements.map((item, index) => (
             <div className="table-row progress-row" key={`${item.date}-${index}`}>
               <input type="date" value={item.date} onChange={(event) => setMeasurements((current) => current.map((entry, entryIndex) => entryIndex === index ? { ...entry, date: event.target.value } : entry))} />
@@ -2323,16 +2321,16 @@ function ProgressView({
             </div>
           ))}
         </div>
-        <button className="primary" type="button" onClick={() => void analyzeProgress()}>重新分析趋势</button>
+        <button className="primary" type="button" onClick={() => void analyzeProgress()}>Analyze Trend</button>
       </section>
       {progress && (
         <section className="wide">
-          <Header code="TRACE" title="趋势折线图" right={`${progress.entries ?? measurements.length} 条记录`} />
+          <Header code="TRACE" title="Trend Line Chart" right={`${progress.entries ?? measurements.length} records`} />
           <ProgressLineChart measurements={measurements} />
           <div className="trend-summary">
-            <span>体重 {formatDelta(progress.weight_change_kg ?? 0, "kg")}</span>
-            <span>腰围 {formatDelta(progress.waist_change_cm ?? 0, "cm")}</span>
-            <span>体脂率 {formatDelta(progress.body_fat_change_percent ?? 0, "%")}</span>
+            <span>Weight {formatDelta(progress.weight_change_kg ?? 0, "kg")}</span>
+            <span>Waist {formatDelta(progress.waist_change_cm ?? 0, "cm")}</span>
+            <span>Body Fat {formatDelta(progress.body_fat_change_percent ?? 0, "%")}</span>
           </div>
           <p className="big-copy">{trendMessage(progress.message)}</p>
         </section>
@@ -2361,14 +2359,14 @@ function ProgressLineChart({ measurements }: { measurements: Measurement[] }) {
   }
 
   const series = [
-    { key: "weight", label: "体重", unit: "kg", pattern: "实线 / 圆点", points: pointsFor(sorted.map((item) => item.weight_kg)) },
-    { key: "waist", label: "腰围", unit: "cm", pattern: "长虚线 / 方点", points: pointsFor(sorted.map((item) => item.waist_cm)) },
-    { key: "fat", label: "体脂率", unit: "%", pattern: "点线 / 三角点", points: pointsFor(sorted.map((item) => item.body_fat_percent)) },
+    { key: "weight", label: "Weight", unit: "kg", pattern: "solid line / circle", points: pointsFor(sorted.map((item) => item.weight_kg)) },
+    { key: "waist", label: "Waist", unit: "cm", pattern: "long dash / square", points: pointsFor(sorted.map((item) => item.waist_cm)) },
+    { key: "fat", label: "Body Fat", unit: "%", pattern: "dotted line / triangle", points: pointsFor(sorted.map((item) => item.body_fat_percent)) },
   ];
 
   return (
     <div className="line-chart-card">
-      <svg className="line-chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="体重、腰围、体脂率趋势折线图">
+      <svg className="line-chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Trend chart for weight, waist, and body-fat percentage">
         <path className="chart-grid" d={`M${padding} ${padding} H${width - padding} M${padding} ${height / 2} H${width - padding} M${padding} ${height - padding} H${width - padding}`} />
         {series.map((item) => (
           <g key={item.key} className={`chart-series ${item.key}`}>
@@ -2387,7 +2385,7 @@ function ProgressLineChart({ measurements }: { measurements: Measurement[] }) {
         {series.map((item) => {
           const first = item.points[0]?.value ?? 0;
           const last = item.points.at(-1)?.value ?? first;
-          return <span key={item.key} className={item.key}><i />{item.label} {last.toFixed(1)}{item.unit}（{formatDelta(last - first, item.unit)}） · {item.pattern}</span>;
+          return <span key={item.key} className={item.key}><i />{item.label} {last.toFixed(1)}{item.unit} ({formatDelta(last - first, item.unit)}) - {item.pattern}</span>;
         })}
       </div>
     </div>
@@ -2448,47 +2446,47 @@ function CommunityView({
   return (
     <div className="stack community-stack">
       <section className="wide community-auth">
-        <Header code="ACCOUNT" title={user ? "已登录账户" : "注册 / 登录"} right={user ? user.username : "社区发帖需要账户"} />
+        <Header code="ACCOUNT" title={user ? "Logged-In Account" : "Register / Log In"} right={user ? user.username : "Account required for posting"} />
         {user ? (
           <div className="account-row">
             <div>
               <strong>{user.username}</strong>
-              <p>现在可以发帖、点赞和评论。训练计划和 AI 问答仍可继续正常使用。</p>
+              <p>You can now post, like, and comment. Training plans and AI coaching stay available as usual.</p>
             </div>
-            <button className="ghost" type="button" onClick={onLogout}>退出登录</button>
+            <button className="ghost" type="button" onClick={onLogout}>Log Out</button>
           </div>
         ) : (
           <form className="auth-form" onSubmit={onAuthSubmit}>
-            <div className="auth-tabs" role="tablist" aria-label="账户模式">
-              <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>登录</button>
-              <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>注册</button>
+            <div className="auth-tabs" role="tablist" aria-label="Account mode">
+              <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>Log In</button>
+              <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>Register</button>
             </div>
             <div className="body-grid">
-              <Field label={authMode === "register" ? "昵称" : "昵称或邮箱"}>
-                <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="例如：练肩不耸肩" />
+              <Field label={authMode === "register" ? "Nickname" : "Nickname or Email"}>
+                <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="e.g. No-Shrug Shoulders" />
               </Field>
               {authMode === "register" ? (
-                <Field label="邮箱（可选）">
-                  <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder="用于以后找回账号" />
+                <Field label="Email (optional)">
+                  <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder="For future account recovery" />
                 </Field>
               ) : null}
-              <Field label="密码">
-                <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="至少 6 位" />
+              <Field label="Password">
+                <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="At least 6 characters" />
               </Field>
             </div>
             {authError ? <p className="form-error">{cleanApiError(authError)}</p> : null}
-            <button className="primary" type="submit">{authMode === "register" ? "创建账户并登录" : "登录 GymPath"}</button>
+            <button className="primary" type="submit">{authMode === "register" ? "Create Account & Log In" : "Log In to GymPath"}</button>
           </form>
         )}
       </section>
 
       <section className="wide community-publisher">
-        <Header code="POST" title="发布训练动态" right={user ? "可发布" : "登录后开放"} />
+        <Header code="POST" title="Share a Training Update" right={user ? "Posting enabled" : "Log in to unlock"} />
         <form className="post-form" onSubmit={onPostSubmit}>
-          <input value={postDraft.title} onChange={(event) => setPostDraft((current) => ({ ...current, title: event.target.value }))} placeholder="标题：今天练胸有什么问题？" disabled={!user} />
-          <textarea value={postDraft.content} onChange={(event) => setPostDraft((current) => ({ ...current, content: event.target.value }))} placeholder="写下训练问题、打卡记录、饮食安排、动作感受或想问老手的事。" disabled={!user} />
+          <input value={postDraft.title} onChange={(event) => setPostDraft((current) => ({ ...current, title: event.target.value }))} placeholder="Title: What happened in today's chest session?" disabled={!user} />
+          <textarea value={postDraft.content} onChange={(event) => setPostDraft((current) => ({ ...current, content: event.target.value }))} placeholder="Write your training question, check-in note, meal plan, movement feeling, or something you want experienced lifters to answer." disabled={!user} />
           <label className="image-upload">
-            <span>帖子配图（可选）</span>
+            <span>Post image (optional)</span>
             <input
               key={postImage ? postImage.name : "empty-community-image"}
               type="file"
@@ -2496,30 +2494,30 @@ function CommunityView({
               disabled={!user}
               onChange={(event) => setPostImage(event.target.files?.[0] ?? null)}
             />
-            <small>{postImage ? `${postImage.name} · ${Math.ceil(postImage.size / 1024)} KB` : "支持 JPG / PNG / WebP / GIF，单张最多 5MB"}</small>
+            <small>{postImage ? `${postImage.name} - ${Math.ceil(postImage.size / 1024)} KB` : "Supports JPG / PNG / WebP / GIF, max 5MB per image"}</small>
           </label>
           {communityError ? <p className="form-error">{cleanApiError(communityError)}</p> : null}
           <div className="post-actions">
-            <button className="ghost" type="button" onClick={reload}>刷新社区</button>
-            <button className="primary" type="submit" disabled={!user}>发布</button>
+            <button className="ghost" type="button" onClick={reload}>Refresh Feed</button>
+            <button className="primary" type="submit" disabled={!user}>Publish</button>
           </div>
         </form>
       </section>
 
       <section className="wide community-feed">
-        <Header code="CLUB FEED" title="社区交流" right={`${posts.length} 条帖子`} />
+        <Header code="CLUB FEED" title="Community Feed" right={`${posts.length} posts`} />
         {posts.length === 0 ? (
-          <Empty title="社区还没有帖子" text="注册后发布第一条训练动态，给同学或测试用户一个可以互动的入口。" />
+          <Empty title="No posts yet" text="Create the first training update after logging in, so classmates or test users have a real interaction entry point." />
         ) : (
           posts.map((post) => (
             <article className="post-card" key={post.id}>
               <div className="post-head">
                 <div>
                   <strong>{post.title}</strong>
-                  <p>{post.author} · {formatCommunityTime(post.created_at)}</p>
+                  <p>{post.author} - {formatCommunityTime(post.created_at)}</p>
                 </div>
                 <button className={post.viewer_liked ? "like-button active" : "like-button"} type="button" onClick={() => void onLike(post.id)} disabled={!user}>
-                  {post.viewer_liked ? "已赞" : "点赞"} · {post.like_count}
+                  {post.viewer_liked ? "Liked" : "Like"} - {post.like_count}
                 </button>
               </div>
               <p className="post-content">{post.content}</p>
@@ -2527,10 +2525,10 @@ function CommunityView({
                 <button
                   className="post-image-button"
                   type="button"
-                  onClick={() => setPreviewImage({ src: post.image_url ?? "", alt: `${post.title} 配图` })}
-                  aria-label="点开查看帖子大图"
+                  onClick={() => setPreviewImage({ src: post.image_url ?? "", alt: `${post.title} image` })}
+                  aria-label="Open full-size post image"
                 >
-                  <img className="post-image" src={post.image_url} alt={`${post.title} 配图`} loading="lazy" />
+                  <img className="post-image" src={post.image_url} alt={`${post.title} image`} loading="lazy" />
                 </button>
               ) : null}
               <div className="comment-list">
@@ -2539,16 +2537,16 @@ function CommunityView({
                 ))}
               </div>
               <form className="comment-form" onSubmit={(event) => onCommentSubmit(event, post.id)}>
-                <input value={commentDrafts[post.id] ?? ""} onChange={(event) => setCommentDrafts((current) => ({ ...current, [post.id]: event.target.value }))} placeholder={user ? "写评论..." : "登录后评论"} disabled={!user} />
-                <button className="ghost" type="submit" disabled={!user}>评论</button>
+                <input value={commentDrafts[post.id] ?? ""} onChange={(event) => setCommentDrafts((current) => ({ ...current, [post.id]: event.target.value }))} placeholder={user ? "Write a comment..." : "Log in to comment"} disabled={!user} />
+                <button className="ghost" type="submit" disabled={!user}>Comment</button>
               </form>
             </article>
           ))
         )}
       </section>
       {previewImage ? (
-        <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="帖子大图预览" onClick={() => setPreviewImage(null)}>
-          <button className="lightbox-close" type="button" onClick={() => setPreviewImage(null)} aria-label="关闭大图">关闭</button>
+        <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="Full-size post image preview" onClick={() => setPreviewImage(null)}>
+          <button className="lightbox-close" type="button" onClick={() => setPreviewImage(null)} aria-label="Close full-size image">Close</button>
           <img src={previewImage.src} alt={previewImage.alt} onClick={(event) => event.stopPropagation()} />
         </div>
       ) : null}
@@ -2572,20 +2570,20 @@ function AiCoachView({
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }) {
   const examples = [
-    "新手增肌一周怎么安排？",
-    "卧推肩前侧疼，可以替换什么动作？",
-    "减脂期碳水应该怎么分配？",
-    "练完第二天酸痛还能继续练吗？",
+    "How should a beginner arrange one week of muscle-gain training?",
+    "My front shoulder hurts during bench press. What can I substitute?",
+    "How should I distribute carbs during a fat-loss phase?",
+    "Can I train again if I am sore the next day?",
   ];
 
   return (
     <section className="wide ai-coach">
-      <Header code="AI COACH" title="健身AI问答" right={loading ? "思考中" : "DeepSeek / fallback"} />
+      <Header code="AI COACH" title="Fitness AI Q&A" right={loading ? "Thinking" : "DeepSeek / fallback"} />
       <div className="chat-shell">
         <div className="chat-log" aria-live="polite">
           {messages.map((message, index) => (
             <article className={message.role === "user" ? "chat-bubble user" : "chat-bubble assistant"} key={`${message.role}-${index}`}>
-              <span>{message.role === "user" ? "你" : "GymPath AI"}</span>
+              <span>{message.role === "user" ? "You" : "GymPath AI"}</span>
               <p>{message.content}</p>
             </article>
           ))}
@@ -2601,15 +2599,15 @@ function AiCoachView({
           <textarea
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            placeholder="输入你的健身问题，例如：今天肩疼还能不能练胸？"
+            placeholder="Ask a fitness question, e.g. can I train chest today if my shoulder hurts?"
             rows={4}
           />
           <button className="primary" type="submit" disabled={loading || !input.trim()}>
-            {loading ? "正在生成回答" : "发送给AI教练"}
+            {loading ? "Generating Answer" : "Send to AI Coach"}
           </button>
         </form>
         <p className="ai-meta">
-          {meta || "提示：AI回答用于健身教育和训练决策参考，不替代医生、康复师或线下教练诊断。"}
+          {meta || "Note: AI answers are for fitness education and training decisions only. They do not replace a doctor, physiotherapist, or in-person coach."}
         </p>
       </div>
     </section>
@@ -2618,24 +2616,24 @@ function AiCoachView({
 
 function KnowledgeView({ topic, card, load }: { topic: string; card: Knowledge | null; load: (topic: string) => Promise<void> }) {
   const topics = [
-    ["spot_reduction", "局部减脂"],
-    ["bmi_limits", "BMI 局限"],
-    ["full_body_vs_split", "新手分化"],
-    ["pain_rules", "疼痛规则"],
-    ["calorie_deficit", "热量缺口"],
-    ["protein_target", "蛋白目标"],
-    ["carb_cycle", "碳循环"],
-    ["progressive_overload", "渐进超负荷"],
-    ["deload", "减载恢复"],
-    ["soreness_vs_injury", "酸痛与受伤"],
-    ["warmup", "热身逻辑"],
-    ["restart_training", "停练重启"],
-    ["supplements", "补剂认知"],
-    ["photo_tracking", "照片围度"],
+    ["spot_reduction", "Spot Reduction"],
+    ["bmi_limits", "BMI Limits"],
+    ["full_body_vs_split", "Beginner Splits"],
+    ["pain_rules", "Pain Rules"],
+    ["calorie_deficit", "Calorie Deficit"],
+    ["protein_target", "Protein Target"],
+    ["carb_cycle", "Carb Cycling"],
+    ["progressive_overload", "Progressive Overload"],
+    ["deload", "Deload"],
+    ["soreness_vs_injury", "Soreness vs Injury"],
+    ["warmup", "Warm-Up Logic"],
+    ["restart_training", "Restart Training"],
+    ["supplements", "Supplements"],
+    ["photo_tracking", "Photo Tracking"],
   ];
   return (
     <section className="wide">
-      <Header code="KNOWLEDGE" title="新手认知扫盲" right="先破除错误问题" />
+      <Header code="KNOWLEDGE" title="Beginner Knowledge Base" right="Remove wrong assumptions first" />
       <div className="topic-row">
         {topics.map(([value, label]) => (
           <button key={value} className={topic === value ? "ghost active" : "ghost"} type="button" onClick={() => void load(value)}>{label}</button>
@@ -2703,8 +2701,185 @@ function labelOf<T extends string>(options: { value: T; label: string }[], value
   return options.find((item) => item.value === value)?.label ?? value;
 }
 
-function tx(map: Record<string, string>, value: string) {
-  return map[value] ?? value;
+function tx(_map: Record<string, string>, value: string) {
+  return enText(value);
+}
+
+function enText(value: string) {
+  const map: Record<string, string> = {
+    "肩": "Shoulder",
+    "肘": "Elbow",
+    "腕": "Wrist",
+    "髋": "Hip",
+    "膝": "Knee",
+    "踝": "Ankle",
+    "腰背": "Low Back",
+    "今日基准": "Baseline",
+    "高碳日": "High-Carb Day",
+    "中碳日": "Medium-Carb Day",
+    "低碳日": "Low-Carb Day",
+    "训练日": "Training Day",
+    "休息日": "Rest Day",
+    "生重": "Raw weight",
+    "熟重": "Cooked weight",
+    "干重": "Dry weight",
+    "默认": "Default",
+    "自定义": "Custom",
+    "早餐": "Breakfast",
+    "午餐": "Lunch",
+    "晚餐": "Dinner",
+    "加餐": "Snack",
+    "训练前": "Pre-workout",
+    "训练后": "Post-workout",
+    "蛋白粉": "Protein Powder",
+    "肌酸": "Creatine",
+    "电解质饮料": "Electrolyte Drink",
+    "摇摇杯": "Shaker Bottle",
+    "训练手套": "Training Gloves",
+    "补剂试用装": "Supplement Sample",
+    "谭成义新手跟练": "Tan Chengyi Beginner Follow-Along",
+    "谭成义+凯圣王三分化": "Tan + Kaisheng Three-Day Split",
+    "橙子增肌计划": "Orange Hypertrophy Cycle",
+    "小白A/B轮线性力量": "Beginner A/B Linear Strength",
+    "老手线性5x5增力": "Advanced Linear 5x5 Strength",
+    "全人群5x5三分化": "Universal 5x5 Split",
+    "A轮：深蹲 + 卧推 + 硬拉": "Round A: Squat + Bench + Deadlift",
+    "B轮：深蹲 + 实力推 + 硬拉": "Round B: Squat + Overhead Press + Deadlift",
+    "卧推正常推进": "Bench Press Progression",
+    "深蹲正常推进": "Squat Progression",
+    "卧推轻训": "Bench Light Day",
+    "硬拉正常推进 + 深蹲轻训": "Deadlift Progression + Squat Light Day",
+    "主项补强日": "Main-Lift Assistance Day",
+    "推日：卧推5x5": "Push Day: Bench 5x5",
+    "拉日：罗马尼亚硬拉5x5": "Pull Day: Romanian Deadlift 5x5",
+    "蹲日：深蹲5x5": "Squat Day: Squat 5x5",
+    "恢复日": "Recovery Day",
+    "第一阶段 第一天": "Phase 1 Day 1",
+    "第一阶段 第二天": "Phase 1 Day 2",
+    "第一阶段 第三天": "Phase 1 Day 3",
+    "第一阶段 第五天": "Phase 1 Day 5",
+    "第二阶段 第一天": "Phase 2 Day 1",
+    "第二阶段 第二天": "Phase 2 Day 2",
+    "第二阶段 第四天": "Phase 2 Day 4",
+    "第二阶段 第五天": "Phase 2 Day 5",
+    "第三阶段 第一天": "Phase 3 Day 1",
+    "第三阶段 第二天": "Phase 3 Day 2",
+    "第三阶段 第四天": "Phase 3 Day 4",
+    "第三阶段 第五天": "Phase 3 Day 5",
+    "胸": "Chest",
+    "背部": "Back",
+    "肩膀": "Shoulders",
+    "胸+手臂": "Chest + Arms",
+    "背部+肩后束": "Back + Rear Delts",
+    "胸+肩中束": "Chest + Lateral Delts",
+    "胸 + 肩 + 三头": "Chest + Shoulders + Triceps",
+    "背 + 二头": "Back + Biceps",
+    "下肢": "Lower Body",
+    "肩 + 手臂": "Shoulders + Arms",
+    "居家上肢": "Home Upper Body",
+    "居家下肢 + 腹肌": "Home Lower Body + Abs",
+    "胸 + 三角肌中束 + 三头肌": "Chest + Lateral Delts + Triceps",
+    "背 + 三角肌后束 + 二头肌": "Back + Rear Delts + Biceps",
+    "臀 + 股四头肌 + 腘绳肌": "Glutes + Quads + Hamstrings",
+    "胸部": "Chest",
+    "肩膀（注意控制）": "Shoulders (Controlled)",
+    "胸+手臂（注意控制）": "Chest + Arms (Controlled)",
+    "深蹲 + 罗马尼亚硬拉 + 核心": "Squat + Romanian Deadlift + Core",
+    "腿部 + 核心": "Legs + Core",
+    "燕麦片": "Oats",
+    "鸡蛋": "Whole Egg",
+    "蛋清": "Egg Whites",
+    "脱脂牛奶": "Skim Milk",
+    "全麦面包": "Whole-Wheat Bread",
+    "香蕉": "Banana",
+    "苹果": "Apple",
+    "希腊酸奶": "Greek Yogurt",
+    "乳清蛋白": "Whey Protein",
+    "熟白米饭": "Cooked White Rice",
+    "红薯": "Sweet Potato",
+    "土豆": "Potato",
+    "玉米": "Corn",
+    "鸡胸肉": "Chicken Breast",
+    "瘦牛肉": "Lean Beef",
+    "三文鱼": "Salmon",
+    "北豆腐": "Firm Tofu",
+    "西兰花": "Broccoli",
+    "混合蔬菜": "Mixed Vegetables",
+    "橄榄油": "Olive Oil",
+    "杏仁": "Almonds",
+    "糙米饭": "Brown Rice",
+    "意面": "Pasta",
+    "全麦意面": "Whole-Wheat Pasta",
+    "藜麦": "Quinoa",
+    "荞麦面": "Soba Noodles",
+    "南瓜": "Pumpkin",
+    "火鸡胸": "Turkey Breast",
+    "虾仁": "Shrimp",
+    "鳕鱼": "Cod",
+    "水浸金枪鱼": "Tuna in Water",
+    "毛豆": "Edamame",
+    "低脂茅屋奶酪": "Low-Fat Cottage Cheese",
+    "蛋白棒": "Protein Bar",
+    "菠菜": "Spinach",
+    "花菜": "Cauliflower",
+    "蘑菇": "Mushrooms",
+    "番茄": "Tomato",
+    "黄瓜": "Cucumber",
+    "牛油果": "Avocado",
+    "花生酱": "Peanut Butter",
+    "核桃": "Walnuts",
+    "50g 干重": "50g dry",
+    "1 个": "1 item",
+    "2 片": "2 slices",
+    "1 个约180g": "1 medium item, about 180g",
+    "150g 熟重": "150g cooked",
+    "120g 熟重": "120g cooked",
+    "200g 熟重": "200g cooked",
+    "180g 熟重": "180g cooked",
+    "1 根": "1 bar",
+    "优先给蛋白和稳定碳水，避免早上只喝咖啡硬扛。": "Prioritize protein and stable carbs; do not run the morning on coffee alone.",
+    "把主食、优质蛋白和蔬菜搭起来，训练日可把更多碳水放在午餐。": "Build the meal with carbs, quality protein, and vegetables. Training days can place more carbs at lunch.",
+    "低碳日可以减少主食，保留蛋白和蔬菜。": "On low-carb days, reduce staple carbs while keeping protein and vegetables.",
+    "用于补蛋白或训练前后补一点易消化碳水。": "Use this to add protein or easy carbs around training.",
+    "减脂碳循环计划": "Fat-Loss Carb Cycle Plan",
+    "基础饮食计划": "Baseline Nutrition Plan",
+    "橙子碳水渐降减脂": "Orange Carb-Taper Cut",
+    "增肌营养计划": "Muscle-Gain Nutrition Plan",
+    "增力营养计划": "Strength Nutrition Plan",
+    "标准 5/3/2": "Standard 5/3/2",
+    "碳水敏感 4/4/2": "Carb-sensitive 4/4/2",
+    "碳水:蛋白质:脂肪 = 5:2.5:2.5（供能比例）": "Carbs:Protein:Fat = 5:2.5:2.5 by calories",
+    "放在腿、背或最累的训练日，保证训练表现。": "Use on leg, back, or hardest training days to protect performance.",
+    "放在普通训练日或日常活动较多的日子。": "Use on normal training days or days with more daily activity.",
+    "放在休息日或低强度活动日，控制总碳水。": "Use on rest days or low-intensity days to control total carbs.",
+    "每餐蛋白控制在 20-40g，分 4-5 次吃，间隔 2-3 小时更容易执行。": "Keep each protein serving around 20-40g across 4-5 meals, spaced 2-3 hours apart.",
+    "先把每日蛋白吃够，再按高碳/中碳/低碳日安排碳水和脂肪。": "Hit daily protein first, then distribute carbs and fats by high-, medium-, and low-carb days.",
+    "高碳日优先匹配大肌群或高强度训练，低碳日优先匹配休息日。": "Match high-carb days to large-muscle or high-intensity sessions, and low-carb days to rest days.",
+    "连续两周体重、腰围和训练状态都没有变化，再微调总量。": "Only adjust totals after two weeks with no change in weight, waist, or training state.",
+    "把蛋白质分散到多餐，训练前后优先安排易消化碳水。": "Spread protein across meals and place easy-digesting carbs around training.",
+    "增肌期保持小幅热量盈余，不要用乱吃替代稳定进步。": "Keep a small surplus during muscle gain; do not replace structured progress with random overeating.",
+    "优先保证蛋白质、训练表现和睡眠，再微调碳水。": "Prioritize protein, training performance, and sleep before fine-tuning carbs.",
+    "每月下降当前体重的 3%-5% 属于较合理区间；比例越高，吃得越少，时间越短，但体感越累。": "Losing 3%-5% of current body weight per month is a reasonable range. The higher the rate, the less you eat and the harder it feels.",
+    "每天早起空腹记录体重；蛋白质尽量分到 4-5 餐，每餐 20-40g。": "Record fasted body weight every morning. Split protein into 4-5 meals with 20-40g per meal when possible.",
+    "7 天后若相比上次记录达到每周目标，饮食不变；若未达到，再等 3 天；仍未达到时，每日碳水降低 15-30g。": "After 7 days, keep diet unchanged if the weekly loss target is reached. If not, wait 3 more days; if still stalled, reduce daily carbs by 15-30g.",
+    "先用基础代谢加训练消耗估算一天基础热量消耗。": "Estimate daily expenditure from BMR plus training burn first.",
+    "标准比例用碳水 50%、蛋白 30%、脂肪 20%；碳水敏感者改用碳水 40%、蛋白 40%、脂肪 20%。": "Standard ratio: 50% carbs, 30% protein, 20% fat. Carb-sensitive option: 40% carbs, 40% protein, 20% fat.",
+    "每天早起空腹记录体重，用 7-10 天趋势决定是否减少碳水，不要只看单日波动。": "Use 7-10 days of fasted body-weight trend before reducing carbs; do not react to one-day fluctuations.",
+    "训练日：基础代谢 + 生活消耗 + 训练消耗 + 约250 kcal 盈余。": "Training day: BMR + lifestyle burn + training burn + about 250 kcal surplus.",
+    "休息日：基础代谢 + 生活消耗 - 约600 kcal，但不低于基础代谢。": "Rest day: BMR + lifestyle burn - about 600 kcal, but never below BMR.",
+    "男性：66 + 13.7×体重kg + 5×身高cm - 6.8×年龄；女性：655 + 9.6×体重kg + 1.8×身高cm - 4.7×年龄。": "Male: 66 + 13.7x bodyweight kg + 5x height cm - 6.8x age. Female: 655 + 9.6x bodyweight kg + 1.8x height cm - 4.7x age.",
+    "生活消耗加入基础代谢；轻体力约300-500 kcal，重体力约500-800 kcal。": "Lifestyle burn is added to BMR: light work about 300-500 kcal, heavy work about 500-800 kcal.",
+    "蛋白质分餐摄入更利于消化吸收；训练后可以把每日约30%碳水放到训练后补糖原。": "Protein is easier to digest when split across meals; after training, place about 30% of daily carbs post-workout to replenish glycogen.",
+    "不管增肌还是减脂，摄入热量不要低于基础代谢。": "Whether gaining or cutting, do not set intake below BMR.",
+    "训练日保持约200-300 kcal 盈余，优先保证训练表现和恢复。": "Keep training days around a 200-300 kcal surplus to protect performance and recovery.",
+    "休息日保持约500-700 kcal 缺口，但不要低于基础代谢。": "Keep rest days around a 500-700 kcal deficit, but not below BMR.",
+    "三大营养素按供能比例综合计算：碳水50%，蛋白25%，脂肪25%。": "Calculate macros by calorie ratio: 50% carbs, 25% protein, 25% fat.",
+    "训练前约3小时吃正餐；来不及时可在训练前15分钟补易消化碳水。": "Eat a regular meal about 3 hours before training; if rushed, add easy carbs about 15 minutes before.",
+    "训练中掉多少体重，训练后尽量补回对应水分；尿液透明或柠檬色通常说明水分较充足。": "Replace roughly the body weight lost during training with fluids afterward. Clear or lemon-colored urine usually indicates decent hydration.",
+    "每天尽量吃一斤生蔬菜或等量蔬菜，保证膳食纤维和微量营养素。": "Aim for about 500g raw vegetables or an equivalent cooked amount daily for fiber and micronutrients.",
+    "用户自定义营养数据": "User-defined nutrition data",
+  };
+  return map[value] ?? (/[\u4e00-\u9fff]/.test(value) ? "GymPath guidance: keep execution simple, protect technique, manage fatigue, and adjust only after tracking real feedback." : value);
 }
 
 function canonicalVideoUrl(url: string) {
@@ -2733,7 +2908,7 @@ function selectDietTarget(diet: NonNullable<Nutrition["diet_plan"]>, selectedKey
   }
   return {
     key: "baseline",
-    label: "今日基准",
+    label: "Baseline",
     calories: diet.baseline_daily.calories,
     carbs_g: diet.baseline_daily.carbs_g,
     protein_g: diet.baseline_daily.protein_g,
@@ -2788,19 +2963,19 @@ function buildCustomFood(mealKey: string, draft: CustomFoodDraft): FoodItem | nu
   return {
     id: `custom_${mealKey}_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
     name: safeName,
-    portion: `${grams}g 自定义`,
+    portion: `${grams}g custom`,
     calories: Math.round((caloriesPer100g * grams) / 100),
     carbs_g: roundMacro((carbs * grams) / 100),
     protein_g: roundMacro((protein * grams) / 100),
     fat_g: roundMacro((fat * grams) / 100),
     meal_tags: [mealKey],
-    source_note: "用户自定义营养数据",
+    source_note: "User-defined nutrition data",
     default_grams: grams,
     default_state: "custom",
     states: [
       {
         key: "custom",
-        label: "自定义",
+        label: "Custom",
         calories_per_100g: Math.round(caloriesPer100g),
         carbs_per_100g: carbs,
         protein_per_100g: protein,
@@ -2840,7 +3015,7 @@ function macroForSelection(selection: MealFoodSelection, food: FoodItem): MacroT
 }
 
 function stateLabel(food: FoodItem, stateKey: string) {
-  return food.states.find((item) => item.key === stateKey)?.label ?? food.states[0]?.label ?? "默认";
+  return food.states.find((item) => item.key === stateKey)?.label ?? food.states[0]?.label ?? "Default";
 }
 
 function stateCalories(food: FoodItem, stateKey: string) {
@@ -2849,129 +3024,106 @@ function stateCalories(food: FoodItem, stateKey: string) {
 }
 
 function formatRest(seconds: number) {
-  if (seconds >= 60 && seconds % 60 === 0) return `${seconds / 60} 分钟以上`;
-  if (seconds >= 120) return `${Math.floor(seconds / 60)} 分钟 ${seconds % 60} 秒以上`;
-  return "2 分钟以上";
+  if (seconds >= 60 && seconds % 60 === 0) return `${seconds / 60}+ min`;
+  if (seconds >= 120) return `${Math.floor(seconds / 60)} min ${seconds % 60} sec+`;
+  return "2+ min";
 }
 
 function sessionNote(note: string) {
-  const map: Record<string, string> = {
-    "Beginner four-day split: chest, shoulders, and triceps. Learn the video sequence before adding load.": "新手四分化：胸、肩、三头。先跟视频学顺序，再逐步加重量。",
-    "Beginner four-day split: back and biceps. Start by feeling the lats before heavy pulling.": "新手四分化：背、二头。先找到背阔肌发力，再追求重量。",
-    "Beginner four-day split: lower body. Keep balance and joint control ahead of load.": "新手四分化：下肢。先保证平衡和关节控制，再加负重。",
-    "Recovery day: no hard training.": "恢复日：不安排高强度训练，给身体恢复窗口。",
-    "Beginner four-day split: shoulders and arms. Keep shoulder positions stable and avoid swinging.": "新手四分化：肩和手臂。肩位保持稳定，避免借力乱甩。",
-    "Short session: prioritize the first three exercises and keep execution focused.": "时间短时优先完成前三个动作，保持执行专注。",
-    "Technique first. Stop sets with 1-3 reps in reserve.": "技术优先，大多数动作保留 1-3 次余力。",
-    "Put compound lifts first and keep reps powerful.": "复合动作优先，保证每次发力质量。",
-    "Use steady progression and adjust if fatigue or pain rises.": "稳定渐进。如果疲劳或疼痛升高，及时调整。",
-  };
-  return map[note] ?? note;
+  return enText(note);
 }
 
 function painCategory(category: PainResult["assessment"]["category"]) {
   return {
-    stop: "今天停止该动作",
-    modify_or_replace: "降重或替换动作",
-    continue_with_cues: "可谨慎继续",
+    stop: "Stop this movement today",
+    modify_or_replace: "Reduce load or substitute",
+    continue_with_cues: "Continue cautiously",
   }[category];
 }
 
 function painAction(action: string) {
-  if (action.includes("Stop")) return "今天停止这个动作。如果症状持续，建议找合格专业人士处理。";
-  if (action.includes("Reduce")) return "先降重量、缩短幅度、放慢节奏，或换成更稳定的替代动作。";
-  return "可以谨慎继续，但必须控制动作，并重新检查起始姿态。";
+  if (action.includes("Stop")) return "Stop this exercise today. If symptoms continue, consult a qualified professional.";
+  if (action.includes("Reduce")) return "Reduce load, shorten range of motion, slow the tempo, or switch to a more stable substitute.";
+  return "You may continue cautiously, but control the movement and re-check the setup.";
 }
 
 function nextFocusLabel(value: string) {
   const map: Record<string, string> = {
-    keep_plan: "下次保持计划",
-    restart_simpler: "下次降低门槛重启",
-    reduce_fatigue: "下次先降疲劳",
-    substitute_painful_movement: "下次替换疼痛动作",
-    stop_or_deload_and_substitute: "下次停止高风险动作并减量替换",
-    deload_and_substitute: "下次减量并替换动作",
-    reduce_stress: "下次降低压力观察",
+    keep_plan: "Keep the plan next time",
+    restart_simpler: "Restart with a lower barrier",
+    reduce_fatigue: "Reduce fatigue first",
+    substitute_painful_movement: "Substitute the painful movement",
+    stop_or_deload_and_substitute: "Stop the high-risk movement and deload",
+    deload_and_substitute: "Deload and substitute",
+    reduce_stress: "Lower stress and monitor",
   };
   return map[value] ?? value;
 }
 
 function decisionLevelLabel(value?: string) {
   const map: Record<string, string> = {
-    normal: "正常推进",
-    lower_barrier: "降低门槛",
-    fatigue_high: "疲劳偏高",
-    pain_modify: "疼痛需修改",
-    watch: "观察调整",
-    recovery_priority: "恢复优先",
-    high_risk: "高风险",
+    normal: "Normal progression",
+    lower_barrier: "Lower barrier",
+    fatigue_high: "High fatigue",
+    pain_modify: "Pain modification",
+    watch: "Monitor",
+    recovery_priority: "Recovery first",
+    high_risk: "High risk",
   };
-  return value ? map[value] ?? value : "未分级";
+  return value ? map[value] ?? value : "Unclassified";
 }
 
 function painLocationLabel(value: string) {
   const map: Record<string, string> = {
-    shoulder: "肩",
-    elbow: "肘",
-    wrist: "手腕",
-    back: "腰背",
-    hip: "髋",
-    knee: "膝",
-    ankle: "踝",
+    shoulder: "Shoulder",
+    elbow: "Elbow",
+    wrist: "Wrist",
+    back: "Low back",
+    hip: "Hip",
+    knee: "Knee",
+    ankle: "Ankle",
   };
   return map[value] ?? value;
 }
 
 function painTypeLabel(value: string) {
   const map: Record<string, string> = {
-    burn: "肌肉灼烧",
-    pinch: "夹挤感",
-    joint: "关节不适",
-    sharp: "尖锐痛",
-    radiating: "放射痛",
-    worsening: "越来越痛",
-    numbness: "麻木",
-    electric: "电击感",
+    burn: "Muscle burn",
+    pinch: "Pinching",
+    joint: "Joint discomfort",
+    sharp: "Sharp pain",
+    radiating: "Radiating pain",
+    worsening: "Getting worse",
+    numbness: "Numbness",
+    electric: "Electric pain",
   };
   return map[value] ?? value;
 }
 
 function feedbackNote(note: string) {
   const map: Record<string, string> = {
-    "Next session should be shorter and easier to complete.": "下次训练应该更短、更容易完成。",
-    "Reduce total sets by about 25% for the next similar workout.": "下次同类训练总组数减少约 25%。",
-    "Workout felt manageable. Consider a small load or rep increase next time.": "这次训练可控，下次可以小幅加重量或加次数。",
-    "Shorten accessory work to keep sessions realistic.": "减少辅助动作，让训练时长更现实。",
-    "Do not repeat the painful movement next session; substitute it and reduce workload.": "下次不要重复疼痛动作，先替换动作并降低训练量。",
-    "Pain and fatigue are both high. Deload the next similar session and replace the painful movement.": "疼痛和疲劳都偏高，下次同类训练先减量并替换疼痛动作。",
-    "Pain and fatigue are moderate. Keep the next session easier and avoid adding load.": "疼痛和疲劳中等，下次训练保持更轻松，不要加重量。",
-    "Replace or modify the painful movement before repeating this session.": "再次训练前先替换或修改疼痛动作。",
-    "Keep the plan unchanged and focus on consistent execution.": "计划保持不变，重点是持续执行。",
+    "Next session should be shorter and easier to complete.": "Next session should be shorter and easier to complete.",
+    "Reduce total sets by about 25% for the next similar workout.": "Reduce total sets by about 25% for the next similar workout.",
+    "Workout felt manageable. Consider a small load or rep increase next time.": "This workout felt manageable. Consider a small load or rep increase next time.",
+    "Shorten accessory work to keep sessions realistic.": "Shorten accessory work to keep sessions realistic.",
+    "Do not repeat the painful movement next session; substitute it and reduce workload.": "Do not repeat the painful movement next session; substitute it and reduce workload.",
+    "Pain and fatigue are both high. Deload the next similar session and replace the painful movement.": "Pain and fatigue are both high. Deload the next similar session and replace the painful movement.",
+    "Pain and fatigue are moderate. Keep the next session easier and avoid adding load.": "Pain and fatigue are moderate. Keep the next session easier and avoid adding load.",
+    "Replace or modify the painful movement before repeating this session.": "Replace or modify the painful movement before repeating this session.",
+    "Keep the plan unchanged and focus on consistent execution.": "Keep the plan unchanged and focus on consistent execution.",
   };
   return map[note] ?? note;
 }
 
 function trendMessage(message: string) {
   const parts = message.match(/[^.]+[.]/g) ?? [message];
-  const map: Record<string, string> = {
-    "Add at least two measurement entries to see a trend.": "至少添加两条记录才能看到趋势。",
-    "Body weight is trending up.": "体重正在上升。",
-    "Body weight is trending down.": "体重正在下降。",
-    "Body weight is stable.": "体重基本稳定。",
-    "Waist measurement is decreasing.": "腰围正在下降。",
-    "Waist measurement is increasing.": "腰围正在上升。",
-    "Waist measurement is stable.": "腰围基本稳定。",
-    "Body-fat estimate is trending down.": "体脂率估算正在下降。",
-    "Body-fat estimate is trending up.": "体脂率估算正在上升。",
-    "Body-fat estimate is stable.": "体脂率估算基本稳定。",
-  };
-  return parts.map((part) => map[part.trim()] ?? part.trim()).join(" ");
+  return parts.map((part) => enText(part.trim())).join(" ");
 }
 
 function formatCommunityTime(value: string) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString("zh-CN", {
+  return date.toLocaleString("en-US", {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -2982,29 +3134,18 @@ function formatCommunityTime(value: string) {
 function cleanApiError(message: string) {
   try {
     const parsed = JSON.parse(message);
-    if (typeof parsed.detail === "string") return parsed.detail;
-    if (Array.isArray(parsed.detail) && parsed.detail[0]?.msg) return parsed.detail[0].msg;
+    if (typeof parsed.detail === "string") return enText(parsed.detail);
+    if (Array.isArray(parsed.detail) && parsed.detail[0]?.msg) return enText(parsed.detail[0].msg);
   } catch {
     // Keep the original text when the API did not return JSON.
   }
-  return message;
+  return enText(message);
 }
 
 function knowledgeTitle(title: string) {
-  const map: Record<string, string> = {
-    "Can I lose fat from only one body part?": "能不能只瘦一个部位？",
-    "BMI is only a rough reference": "BMI 只是粗略参考",
-    "Beginners usually do not need complex splits": "新手通常不需要复杂分化",
-    "Beginners can use simple split plans": "新手可以使用简单分化",
-    "Pain is not the same as effort": "疼痛不等于努力",
-  };
-  return map[title] ?? title;
+  return enText(title);
 }
 
 function knowledgeContent(content: string) {
-  if (content.includes("Fat loss is systemic")) return "不能。减脂是全身性的。你可以训练某块肌肉让它变大，但局部脂肪减少主要取决于整体热量平衡。";
-  if (content.includes("BMI can be misleading")) return "肌肉量高的人 BMI 可能失真，要结合围度、照片、力量表现、恢复情况和体脂估计一起看。";
-  if (content.includes("beginner split")) return "新手分化应该简单、固定、可重复。先学会训练顺序和动作感受，再逐步增加重量和训练量。";
-  if (content.includes("Sharp")) return "肌肉灼烧和努力感可以正常，但尖锐、加重、放射或严重疼痛是停止信号。";
-  return content;
+  return enText(content);
 }
