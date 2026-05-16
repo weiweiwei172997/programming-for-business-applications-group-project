@@ -1,7 +1,7 @@
 function getApiBase() {
-  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-    return process.env.NEXT_PUBLIC_API_BASE_URL;
-  }
+  // Always use same-origin API requests.
+  // Public tunnel visitors cannot reach this computer's 127.0.0.1 directly;
+  // Next.js rewrites /api/* to the local FastAPI server on the host machine.
   return "";
 }
 
