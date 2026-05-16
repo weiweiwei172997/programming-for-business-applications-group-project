@@ -4,6 +4,7 @@
   --panel: #111111;
   --panel-high: #171717;
   --white: #f7f7f7;
+  --paper: #f2f2f2;
   --soft: #c9c9c9;
   --muted: #8f8f8f;
   --line: #303030;
@@ -772,6 +773,188 @@ details .chip-row {
 .checkin-card {
   display: grid;
   gap: 1rem;
+}
+
+.lottery-stage {
+  position: relative;
+}
+
+.lottery-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3rem),
+    var(--near);
+}
+
+.lottery-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.2rem;
+}
+
+.lottery-stats article {
+  min-height: 5.2rem;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.lottery-stats span,
+.lottery-result span,
+.lottery-history span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.lottery-stats strong {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--white);
+  font-size: clamp(1.4rem, 4vw, 2.45rem);
+  line-height: 1;
+}
+
+.lottery-wheel-shell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 24rem;
+}
+
+.lottery-wheel-shell::before {
+  content: "";
+  position: absolute;
+  width: min(90vw, 22rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1rem rgba(255, 255, 255, 0.025), 0 2rem 5rem rgba(0, 0, 0, 0.55);
+}
+
+.lottery-wheel {
+  position: relative;
+  width: min(82vw, 20rem);
+  aspect-ratio: 1;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.55rem rgba(0, 0, 0, 0.82), 0 1.4rem 3rem rgba(0, 0, 0, 0.4);
+  transition: transform 3.15s cubic-bezier(0.12, 0.78, 0.1, 1);
+}
+
+.lottery-wheel.spinning {
+  filter: blur(0.15px);
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: 1.45rem;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-left: 0.75rem solid transparent;
+  border-right: 0.75rem solid transparent;
+  border-top: 1.4rem solid var(--white);
+  filter: drop-shadow(0 0.35rem 0.35rem rgba(0, 0, 0, 0.5));
+}
+
+.wheel-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5rem;
+  margin-left: -2.5rem;
+  margin-top: -0.65rem;
+  padding: 0.26rem 0.35rem;
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.wheel-center {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 5.8rem;
+  height: 5.8rem;
+  color: var(--black);
+  background: var(--white);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.45rem rgba(0, 0, 0, 0.75), 0 1rem 2rem rgba(0, 0, 0, 0.45);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.keep-going-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.lottery-result {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--black);
+}
+
+.lottery-result span {
+  color: #444;
+}
+
+.lottery-result strong {
+  display: block;
+  margin: 0.3rem 0;
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.lottery-result p {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+.lottery-history {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.lottery-history p {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--near);
+}
+
+.lottery-history strong {
+  color: var(--white);
+}
+
+.lottery-history time {
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
 .adjustment-summary {
@@ -1815,6 +1998,7 @@ details .chip-row {
   .orange-cycle,
   .meal-target,
   .metric-grid,
+  .lottery-hero,
   .pain-layout,
   .joint-guidance {
     grid-template-columns: 1fr;
@@ -1910,10 +2094,35 @@ details .chip-row {
   .segment > div,
   .two-col,
   .body-grid,
+  .lottery-stats,
   .exercise-grid,
   .prize-grid,
   .table-row,
   .table-row.progress-row {
+    grid-template-columns: 1fr;
+  }
+
+  .lottery-wheel-shell {
+    min-height: 20rem;
+  }
+
+  .lottery-wheel {
+    width: min(78vw, 17rem);
+  }
+
+  .wheel-label {
+    width: 4.4rem;
+    margin-left: -2.2rem;
+    font-size: 0.68rem;
+    transform-origin: 50% 50%;
+  }
+
+  .wheel-center {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .lottery-history p {
     grid-template-columns: 1fr;
   }
 

@@ -8,7 +8,7 @@ type Level = "beginner" | "restarting" | "experienced";
 type Goal = "muscle_gain" | "strength_gain" | "fat_loss" | "general_fitness" | "health";
 type Gender = "male" | "female" | "other";
 type Activity = "sedentary" | "light" | "moderate" | "active";
-type View = "plan" | "nutrition" | "feedback" | "progress" | "community" | "knowledge" | "coach";
+type View = "plan" | "nutrition" | "feedback" | "lottery" | "progress" | "community" | "knowledge" | "coach";
 type FatLossPlan = "kaisheng_carb_cycle" | "orange_carb_taper";
 type StrengthPlan = "beginner_ab_linear" | "advanced_linear_5x5" | "universal_5x5_split";
 type MuscleGainPlan = "tan_chengyi_beginner_follow" | "tan_kaisheng_three_split" | "orange_hypertrophy";
@@ -254,6 +254,19 @@ type CheckinReward = {
   message: string;
 };
 
+type LotteryDraw = {
+  id: string;
+  prize: string;
+  draw_type: "trial" | "ticket";
+  created_at: string;
+};
+
+type LotteryState = {
+  trial_used: boolean;
+  ticket_draws: number;
+  history: LotteryDraw[];
+};
+
 type ChatMessage = { role: "user" | "assistant"; content: string };
 type AiChatResponse = {
   reply: string;
@@ -378,11 +391,20 @@ const VIEWS: { value: View; label: string; code: string }[] = [
   { value: "plan", label: "训练计划", code: "TRAIN" },
   { value: "nutrition", label: "饮食面板", code: "FUEL" },
   { value: "feedback", label: "反馈调整", code: "ADAPT" },
+  { value: "lottery", label: "抽奖转盘", code: "SPIN" },
   { value: "progress", label: "围度趋势", code: "TRACE" },
   { value: "community", label: "社区交流", code: "CLUB" },
   { value: "knowledge", label: "认知扫盲", code: "LEARN" },
   { value: "coach", label: "AI问答", code: "AI" },
 ];
+
+const DEFAULT_LOTTERY_PRIZES = ["蛋白粉", "肌酸", "电解质饮料", "摇摇杯", "训练手套", "补剂试用装"];
+
+const EMPTY_LOTTERY_STATE: LotteryState = {
+  trial_used: false,
+  ticket_draws: 0,
+  history: [],
+};
 
 const EXERCISE_CN: Record<string, string> = {
   "Cable Fly": "龙门架绳索夹胸",
@@ -578,6 +600,38 @@ function initialCheckinDates() {
   return [6, 5, 4, 3, 2, 1].map(dateIsoDaysAgo);
 }
 
+function lotteryStorageKey(user: User | null) {
+  return `gympath_lottery_state_${user?.id ?? "guest"}`;
+}
+
+function readLotteryState(key: string): LotteryState {
+  if (typeof window === "undefined") return EMPTY_LOTTERY_STATE;
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return EMPTY_LOTTERY_STATE;
+    const parsed = JSON.parse(raw) as Partial<LotteryState>;
+    return {
+      trial_used: Boolean(parsed.trial_used),
+      ticket_draws: Math.max(0, Number(parsed.ticket_draws ?? 0)),
+      history: Array.isArray(parsed.history) ? parsed.history.slice(0, 12) as LotteryDraw[] : [],
+    };
+  } catch {
+    return EMPTY_LOTTERY_STATE;
+  }
+}
+
+function lotteryChances(reward: CheckinReward | null, state: LotteryState) {
+  const trial_available = !state.trial_used;
+  const earned_tickets = reward?.reward_tickets ?? 0;
+  const ticket_available = Math.max(0, earned_tickets - state.ticket_draws);
+  return {
+    trial_available,
+    ticket_available,
+    earned_tickets,
+    total_available: (trial_available ? 1 : 0) + ticket_available,
+  };
+}
+
 const ANATOMY_IMAGE_URL = "/anatomy-muscles-zh.jpg";
 const ANATOMY_SOURCE_URL = "https://commons.wikimedia.org/wiki/File:1105_Anterior_and_Posterior_Views_of_Muscles_zh.jpg";
 
@@ -621,6 +675,10 @@ export default function Home() {
   const [feedbackResult, setFeedbackResult] = useState<FeedbackResult | null>(null);
   const [checkins, setCheckins] = useState<string[]>(initialCheckinDates);
   const [checkinReward, setCheckinReward] = useState<CheckinReward | null>(null);
+  const [lotteryState, setLotteryState] = useState<LotteryState>(EMPTY_LOTTERY_STATE);
+  const [lotteryRotation, setLotteryRotation] = useState(0);
+  const [lotterySpinning, setLotterySpinning] = useState(false);
+  const [lotteryResult, setLotteryResult] = useState<LotteryDraw | null>(null);
   const [measurements, setMeasurements] = useState<Measurement[]>(measurementsSeed);
   const [progress, setProgress] = useState<ProgressResult | null>(null);
   const [knowledgeTopic, setKnowledgeTopic] = useState("spot_reduction");
@@ -643,6 +701,7 @@ export default function Home() {
   const [postImage, setPostImage] = useState<File | null>(null);
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [communityError, setCommunityError] = useState("");
+  const currentLotteryStorageKey = useMemo(() => lotteryStorageKey(user), [user]);
 
   useEffect(() => {
     void generatePlan();
@@ -677,6 +736,11 @@ export default function Home() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authToken]);
+
+  useEffect(() => {
+    setLotteryState(readLotteryState(currentLotteryStorageKey));
+    setLotteryResult(null);
+  }, [currentLotteryStorageKey]);
 
   function patchProfile<K extends keyof Profile>(key: K, value: Profile[K]) {
     setProfile((current) => ({ ...current, [key]: value }));
@@ -794,6 +858,51 @@ export default function Home() {
     } catch (error) {
       setStatus(error instanceof Error ? `打卡保存失败：${error.message}` : "打卡保存失败");
     }
+  }
+
+  function saveLotteryState(nextState: LotteryState) {
+    setLotteryState(nextState);
+    window.localStorage.setItem(currentLotteryStorageKey, JSON.stringify(nextState));
+  }
+
+  function spinLottery() {
+    const prizes = checkinReward?.prizes?.length ? checkinReward.prizes : DEFAULT_LOTTERY_PRIZES;
+    const chances = lotteryChances(checkinReward, lotteryState);
+    if (lotterySpinning) return;
+    if (chances.total_available <= 0) {
+      setStatus("暂时没有抽奖机会。继续打卡，坚持到第7天就能获得下一次抽奖资格。");
+      return;
+    }
+
+    const drawType: LotteryDraw["draw_type"] = chances.trial_available ? "trial" : "ticket";
+    const winnerIndex = Math.floor(Math.random() * prizes.length);
+    const segmentAngle = 360 / prizes.length;
+    const targetOffset = 360 - (winnerIndex * segmentAngle + segmentAngle / 2);
+    const rotationBase = Math.ceil(lotteryRotation / 360) * 360;
+    const nextRotation = rotationBase + 360 * 6 + targetOffset;
+
+    setLotterySpinning(true);
+    setLotteryResult(null);
+    setLotteryRotation(nextRotation);
+    setStatus(drawType === "trial" ? "正在进行第一次试抽" : "正在消耗一次打卡抽奖资格");
+
+    window.setTimeout(() => {
+      const draw: LotteryDraw = {
+        id: `${Date.now()}-${winnerIndex}`,
+        prize: prizes[winnerIndex],
+        draw_type: drawType,
+        created_at: new Date().toISOString(),
+      };
+      const nextState: LotteryState = {
+        trial_used: lotteryState.trial_used || drawType === "trial",
+        ticket_draws: lotteryState.ticket_draws + (drawType === "ticket" ? 1 : 0),
+        history: [draw, ...lotteryState.history].slice(0, 12),
+      };
+      saveLotteryState(nextState);
+      setLotteryResult(draw);
+      setLotterySpinning(false);
+      setStatus(`抽奖完成：${draw.prize}`);
+    }, 3200);
   }
 
   async function submitFeedback(event: FormEvent<HTMLFormElement>) {
@@ -1150,8 +1259,17 @@ export default function Home() {
               result={feedbackResult}
               onSubmit={submitFeedback}
               hasPlan={Boolean(plan)}
-              checkins={checkins}
+            />
+          )}
+          {view === "lottery" && (
+            <LotteryView
               reward={checkinReward}
+              checkins={checkins}
+              lotteryState={lotteryState}
+              rotation={lotteryRotation}
+              spinning={lotterySpinning}
+              result={lotteryResult}
+              onSpin={spinLottery}
               onCheckin={() => void completeTodayCheckin()}
             />
           )}
@@ -1976,9 +2094,6 @@ function FeedbackView({
   result,
   onSubmit,
   hasPlan,
-  checkins,
-  reward,
-  onCheckin,
 }: {
   pain: PainInput;
   setPain: Dispatch<SetStateAction<PainInput>>;
@@ -1991,9 +2106,6 @@ function FeedbackView({
   result: FeedbackResult | null;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   hasPlan: boolean;
-  checkins: string[];
-  reward: CheckinReward | null;
-  onCheckin: () => void;
 }) {
   return (
     <div className="stack">
@@ -2036,26 +2148,6 @@ function FeedbackView({
         <p className="soft">下次计划会综合疲劳、疼痛等级、疼痛类型和疼痛部位判断：疼痛和疲劳越高，越倾向于减量、延长休息或替换动作。</p>
         <button className="primary" type="submit" disabled={!hasPlan}>根据反馈调整下次计划</button>
       </form>
-      <section className="wide checkin-card">
-        <Header
-          code="CHECK-IN LOTTERY"
-          title="7天打卡抽补剂"
-          right={reward ? `连续 ${reward.streak}/7 天` : `${checkins.length} 条记录`}
-        />
-        <div className="checkin-meter">
-          <div>
-            <strong>{reward?.eligible ? "已获得抽奖资格" : "坚持到第7天解锁抽奖"}</strong>
-            <p>{reward?.message ?? "完成训练后打卡，连续7天可参与蛋白粉、肌酸等健身补剂抽奖。"}</p>
-          </div>
-          <progress value={reward?.cycle_progress ?? 0} max={reward?.cycle_goal ?? 7} />
-        </div>
-        <div className="prize-grid">
-          {(reward?.prizes ?? ["蛋白粉", "肌酸", "电解质饮料", "摇摇杯", "训练手套", "补剂试用装"]).map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-        <button className="ghost" type="button" onClick={onCheckin}>完成今日打卡</button>
-      </section>
       {result && (
         <section className="wide">
           <Header
@@ -2076,6 +2168,128 @@ function FeedbackView({
           <div className="rule-list">{result.notes.map((note) => <p key={note}>{feedbackNote(note)}</p>)}</div>
         </section>
       )}
+    </div>
+  );
+}
+
+function LotteryView({
+  reward,
+  checkins,
+  lotteryState,
+  rotation,
+  spinning,
+  result,
+  onSpin,
+  onCheckin,
+}: {
+  reward: CheckinReward | null;
+  checkins: string[];
+  lotteryState: LotteryState;
+  rotation: number;
+  spinning: boolean;
+  result: LotteryDraw | null;
+  onSpin: () => void;
+  onCheckin: () => void;
+}) {
+  const prizes = reward?.prizes?.length ? reward.prizes : DEFAULT_LOTTERY_PRIZES;
+  const chances = lotteryChances(reward, lotteryState);
+  const gradient = prizes
+    .map((_, index) => {
+      const start = (index * 360) / prizes.length;
+      const end = ((index + 1) * 360) / prizes.length;
+      const tone = index % 3 === 0 ? "#f2f2f2" : index % 3 === 1 ? "#1a1a1a" : "#757575";
+      return `${tone} ${start}deg ${end}deg`;
+    })
+    .join(", ");
+  const progress = reward?.cycle_progress ?? Math.min(7, checkins.length % 7 || (checkins.length ? 7 : 0));
+  const goal = reward?.cycle_goal ?? 7;
+  const daysLeft = reward?.days_until_lottery ?? Math.max(0, 7 - progress);
+
+  return (
+    <div className="stack lottery-stage">
+      <section className="wide lottery-hero">
+        <div>
+          <Header
+            code="SUPPLEMENT LOTTERY"
+            title="打卡转盘抽奖"
+            right={chances.total_available > 0 ? `可抽 ${chances.total_available} 次` : "继续加油"}
+          />
+          <p className="big-copy">
+            第一次可以免费试抽；之后每坚持打卡 7 天获得一次抽奖资格。奖品包含蛋白粉、肌酸和训练周边，适合做课程演示和社区激励。
+          </p>
+          <div className="lottery-stats">
+            <article><span>免费试抽</span><strong>{chances.trial_available ? "可用" : "已使用"}</strong></article>
+            <article><span>打卡资格</span><strong>{chances.ticket_available}</strong></article>
+            <article><span>连续打卡</span><strong>{reward?.streak ?? 0} 天</strong></article>
+          </div>
+        </div>
+        <div className="lottery-wheel-shell" aria-live="polite">
+          <div className="wheel-pointer" />
+          <div
+            className={spinning ? "lottery-wheel spinning" : "lottery-wheel"}
+            style={{ background: `conic-gradient(${gradient})`, transform: `rotate(${rotation}deg)` }}
+          >
+            {prizes.map((prize, index) => {
+              const angle = (index * 360) / prizes.length + 360 / prizes.length / 2;
+              return (
+                <span
+                  key={prize}
+                  className="wheel-label"
+                  style={{ transform: `rotate(${angle}deg) translateY(-7.2rem) rotate(${-angle}deg)` }}
+                >
+                  {prize}
+                </span>
+              );
+            })}
+          </div>
+          <button className="wheel-center" type="button" onClick={onSpin} disabled={spinning}>
+            {spinning ? "转动中" : "开抽"}
+          </button>
+        </div>
+      </section>
+
+      <section className="wide keep-going-card">
+        <Header code="KEEP GOING" title="继续加油" right={`${progress}/${goal}`} />
+        <div className="checkin-meter">
+          <div>
+            <strong>{chances.total_available > 0 ? "现在可以抽奖" : `再坚持 ${daysLeft} 天`}</strong>
+            <p>
+              {chances.total_available > 0
+                ? "先用免费试抽或已获得的打卡资格。抽完后继续打卡，下一轮 7 天会再次解锁。"
+                : "完成训练后记得打卡。只要连续坚持到第 7 天，就会获得一次正式抽奖资格。"}
+            </p>
+          </div>
+          <progress value={progress} max={goal} />
+        </div>
+        <button className="ghost" type="button" onClick={onCheckin}>完成今日打卡</button>
+      </section>
+
+      <section className="wide">
+        <Header code="PRIZE POOL" title="奖池与结果" right={result ? `${result.draw_type === "trial" ? "试抽" : "资格抽"}：${result.prize}` : "等待开抽"} />
+        {result ? (
+          <div className="lottery-result">
+            <span>本次抽中</span>
+            <strong>{result.prize}</strong>
+            <p>{result.draw_type === "trial" ? "这是第一次试抽，不消耗七天打卡资格。" : "已消耗 1 次七天打卡抽奖资格。"}</p>
+          </div>
+        ) : null}
+        <div className="prize-grid">
+          {prizes.map((item) => <span key={item}>{item}</span>)}
+        </div>
+        {lotteryState.history.length ? (
+          <div className="lottery-history">
+            {lotteryState.history.map((draw) => (
+              <p key={draw.id}>
+                <span>{draw.draw_type === "trial" ? "试抽" : "资格抽"}</span>
+                <strong>{draw.prize}</strong>
+                <time>{formatCommunityTime(draw.created_at)}</time>
+              </p>
+            ))}
+          </div>
+        ) : (
+          <p className="soft">还没有抽奖记录。先点“开抽”体验第一次试抽。</p>
+        )}
+      </section>
     </div>
   );
 }
