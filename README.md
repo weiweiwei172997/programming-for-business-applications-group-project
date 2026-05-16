@@ -22,7 +22,7 @@ The older Streamlit prototype in `app.py` is kept as a Python-only fallback.
 - Light plan adjustment after workout feedback
 - Account-based check-ins, workout feedback, and progress measurement charts
 - Account registration and login
-- Community posts, likes, and comments
+- Community posts with optional photos, likes, and comments
 - Beginner fitness knowledge cards
 
 ## Tech Stack
@@ -58,6 +58,7 @@ group project/
     package.json
   data/
     gympath_app.db        # created locally at runtime
+    uploads/              # created locally for community post photos
     exercises.json
     knowledge_cards.json
   docs/
@@ -144,6 +145,14 @@ Community, account, check-in, workout feedback, and measurement data are stored 
 ```text
 data/gympath_app.db
 ```
+
+Community post photos are stored locally in:
+
+```text
+data/uploads/community/
+```
+
+The `data/uploads/` folder is ignored by git so personal demo photos are not uploaded to GitHub.
 
 Run the Streamlit fallback prototype only if you need the older Python-only demo:
 

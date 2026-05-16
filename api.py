@@ -6,10 +6,13 @@ required business logic stays in project.py.
 
 from __future__ import annotations
 
+import secrets
+from pathlib import Path
 from typing import Any
 
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 try:
@@ -56,6 +59,15 @@ from storage import (
 init_storage()
 
 app = FastAPI(title="GymPath API", version="1.0.0")
+
+COMMUNITY_UPLOAD_DIR = Path(__file__).resolve().parent / "data" / "uploads" / "community"
+MAX_COMMUNITY_IMAGE_BYTES = 5 * 1024 * 1024
+COMMUNITY_IMAGE_TYPES = {
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/webp": ".webp",
+    "image/gif": ".gif",
+}
 
 app.add_middleware(
     CORSMiddleware,
@@ -181,6 +193,26 @@ def _bad_request(error: ValueError) -> HTTPException:
     return HTTPException(status_code=400, detail=str(error))
 
 
+async def _save_community_image(image: UploadFile | None) -> str | None:
+    if image is None or not image.filename:
+        return None
+
+    extension = COMMUNITY_IMAGE_TYPES.get(image.content_type or "")
+    if extension is None:
+        raise HTTPException(status_code=400, detail="只支持 JPG、PNG、WebP 或 GIF 图片")
+
+    data = await image.read()
+    if not data:
+        return None
+    if len(data) > MAX_COMMUNITY_IMAGE_BYTES:
+        raise HTTPException(status_code=400, detail="图片不能超过 5MB")
+
+    COMMUNITY_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    filename = f"{secrets.token_hex(16)}{extension}"
+    (COMMUNITY_UPLOAD_DIR / filename).write_bytes(data)
+    return filename
+
+
 @app.get("/api/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "service": "gympath-api"}
@@ -218,6 +250,34 @@ def community_create_post(request: PostCreateRequest, user: dict[str, Any] = Dep
         return create_post(user["id"], request.title, request.content)
     except ValueError as error:
         raise _bad_request(error) from error
+
+
+@app.post("/api/community/posts-with-image")
+async def community_create_post_with_image(
+    title: str = Form(min_length=2, max_length=80),
+    content: str = Form(min_length=5, max_length=2000),
+    image: UploadFile | None = File(default=None),
+    user: dict[str, Any] = Depends(current_user),
+) -> dict[str, Any]:
+    image_path = await _save_community_image(image)
+    try:
+        return create_post(user["id"], title, content, image_path=image_path)
+    except ValueError as error:
+        if image_path:
+            (COMMUNITY_UPLOAD_DIR / image_path).unlink(missing_ok=True)
+        raise _bad_request(error) from error
+
+
+@app.get("/api/uploads/community/{filename}")
+def community_uploaded_image(filename: str) -> FileResponse:
+    safe_name = Path(filename).name
+    if safe_name != filename:
+        raise HTTPException(status_code=404, detail="图片不存在")
+
+    image_path = COMMUNITY_UPLOAD_DIR / safe_name
+    if not image_path.is_file():
+        raise HTTPException(status_code=404, detail="图片不存在")
+    return FileResponse(image_path)
 
 
 @app.post("/api/community/posts/{post_id}/like")

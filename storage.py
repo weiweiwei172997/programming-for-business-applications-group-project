@@ -64,6 +64,7 @@ def init_storage() -> None:
                 user_id INTEGER NOT NULL,
                 title TEXT NOT NULL,
                 content TEXT NOT NULL,
+                image_path TEXT,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -123,6 +124,9 @@ def init_storage() -> None:
             );
             """
         )
+        post_columns = {row["name"] for row in conn.execute("PRAGMA table_info(posts)").fetchall()}
+        if "image_path" not in post_columns:
+            conn.execute("ALTER TABLE posts ADD COLUMN image_path TEXT")
 
 
 def _hash_password(password: str, salt: str) -> str:
@@ -221,7 +225,7 @@ def get_user_by_token(token: str) -> dict[str, Any] | None:
     return _public_user(row) if row else None
 
 
-def create_post(user_id: int, title: str, content: str) -> dict[str, Any]:
+def create_post(user_id: int, title: str, content: str, image_path: str | None = None) -> dict[str, Any]:
     title = title.strip()
     content = content.strip()
     if len(title) < 2:
@@ -232,8 +236,11 @@ def create_post(user_id: int, title: str, content: str) -> dict[str, Any]:
     now = _iso_now()
     with _connect() as conn:
         cursor = conn.execute(
-            "INSERT INTO posts (user_id, title, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)",
-            (user_id, title[:80], content[:2000], now, now),
+            """
+            INSERT INTO posts (user_id, title, content, image_path, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (user_id, title[:80], content[:2000], image_path, now, now),
         )
         post_id = cursor.lastrowid
     return get_post(post_id, viewer_id=user_id)
@@ -295,7 +302,7 @@ def list_posts(viewer_id: int | None = None) -> list[dict[str, Any]]:
     with _connect() as conn:
         rows = conn.execute(
             """
-            SELECT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at,
+            SELECT posts.id, posts.title, posts.content, posts.image_path, posts.created_at, posts.updated_at,
                    users.id AS author_id, users.username AS author,
                    COUNT(DISTINCT post_likes.user_id) AS like_count,
                    COUNT(DISTINCT comments.id) AS comment_count
@@ -316,7 +323,7 @@ def get_post(post_id: int, viewer_id: int | None = None) -> dict[str, Any]:
     with _connect() as conn:
         row = conn.execute(
             """
-            SELECT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at,
+            SELECT posts.id, posts.title, posts.content, posts.image_path, posts.created_at, posts.updated_at,
                    users.id AS author_id, users.username AS author,
                    COUNT(DISTINCT post_likes.user_id) AS like_count,
                    COUNT(DISTINCT comments.id) AS comment_count
@@ -360,6 +367,7 @@ def _post_from_row(conn: sqlite3.Connection, row: sqlite3.Row, viewer_id: int | 
         "id": row["id"],
         "title": row["title"],
         "content": row["content"],
+        "image_url": f"/api/uploads/community/{row['image_path']}" if row["image_path"] else None,
         "author_id": row["author_id"],
         "author": row["author"],
         "created_at": row["created_at"],

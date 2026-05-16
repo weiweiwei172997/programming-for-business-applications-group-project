@@ -38,7 +38,7 @@
 | Pain replacement | Anatomy map, pain type/severity, joint-specific substitutions, relief, rehab, and videos |
 | Feedback/check-in | Completion, fatigue, pain, duration, plan adjustment, seven-day lottery |
 | Progress | Logged-in users can save measurements and view trend lines |
-| Community | Logged-in users can create posts, like, and comment |
+| Community | Logged-in users can create posts with optional photos, like, and comment |
 | AI coach | Uses DeepSeek-compatible API when configured; local fallback remains available |
 | Knowledge | Beginner myth-busting and training education cards |
 
@@ -66,7 +66,7 @@ Excluded:
 
 - User can complete register/login -> plan -> warm-up -> feedback -> check-in -> progress -> community/AI flow.
 - Logged-in measurement and check-in data persist after refresh/login.
-- Community post/comment/like works from another logged-in account.
+- Community post/comment/like works from another logged-in account, including optional photo posts.
 - AI coach answers when API key is configured and falls back when not configured.
 - App remains usable on mobile-sized screens.
 

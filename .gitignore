@@ -10,6 +10,7 @@ frontend/tsconfig.tsbuildinfo
 *.log
 gympath.db
 data/*.db
+data/uploads/
 logs/
 tools/
 releases/

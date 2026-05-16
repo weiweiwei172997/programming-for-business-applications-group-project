@@ -2,7 +2,7 @@
 
 import type { Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
-import { getJson, postJson, putJson } from "../lib/api";
+import { getJson, postFormData, postJson, putJson } from "../lib/api";
 
 type Level = "beginner" | "restarting" | "experienced";
 type Goal = "muscle_gain" | "strength_gain" | "fat_loss" | "general_fitness" | "health";
@@ -285,6 +285,7 @@ type CommunityPost = {
   id: number;
   title: string;
   content: string;
+  image_url?: string | null;
   author_id: number;
   author: string;
   created_at: string;
@@ -621,6 +622,7 @@ export default function Home() {
   const [guestMode, setGuestMode] = useState(false);
   const [communityPosts, setCommunityPosts] = useState<CommunityPost[]>([]);
   const [postDraft, setPostDraft] = useState({ title: "", content: "" });
+  const [postImage, setPostImage] = useState<File | null>(null);
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [communityError, setCommunityError] = useState("");
 
@@ -923,9 +925,20 @@ export default function Home() {
       setCommunityError("请先登录再发帖");
       return;
     }
+    if (postImage && postImage.size > 5 * 1024 * 1024) {
+      setCommunityError("图片不能超过 5MB");
+      return;
+    }
     try {
-      await postJson<CommunityPost>("/api/community/posts", postDraft, authToken);
+      const body = new FormData();
+      body.set("title", postDraft.title);
+      body.set("content", postDraft.content);
+      if (postImage) {
+        body.set("image", postImage);
+      }
+      await postFormData<CommunityPost>("/api/community/posts-with-image", body, authToken);
       setPostDraft({ title: "", content: "" });
+      setPostImage(null);
       await loadCommunity(authToken);
       setStatus("帖子已发布");
     } catch (error) {
@@ -1144,6 +1157,8 @@ export default function Home() {
               posts={communityPosts}
               postDraft={postDraft}
               setPostDraft={setPostDraft}
+              postImage={postImage}
+              setPostImage={setPostImage}
               onPostSubmit={createCommunityPost}
               onLike={likePost}
               commentDrafts={commentDrafts}
@@ -2055,6 +2070,8 @@ function CommunityView({
   posts,
   postDraft,
   setPostDraft,
+  postImage,
+  setPostImage,
   onPostSubmit,
   onLike,
   commentDrafts,
@@ -2074,6 +2091,8 @@ function CommunityView({
   posts: CommunityPost[];
   postDraft: { title: string; content: string };
   setPostDraft: Dispatch<SetStateAction<{ title: string; content: string }>>;
+  postImage: File | null;
+  setPostImage: Dispatch<SetStateAction<File | null>>;
   onPostSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onLike: (postId: number) => Promise<void>;
   commentDrafts: Record<number, string>;
@@ -2123,6 +2142,17 @@ function CommunityView({
         <form className="post-form" onSubmit={onPostSubmit}>
           <input value={postDraft.title} onChange={(event) => setPostDraft((current) => ({ ...current, title: event.target.value }))} placeholder="标题：今天练胸有什么问题？" disabled={!user} />
           <textarea value={postDraft.content} onChange={(event) => setPostDraft((current) => ({ ...current, content: event.target.value }))} placeholder="写下训练问题、打卡记录、饮食安排、动作感受或想问老手的事。" disabled={!user} />
+          <label className="image-upload">
+            <span>帖子配图（可选）</span>
+            <input
+              key={postImage ? postImage.name : "empty-community-image"}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              disabled={!user}
+              onChange={(event) => setPostImage(event.target.files?.[0] ?? null)}
+            />
+            <small>{postImage ? `${postImage.name} · ${Math.ceil(postImage.size / 1024)} KB` : "支持 JPG / PNG / WebP / GIF，单张最多 5MB"}</small>
+          </label>
           {communityError ? <p className="form-error">{cleanApiError(communityError)}</p> : null}
           <div className="post-actions">
             <button className="ghost" type="button" onClick={reload}>刷新社区</button>
@@ -2148,6 +2178,7 @@ function CommunityView({
                 </button>
               </div>
               <p className="post-content">{post.content}</p>
+              {post.image_url ? <img className="post-image" src={post.image_url} alt={`${post.title} 配图`} loading="lazy" /> : null}
               <div className="comment-list">
                 {post.comments.map((comment) => (
                   <p key={comment.id}><strong>{comment.author}</strong> {comment.content}</p>

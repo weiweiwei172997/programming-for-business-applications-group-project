@@ -27,6 +27,7 @@ python-dotenv
 openai
 fastapi
 uvicorn
+python-multipart
 ```
 
 Frontend `frontend/package.json`:
@@ -129,5 +130,6 @@ try {
 
 - Use SQLite for MVP persistence.
 - Logged-in user data must use `storage.py` functions and authenticated API routes.
+- Community image posts use FastAPI multipart upload, `python-multipart`, local files under `data/uploads/community/`, and same-origin image URLs under `/api/uploads/community/{filename}`.
 - Guest data can stay in React state.
-- Do not commit `data/*.db`.
+- Do not commit `data/*.db` or `data/uploads/`.
