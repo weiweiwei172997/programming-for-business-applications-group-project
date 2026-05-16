@@ -1,0 +1,15 @@
+__pycache__/
+.pytest_cache/
+.streamlit/secrets.toml
+.env
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/tsconfig.tsbuildinfo
+*.pyc
+*.log
+gympath.db
+data/*.db
+logs/
+tools/
+releases/

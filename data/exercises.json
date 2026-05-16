@@ -1,0 +1,131 @@
+[
+  {
+    "name": "高脚杯深蹲",
+    "english_name": "Goblet Squat",
+    "category": "腿部",
+    "level": "新手",
+    "target_muscles": [
+      "股四头肌",
+      "臀部",
+      "核心"
+    ],
+    "teaching_url": "https://www.bilibili.com/video/BV1964y1V7Q6/",
+    "cues": [
+      "躯干保持稳定",
+      "膝盖方向跟脚尖一致",
+      "底部控制住，不要塌腰"
+    ],
+    "substitutions": [
+      "腿举",
+      "徒手深蹲",
+      "箱式深蹲"
+    ]
+  },
+  {
+    "name": "杠铃卧推",
+    "english_name": "Barbell Bench Press",
+    "category": "推",
+    "level": "有经验",
+    "target_muscles": [
+      "胸部",
+      "肱三头肌",
+      "前三角"
+    ],
+    "teaching_url": "https://www.bilibili.com/video/BV1ZHzMBmEtj/",
+    "cues": [
+      "肩胛后收下沉",
+      "手腕保持堆叠",
+      "触胸点保持一致"
+    ],
+    "substitutions": [
+      "哑铃卧推",
+      "器械推胸",
+      "俯卧撑"
+    ]
+  },
+  {
+    "name": "高位下拉",
+    "english_name": "Lat Pulldown",
+    "category": "拉",
+    "level": "新手",
+    "target_muscles": [
+      "背阔肌",
+      "上背",
+      "肱二头肌"
+    ],
+    "teaching_url": "https://www.bilibili.com/video/BV13TZRBJEat/",
+    "cues": [
+      "想象用肘部向下拉",
+      "避免耸肩",
+      "回放时保持控制"
+    ],
+    "substitutions": [
+      "辅助引体向上",
+      "坐姿绳索划船"
+    ]
+  },
+  {
+    "name": "罗马尼亚硬拉",
+    "english_name": "Romanian Deadlift",
+    "category": "髋铰链",
+    "level": "进阶",
+    "target_muscles": [
+      "腘绳肌",
+      "臀部",
+      "下背稳定"
+    ],
+    "teaching_url": "https://www.bilibili.com/video/BV1qF6wBaEWu/",
+    "cues": [
+      "髋关节向后折叠",
+      "杠铃或哑铃贴近身体",
+      "感受大腿后侧拉伸"
+    ],
+    "substitutions": [
+      "臀推",
+      "绳索髋铰链",
+      "腿弯举"
+    ]
+  },
+  {
+    "name": "哑铃推肩",
+    "english_name": "Dumbbell Shoulder Press",
+    "category": "推",
+    "level": "进阶",
+    "target_muscles": [
+      "肩部",
+      "肱三头肌"
+    ],
+    "teaching_url": "https://www.bilibili.com/video/BV1uw411N7MC/",
+    "cues": [
+      "核心收紧",
+      "平稳推起",
+      "不要明显后仰借力"
+    ],
+    "substitutions": [
+      "器械推肩",
+      "地雷管推举",
+      "侧平举"
+    ]
+  },
+  {
+    "name": "腿举",
+    "english_name": "Leg Press",
+    "category": "腿部",
+    "level": "新手",
+    "target_muscles": [
+      "股四头肌",
+      "臀部"
+    ],
+    "teaching_url": "https://www.bilibili.com/video/BV1bV4y1H7N1/",
+    "cues": [
+      "控制下放深度",
+      "不要猛烈锁死膝盖",
+      "臀部不要卷起"
+    ],
+    "substitutions": [
+      "高脚杯深蹲",
+      "哈克深蹲",
+      "徒手深蹲"
+    ]
+  }
+]

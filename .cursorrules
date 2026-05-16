@@ -1,0 +1,30 @@
+# Cursor Rules for GymPath
+
+## Project Context
+
+**App:** GymPath  
+**Stack:** Python, Streamlit, SQLite, pytest, pandas, python-dotenv, OpenAI-compatible AI API  
+**Stage:** MVP development  
+**User level:** Vibe-coder
+
+## Directives
+
+1. Always read `AGENTS.md` first.
+2. Read `MEMORY.md` before starting work.
+3. Use `agent_docs/` for product requirements, tech stack, code patterns, and testing.
+4. Keep core logic in `project.py`.
+5. Keep Streamlit UI in `app.py`.
+6. Build one small feature at a time.
+7. Run `python -m pytest` after core logic changes.
+8. Do not add frontend frameworks or new architecture without approval.
+9. Do not hardcode API keys.
+10. Do not make medical diagnosis claims.
+
+## Commands
+
+```bash
+python -m pip install -r requirements.txt
+python -m pytest
+streamlit run app.py
+```
+

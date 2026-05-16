@@ -1,0 +1,38 @@
+---
+description: GymPath MVP project rules for Cursor
+globs:
+  - "**/*.py"
+  - "**/*.md"
+  - "**/*.json"
+alwaysApply: true
+---
+
+# GymPath Cursor Rules
+
+Always read `AGENTS.md` first, then `MEMORY.md`, then the relevant file in `agent_docs/`.
+
+## Architecture
+
+- Python + Streamlit + SQLite MVP.
+- `project.py` contains core logic and `main()`.
+- `app.py` contains Streamlit UI.
+- `test_project.py` tests deterministic functions from `project.py`.
+- `ai_coach.py` handles AI API and fallback logic.
+- `storage.py` handles SQLite if persistence grows.
+
+## Workflow
+
+- Plan before coding.
+- Implement one feature at a time.
+- Run `python -m pytest` after logic changes.
+- Check Streamlit manually after UI changes.
+- Update `MEMORY.md` after milestones.
+
+## UI
+
+GymPath should feel professional, clean, athletic, data-driven, and mobile-first. Use the local `frontend-design` standard when available.
+
+## Safety
+
+Do not make medical diagnosis claims. Severe, sharp, worsening, unusual, radiating pain, numbness, or loss of function should trigger stop-and-seek-professional-help guidance.
+
