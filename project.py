@@ -3200,6 +3200,7 @@ AI_FITNESS_SYSTEM_PROMPT = """
 4. 不要承诺局部减脂、快速暴瘦、无风险突破极限等不科学内容。
 5. 根据用户水平区分建议：新手要安全启动，重启者要降低门槛，老手要给进阶变量。
 6. 尽量把回答落到动作替代、组数次数、饮食宏量营养素、热身、恢复或下一步记录。
+7. 网页对话默认回答控制在 500 个中文字符以内，避免长篇理论；用户追问时再展开。
 """.strip()
 
 
@@ -3219,6 +3220,8 @@ def get_ai_fitness_reply(
     key = api_key or os.environ.get("DEEPSEEK_API_KEY")
     selected_base_url = base_url or os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     selected_model = model or os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro")
+    reasoning_effort = os.environ.get("DEEPSEEK_REASONING_EFFORT", "").strip()
+    max_tokens = int(os.environ.get("DEEPSEEK_MAX_TOKENS", "350"))
     profile_context = _ai_profile_context(profile or {})
     llm_messages = [
         {"role": "system", "content": AI_FITNESS_SYSTEM_PROMPT},
@@ -3238,14 +3241,17 @@ def get_ai_fitness_reply(
     try:
         from openai import OpenAI
 
-        client = OpenAI(api_key=key, base_url=selected_base_url)
-        response = client.chat.completions.create(
-            model=selected_model,
-            messages=llm_messages,
-            stream=False,
-            reasoning_effort="high",
-            extra_body={"thinking": {"type": "enabled"}},
-        )
+        client = OpenAI(api_key=key, base_url=selected_base_url, timeout=25.0)
+        request_kwargs: dict[str, Any] = {
+            "model": selected_model,
+            "messages": llm_messages,
+            "stream": False,
+            "max_tokens": max_tokens,
+        }
+        if reasoning_effort:
+            request_kwargs["reasoning_effort"] = reasoning_effort
+            request_kwargs["extra_body"] = {"thinking": {"type": "enabled"}}
+        response = client.chat.completions.create(**request_kwargs)
         content = response.choices[0].message.content or ""
         return {
             "reply": content.strip() or _local_fitness_reply(cleaned_messages[-1]["content"], profile or {}),
@@ -3253,7 +3259,7 @@ def get_ai_fitness_reply(
             "model": selected_model,
             "used_api": True,
         }
-    except TypeError:
+    except (TypeError, ValueError):
         return _retry_ai_without_reasoning(key, selected_base_url, selected_model, llm_messages, cleaned_messages, profile or {})
     except Exception as error:
         return {
@@ -3276,11 +3282,12 @@ def _retry_ai_without_reasoning(
     from openai import OpenAI
 
     try:
-        client = OpenAI(api_key=key, base_url=base_url)
+        client = OpenAI(api_key=key, base_url=base_url, timeout=25.0)
         response = client.chat.completions.create(
             model=model,
             messages=llm_messages,
             stream=False,
+            max_tokens=int(os.environ.get("DEEPSEEK_MAX_TOKENS", "350")),
         )
         content = response.choices[0].message.content or ""
         return {
