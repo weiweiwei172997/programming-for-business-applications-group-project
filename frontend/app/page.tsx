@@ -626,12 +626,6 @@ export default function Home() {
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [communityError, setCommunityError] = useState("");
 
-  const readiness = useMemo(() => {
-    const timeScore = Math.min(profile.minutes_per_session / 75, 1) * 55;
-    const levelScore = profile.level === "experienced" ? 45 : profile.level === "restarting" ? 38 : 30;
-    return Math.round(timeScore + levelScore);
-  }, [profile.level, profile.minutes_per_session]);
-
   useEffect(() => {
     void generatePlan();
     void analyzeProgress();
@@ -1039,17 +1033,6 @@ export default function Home() {
               GymPath 把水平、目标、训练天数、热身、动作教学、饮食、疼痛替换和练后反馈压进一个清晰流程。
             </p>
           </div>
-          <section className="score-card" aria-label="训练准备度">
-            <span>READINESS</span>
-            <strong>{readiness}</strong>
-            <progress value={readiness} max="100" />
-            <p>
-              {labelOf(LEVELS, profile.level)} / {labelOf(GOALS, profile.goal)} / 单次 {profile.minutes_per_session} 分钟
-            </p>
-            <p className="readiness-help">
-              训练方案准备度：单次时长最高55分 + 水平基础分。当前约等于 {readinessFormula(profile)}。
-            </p>
-          </section>
         </header>
 
         {showSetup ? (
@@ -2358,12 +2341,6 @@ function Empty({ title, text }: { title: string; text: string }) {
 
 function labelOf<T extends string>(options: { value: T; label: string }[], value: T) {
   return options.find((item) => item.value === value)?.label ?? value;
-}
-
-function readinessFormula(profile: Profile) {
-  const timeScore = Math.min(profile.minutes_per_session / 75, 1) * 55;
-  const levelScore = profile.level === "experienced" ? 45 : profile.level === "restarting" ? 38 : 30;
-  return `${Math.round(timeScore)} + ${levelScore}`;
 }
 
 function tx(map: Record<string, string>, value: string) {
