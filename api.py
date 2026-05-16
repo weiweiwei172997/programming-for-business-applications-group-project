@@ -38,12 +38,17 @@ from project import (
 )
 from storage import (
     add_comment,
+    add_checkin,
+    create_workout_feedback,
     create_post,
     get_user_by_token,
     init_storage,
+    list_checkins,
+    list_measurements,
     list_posts,
     login_user,
     register_user,
+    replace_measurements,
     toggle_like,
 )
 
@@ -120,6 +125,10 @@ class MealTotalsRequest(BaseModel):
 class CheckinRewardRequest(BaseModel):
     checkin_dates: list[str]
     today: str | None = None
+
+
+class CheckinCreateRequest(BaseModel):
+    date: str
 
 
 class AiChatMessage(BaseModel):
@@ -246,11 +255,27 @@ def checkin_reward(request: CheckinRewardRequest) -> dict[str, Any]:
     return get_checkin_reward_status(request.checkin_dates, today=request.today)
 
 
+@app.get("/api/checkins")
+def user_checkins(user: dict[str, Any] = Depends(current_user)) -> dict[str, Any]:
+    return {"checkin_dates": list_checkins(user["id"])}
+
+
+@app.post("/api/checkins")
+def user_add_checkin(request: CheckinCreateRequest, user: dict[str, Any] = Depends(current_user)) -> dict[str, Any]:
+    try:
+        return {"checkin_dates": add_checkin(user["id"], request.date)}
+    except ValueError as error:
+        raise _bad_request(error) from error
+
+
 @app.post("/api/ai-chat")
-def ai_chat(request: AiChatRequest) -> dict[str, Any]:
+def ai_chat(request: AiChatRequest, user: dict[str, Any] | None = Depends(optional_user)) -> dict[str, Any]:
+    profile = dict(request.profile or {})
+    if user:
+        profile["account_username"] = user["username"]
     return get_ai_fitness_reply(
         [message.model_dump() for message in request.messages],
-        profile=request.profile,
+        profile=profile or None,
     )
 
 
@@ -327,21 +352,35 @@ def pain_guidance(request: PainRequest) -> dict[str, Any]:
 
 
 @app.post("/api/feedback")
-def feedback(request: FeedbackRequest) -> dict[str, Any]:
-    return adjust_plan_after_feedback(
+def feedback(request: FeedbackRequest, user: dict[str, Any] | None = Depends(optional_user)) -> dict[str, Any]:
+    feedback_payload = {
+        "completed": request.completed,
+        "fatigue_level": request.fatigue_level,
+        "duration_min": request.duration_min,
+        "pain_level": request.pain_level,
+    }
+    adjustment = adjust_plan_after_feedback(
         request.plan,
-        {
-            "completed": request.completed,
-            "fatigue_level": request.fatigue_level,
-            "duration_min": request.duration_min,
-            "pain_level": request.pain_level,
-        },
+        feedback_payload,
     )
+    if user:
+        adjustment["saved_feedback"] = create_workout_feedback(user["id"], feedback_payload, adjustment)
+    return adjustment
 
 
 @app.post("/api/progress")
 def progress(request: ProgressRequest) -> dict[str, Any]:
     return summarize_progress_trend([entry.model_dump() for entry in request.measurements])
+
+
+@app.get("/api/progress/measurements")
+def user_measurements(user: dict[str, Any] = Depends(current_user)) -> dict[str, Any]:
+    return {"measurements": list_measurements(user["id"])}
+
+
+@app.put("/api/progress/measurements")
+def user_replace_measurements(request: ProgressRequest, user: dict[str, Any] = Depends(current_user)) -> dict[str, Any]:
+    return {"measurements": replace_measurements(user["id"], [entry.model_dump() for entry in request.measurements])}
 
 
 @app.get("/api/knowledge/{topic}")

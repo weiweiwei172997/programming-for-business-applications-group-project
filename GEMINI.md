@@ -3,7 +3,7 @@
 ## Project Context
 
 **App:** GymPath  
-**Stack:** Python, Streamlit, SQLite, pytest, pandas, python-dotenv, OpenAI-compatible AI API  
+**Stack:** Python core, FastAPI, React/Next, SQLite, pytest, TypeScript, DeepSeek/OpenAI-compatible AI API  
 **Stage:** MVP development  
 **User level:** Vibe-coder. The user relies heavily on AI coding.
 
@@ -12,23 +12,25 @@
 1. Read `AGENTS.md` first.
 2. Read `MEMORY.md` for active state.
 3. Use `agent_docs/` for detailed implementation guidance.
-4. Propose a short plan before coding.
+4. Propose a short plan before multi-file coding.
 5. Implement one feature at a time.
-6. Keep core logic in `project.py` and UI in `app.py`.
-7. Run `python -m pytest` after changing core logic.
-8. Do not hardcode API keys.
-9. Do not make medical diagnosis claims.
-10. Keep Streamlit UI mobile-first and professional.
+6. Keep core logic in `project.py`.
+7. Keep API routes in `api.py`, persistence in `storage.py`, and primary UI in `frontend/`.
+8. Run `python -m pytest` after changing core logic.
+9. Run `npm run typecheck` and `npm run build` after frontend changes.
+10. Do not hardcode API keys.
+11. Do not make medical diagnosis claims.
 
 ## Commands
 
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest
-streamlit run app.py
+cd frontend
+npm run typecheck
+npm run build
 ```
 
 ## Start Prompt
 
-Read `GEMINI.md`, `AGENTS.md`, and `MEMORY.md`, then implement Phase 1 of GymPath step by step.
-
+Read `GEMINI.md`, `AGENTS.md`, and `MEMORY.md`, then continue GymPath step by step.

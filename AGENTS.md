@@ -1,273 +1,168 @@
-# AGENTS.md - GymPath AI Agent Master Plan
-
-This is the universal instruction file for all AI coding assistants working on GymPath.
-Read this file first, then open the specific files in `agent_docs/` only when needed.
+# AGENTS.md — GymPath AI Build Instructions
 
 ## Project Snapshot
 
 **Product:** GymPath  
-**One-line description:** A mobile-first Python fitness web app that helps users reduce fitness decision fatigue by generating adaptive training plans, warm-up guidance, nutrition advice, progress feedback, community interaction, and AI-powered beginner education.  
-**Stage:** MVP development  
-**User technical level:** Vibe-coder. The user knows a little Python and MySQL, and will rely heavily on AI coding.  
-**Primary stack:** Python, Streamlit, SQLite, pytest, pandas, python-dotenv, OpenAI-compatible AI API client.  
-**Project root:** `group project/`
-
-## Source of Truth
-
-Use these documents in order:
-
-1. `AGENTS.md` - current phase, core rules, and workflow.
-2. `MEMORY.md` - active state and decisions.
-3. `agent_docs/project_brief.md` - persistent project conventions.
-4. `agent_docs/product_requirements.md` - exact MVP features and user stories.
-5. `agent_docs/tech_stack.md` - stack, commands, architecture, and setup.
-6. `agent_docs/code_patterns.md` - implementation patterns.
-7. `agent_docs/testing.md` - verification rules.
-8. `docs/PRD-GymPath-MVP.md` - full PRD.
-9. `docs/TechDesign-GymPath-MVP.md` - full technical design.
-10. `docs/research-GymPath.md` - research context.
-
-## Active Phase And Goal
-
-**Phase 1: Build the working MVP foundation.**
-
-Goal: create a usable app skeleton where a user can complete:
-
-`assessment -> generated plan -> warm-up -> exercise teaching -> workout feedback -> light adjustment -> progress view`
-
-Phase 1 must also satisfy the course requirements:
-
-- `project.py`
-- `main()` inside `project.py`
-- at least three custom top-level functions in `project.py`
-- `test_project.py`
-- pytest tests for at least three functions
-- `requirements.txt`
-- README
-- AI prompt evolution log
-
-## MVP Feature List
-
-Build these features for v1:
-
-1. User assessment
-2. Adaptive training plan engine
-3. Warm-up and activation guidance
-4. Pain-aware exercise guidance
-5. Exercise library with teaching links
-6. Nutrition guidance
-7. Progress tracking and charts
-8. Community feed with nickname mode
-9. AI coach with fallback guidance
-10. Knowledge center for beginner myth-busting
-
-Do not build these in the MVP unless the user explicitly asks after the core loop works:
-
-- real account login
-- payment or VIP subscription
-- cloud sync
-- WeChat Mini Program front end
-- medical diagnosis
-- massive exercise database
-- wearable integration
-
-## Architecture Rules
-
-### Required File Boundaries
-
-- `project.py` contains core business logic and `main()`.
-- `test_project.py` tests deterministic functions from `project.py`.
-- `app.py` contains Streamlit UI and imports logic from `project.py`.
-- `ai_coach.py` contains AI API calls and fallback response logic.
-- `storage.py` contains SQLite setup and save/load helpers if storage logic grows.
-- `data/` contains static exercise and knowledge data.
-- `docs/` contains assignment/report/prompt-log materials.
-
-### Core Principle
-
-Do not trap important logic inside Streamlit button callbacks. Put reusable logic in `project.py` so it can be tested with pytest and reused later if the app migrates to FastAPI, Flask, MySQL, or WeChat Mini Program.
+**Purpose:** Help users reduce fitness decision fatigue with training plans, warm-ups, exercise teaching links, nutrition guidance, pain-aware substitutions, progress tracking, community, and AI coaching.  
+**Stage:** MVP for EBIS3033 Programming for Business Applications  
+**User level:** Vibe-coder / beginner relying heavily on AI  
+**Primary stack:** Python core, FastAPI, React/Next, SQLite, pytest, TypeScript, OpenAI-compatible DeepSeek API  
+**Fallback prototype:** `app.py` Streamlit demo only; do not treat Streamlit as the primary UI.
 
 ## How I Should Think
 
-1. **Understand Intent First:** Before answering, identify what the user actually needs.
-2. **Ask If Unsure:** If critical information is missing, ask one specific question before proceeding.
-3. **Plan Before Coding:** Propose a brief plan and ask for approval before coding unless the user has clearly asked for direct implementation.
-4. **Verify After Changes:** Run tests or manual checks after each meaningful change.
-5. **Explain Trade-offs:** When recommending something, mention reasonable alternatives and why they were not chosen.
+1. **Understand intent first:** identify what the user actually wants before editing.
+2. **Ask if critical information is missing:** one concise question only when necessary.
+3. **Plan before coding:** for multi-file changes, outline the approach before implementation.
+4. **Implement incrementally:** one feature slice at a time.
+5. **Verify after changes:** run Python tests, TypeScript checks, builds, or manual UI checks as appropriate.
+6. **Explain trade-offs:** especially around local hosting, SQLite, AI API cost, and safety.
 
-## Plan -> Execute -> Verify
+## Current Product Requirements
 
-### Plan
+MVP must support:
 
-- Read `AGENTS.md`, `MEMORY.md`, and the relevant `agent_docs/` file.
-- Restate the feature being implemented.
-- List the files that will change.
-- Keep the plan short and beginner-friendly.
+1. Local registration/login with username/password.
+2. Guest preview mode for browsing.
+3. Training profile with level, goal, plan type, body data, activity level, and session time.
+4. Beginner four-day split, restarting plans, advanced splits, health/home plans, strength plans, and muscle-gain plan variants.
+5. Warm-up and activation guidance before each workout.
+6. Exercise cards with Bilibili/Douyin teaching links where available.
+7. Nutrition targets, fat-loss plans, muscle-gain/strength nutrition rules, and meal logging.
+8. Pain-aware anatomy map, joint selection, replacement actions, rehab suggestions, and video links.
+9. Workout feedback, check-in reward loop, and seven-day supplement lottery mechanism.
+10. Saved measurements with weight, waist, and body-fat trend lines.
+11. Community posts, likes, and comments.
+12. AI coach Q&A with DeepSeek-compatible API and local fallback.
 
-### Execute
+## Architecture Rules
 
-- Implement one feature or one small slice at a time.
-- Keep changes focused.
-- Prefer standard Python and built-in libraries unless `agent_docs/tech_stack.md` says otherwise.
-- Use `apply_patch` or normal file editing. Do not rewrite unrelated files.
+- Keep deterministic business logic in `project.py`.
+- Keep API routing and request validation in `api.py`.
+- Keep persistence in `storage.py`.
+- Keep primary UI in `frontend/app/page.tsx` and shared fetch helpers in `frontend/lib/api.ts`.
+- Keep `test_project.py` focused on Python core logic.
+- Do not move course-required functions out of `project.py`.
+- Do not put important business logic only inside React event handlers.
+- Do not use `.env` values in committed docs or code.
 
-### Verify
+## File Map
 
-- Run `python -m pytest` after changing `project.py` or tests.
-- Run `streamlit run app.py` for UI testing when a visible app exists.
-- Manually check the end-to-end core flow.
-- If verification fails, fix the issue before moving on.
-
-## UI And Front-End Skill Workflow
-
-The UI must be generated and refined using the user's local skill workflow when available.
-
-Use these standards:
-
-- `frontend-design`: create a distinctive, polished, app-like interface. Avoid generic notebook-looking Streamlit UI.
-- `plan-eng-review`: check architecture, data flow, tests, and edge cases before large implementation.
-- `plan-design-review`: review mobile layout, screen hierarchy, visual consistency, and usability before UI-heavy implementation.
-- `brainstorming`: use before major new features or behavior changes.
-
-GymPath design direction:
-
-- professional
-- clean
-- athletic
-- data-driven
-- credible
-- beginner-friendly without feeling childish
-
-Implementation target:
-
-- Streamlit app should feel like a mobile-first fitness app.
-- Use cards, clear spacing, concise labels, and one confident accent color.
-- Do not use placeholder content such as "Lorem ipsum".
-- Do not add decorative clutter that makes the app harder to scan.
-
-## Safety And Fitness Guidance Rules
-
-- GymPath is not a medical product.
-- Do not diagnose injuries, diseases, or medical conditions.
-- Pain guidance must be educational and cautious.
-- Severe, sharp, worsening, unusual, radiating pain, numbness, or loss of function should trigger a stop-and-seek-professional-help message.
-- BMI is only a basic reference. For experienced lifters, do not treat BMI as a strong judgment metric.
-- AI coach should focus on fitness education, beginner myth-busting, training plan explanation, and nutrition basics.
-
-## AI Coach Rules
-
-Use hybrid AI:
-
-- Call the user's AI API for open-ended coaching when API credentials exist.
-- Fall back to local rules for common beginner questions and API failures.
-- Do not hardcode API keys.
-- Use environment variables: `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL`.
-
-Only send limited context to the API:
-
-- training level
-- goal
-- current plan summary
-- recent feedback
-- pain location/type/level
-- user question
-
-Do not send:
-
-- real name
-- phone number
-- payment data
-- sensitive medical diagnosis history
+```text
+group project/
+  project.py                  # Python core and course-required main()
+  api.py                      # FastAPI wrapper around Python logic
+  storage.py                  # SQLite accounts, sessions, community, check-ins, measurements, feedback
+  test_project.py             # pytest coverage for deterministic functions
+  requirements.txt
+  app.py                      # Streamlit fallback only
+  frontend/
+    app/page.tsx              # Primary React/Next UI
+    app/globals.css
+    lib/api.ts
+    next.config.mjs           # /api proxy to FastAPI
+    package.json
+  scripts/
+    start_gympath.ps1
+    start_public_tunnel.ps1
+  docs/
+    PRD-GymPath-MVP.md
+    TechDesign-GymPath-MVP.md
+    research-GymPath.md
+```
 
 ## Commands
 
-Install dependencies:
+Python:
 
 ```bash
 python -m pip install -r requirements.txt
-```
-
-Run tests:
-
-```bash
 python -m pytest
+python -m py_compile project.py api.py storage.py test_project.py
+python -m uvicorn api:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Run the app:
+Frontend:
 
 ```bash
-streamlit run app.py
+cd frontend
+npm install
+npm run typecheck
+npm run build
+npm run dev:lan
 ```
 
-Optional final dependency snapshot:
+Full local/LAN start:
 
-```bash
-python -m pip freeze
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start_gympath.ps1
 ```
+
+Temporary public tunnel:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start_public_tunnel.ps1
+```
+
+## Environment Variables
+
+Use `.env` locally and never commit it.
+
+```text
+DEEPSEEK_API_KEY=your_key
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_MODEL=deepseek-v4-pro
+GYMPATH_DB_PATH=optional_custom_sqlite_path
+```
+
+## Persistence Rules
+
+- SQLite database is created at `data/gympath_app.db`.
+- Logged-in users should get persistent account, community, check-in, feedback, and measurement data.
+- Guest mode may use local page state only.
+- Any new user-owned feature should include a storage function, API route, and frontend integration.
+
+## AI Coach Rules
+
+- Send only necessary fitness context: level, goal, current plan summary, latest feedback, latest pain check, and recent progress entries.
+- Never send passwords, raw session tokens, or API keys.
+- AI answers are fitness education, not medical diagnosis.
+- Severe, sharp, worsening, radiating pain, numbness, or loss of function should trigger stop-and-seek-professional-help language.
+- If the API fails, preserve local fallback guidance.
+
+## UI Rules
+
+- Primary UI uses React/Next, native HTML controls, and black/white/gray styling.
+- Keep mobile-first behavior working.
+- Avoid placeholder text, generic AI copy, and unpolished default layouts.
+- Do not reintroduce colored palettes unless the user explicitly asks.
+- Exercise cards should focus on exercise name, sets/reps/rest, teaching link, and useful plan context.
 
 ## What NOT To Do
 
 - Do NOT delete files without explicit confirmation.
-- Do NOT move the project away from Python/Streamlit for the MVP.
-- Do NOT add React, Next.js, Django, or WeChat Mini Program code unless the user explicitly approves an architecture change.
-- Do NOT modify database schemas without a migration or backup plan.
-- Do NOT add features outside the current phase.
-- Do NOT skip tests for "simple" changes.
-- Do NOT bypass failing tests.
+- Do NOT commit `.env`, SQLite databases, logs, releases, or `node_modules`.
 - Do NOT hardcode API keys.
-- Do NOT make medical claims or diagnosis claims.
-- Do NOT use deprecated libraries or unexplained large dependencies.
+- Do NOT add payment, VIP, or medical diagnosis claims in the MVP.
+- Do NOT replace the FastAPI + React primary app with Streamlit.
+- Do NOT skip tests or type checks after code changes.
+- Do NOT bypass failing checks without telling the user.
 
-## Engineering Constraints
+## Current Phase
 
-- Use type hints for new core Python functions when reasonable.
-- Keep function inputs and outputs deterministic in `project.py` where possible.
-- Validate user inputs before calculation.
-- Keep business logic out of Streamlit UI callbacks.
-- Prefer small functions with clear names.
-- Prefer dictionaries/lists/dataclasses over unclear positional tuples for complex data.
-- New dependencies require a reason and must be added to `requirements.txt`.
-- If a file grows too large, propose a split before making it worse.
+Phase 1 is now beyond the initial prototype. The priority is:
 
-## Checkpoints
+1. Keep docs aligned with the real FastAPI + React architecture.
+2. Make logged-in user data persistent.
+3. Keep AI coach context-aware and safe.
+4. Preserve course requirements in `project.py`, `test_project.py`, `requirements.txt`, README, report, and prompt log.
 
-Create a checkpoint after each milestone:
+## Definition of Done
 
-1. Core functions and pytest tests pass.
-2. Streamlit shell runs.
-3. Assessment and plan generation work.
-4. Feedback and adjustment loop works.
-5. Progress chart works.
-6. Community works.
-7. AI coach works with fallback.
-8. README and report support docs are ready.
+A change is done when:
 
-## First Build Sequence
-
-1. Create `requirements.txt`.
-2. Create `project.py` with core functions and `main()`.
-3. Create `test_project.py` and pass pytest.
-4. Create static data files in `data/`.
-5. Create `app.py` Streamlit shell.
-6. Add assessment and plan generation.
-7. Add warm-up, exercise links, and nutrition.
-8. Add feedback, pain guidance, and adaptive adjustment.
-9. Add measurements and charts.
-10. Add community nickname feed.
-11. Add AI coach with fallback.
-12. Polish UI using the `frontend-design` standard.
-13. Write README and prompt log.
-
-## Definition Of Done
-
-The MVP is done when:
-
-- `python -m pytest` passes.
-- `streamlit run app.py` launches successfully.
-- A user can complete assessment -> plan -> warm-up -> workout feedback -> adjustment -> chart view.
-- Community supports nickname post, comment, and like.
-- AI coach answers common beginner questions or falls back gracefully.
-- The UI works on mobile-sized screens.
-- `README.md` explains install, test, and run steps.
-- `docs/ai_prompt_log.md` exists and records the AI development process.
-
+- The feature works for the intended user flow.
+- Python core logic remains testable.
+- `python -m pytest` passes for core changes.
+- `npm run typecheck` and `npm run build` pass for frontend changes.
+- README or docs are updated if commands, architecture, or user-visible behavior changed.

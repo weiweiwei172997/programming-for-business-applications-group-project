@@ -15,22 +15,22 @@
 
 ## 3. System Design
 
-- Stack: Python, Streamlit, SQLite, pytest
-- Architecture: `app.py` UI, `project.py` core logic, optional `storage.py`, optional `ai_coach.py`
-- Data flow: assessment -> plan -> warm-up -> feedback -> adjustment -> chart
+- Stack: Python core, FastAPI, React/Next, SQLite, pytest, TypeScript
+- Architecture: `frontend/` UI, `api.py` FastAPI layer, `project.py` core logic, `storage.py` SQLite persistence
+- Data flow: account/guest entry -> assessment -> plan -> warm-up -> feedback/check-in -> persistence -> chart/community/AI
 
 ## 4. Implementation
 
 - Core functions in `project.py`
-- Streamlit screens
+- React/Next screens
 - SQLite persistence
-- AI coach fallback
-- Community nickname mode
+- AI coach with DeepSeek-compatible API and fallback
+- Local registration/login and community interaction
 
 ## 5. Testing
 
 - pytest unit tests
-- Manual Streamlit flow checks
+- Manual FastAPI/React flow checks
 - AI fallback checks
 - Mobile layout checks
 
@@ -43,15 +43,14 @@
 
 ## 7. Limitations And Future Work
 
-- No real login in MVP
+- Local accounts are not cloud-hosted production accounts
 - No payment system
-- No cloud sync
+- No cloud sync across different servers/devices
 - No WeChat Mini Program front end yet
-- Future MySQL/FastAPI/WeChat architecture
+- Future MySQL/PostgreSQL hosting and WeChat Mini Program architecture
 
 ## 8. Conclusion
 
 - Summary of business value
 - Summary of technical learning
 - Why GymPath is a useful MVP foundation
-

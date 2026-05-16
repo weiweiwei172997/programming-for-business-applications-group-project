@@ -20,7 +20,7 @@ The older Streamlit prototype in `app.py` is kept as a Python-only fallback.
 - Protein and calorie guidance
 - Pain-aware feedback guidance
 - Light plan adjustment after workout feedback
-- Progress measurement chart
+- Account-based check-ins, workout feedback, and progress measurement charts
 - Account registration and login
 - Community posts, likes, and comments
 - Beginner fitness knowledge cards
@@ -30,12 +30,12 @@ The older Streamlit prototype in `app.py` is kept as a Python-only fallback.
 - Python
 - FastAPI
 - React / Next
-- SQLite local persistence for accounts and community data
+- SQLite local persistence for accounts, community data, check-ins, workout feedback, and measurements
 - Streamlit fallback prototype
 - pandas
 - pytest
 - python-dotenv
-- OpenAI-compatible API client for future AI coach integration
+- OpenAI-compatible DeepSeek API client with local fallback answers
 
 ## Project Structure
 
@@ -57,7 +57,7 @@ group project/
       api.ts
     package.json
   data/
-    gympath_app.db
+    gympath_app.db        # created locally at runtime
     exercises.json
     knowledge_cards.json
   docs/
@@ -139,13 +139,13 @@ https://example.trycloudflare.com
 
 Share that URL with testers. Keep this computer awake and keep the GymPath services running while others use it.
 
-Community and account data are stored locally in:
+Community, account, check-in, workout feedback, and measurement data are stored locally in:
 
 ```text
 data/gympath_app.db
 ```
 
-Run the Streamlit fallback prototype:
+Run the Streamlit fallback prototype only if you need the older Python-only demo:
 
 ```bash
 streamlit run app.py

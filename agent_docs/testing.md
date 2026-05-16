@@ -1,121 +1,83 @@
 # Testing Strategy
 
-## Test Framework
+## Automated Checks
 
-Use `pytest`.
-
-Run all tests:
+Python core tests:
 
 ```bash
 python -m pytest
 ```
 
-For the React/Next frontend:
+Python syntax check:
+
+```bash
+python -m py_compile project.py api.py storage.py test_project.py
+```
+
+Frontend type check:
 
 ```bash
 cd frontend
 npm run typecheck
-npm run build
-npm audit --audit-level=moderate
 ```
 
-## Unit Tests
+Frontend production build:
 
-Unit tests should focus on deterministic functions in `project.py`.
+```bash
+cd frontend
+npm run build
+```
 
-Minimum test targets:
+## Current Test Focus
 
-- `calculate_bmi`
-- `recommend_training_split`
-- `generate_workout_plan`
-- `assess_pain_response`
-- `adjust_plan_after_feedback`
-- `calculate_checkin_streak`
+`test_project.py` should cover deterministic Python logic in `project.py`, including:
 
-## Recommended Test Cases
+- BMI and nutrition calculation
+- training split recommendation
+- workout plan generation
+- pain response stop/modify/continue logic
+- plan adjustment after fatigue/pain/time feedback
+- check-in streak and reward logic
+- progress trend summary
 
-| Test | What It Checks |
-|---|---|
-| `test_calculate_bmi_valid_input` | BMI result is rounded and reasonable |
-| `test_calculate_bmi_rejects_invalid_height` | Invalid height raises `ValueError` |
-| `test_recommend_training_split_beginner` | Beginner gets full-body training |
-| `test_recommend_training_split_advanced` | Experienced user gets split training |
-| `test_generate_workout_plan_has_required_fields` | Plan includes schedule, warm-up, exercises, sets, reps, rest, notes |
-| `test_assess_pain_response_stop_rule` | Severe or sharp pain returns stop recommendation |
-| `test_assess_pain_response_modify_rule` | Moderate pain returns modify/replace recommendation |
-| `test_adjust_plan_after_feedback_too_tired` | High fatigue reduces volume |
-| `test_adjust_plan_after_feedback_too_long` | Long sessions trigger time-reduction advice |
-| `test_calculate_checkin_streak` | Streak calculation works from date strings |
+## Manual End-to-End Checks
 
-## Manual Checks
+Run after meaningful UI/API/storage changes:
 
-After UI work, manually test:
+1. Start GymPath with `scripts/start_gympath.ps1`.
+2. Open `http://localhost:3000`.
+3. Register a new account.
+4. Generate a plan.
+5. Submit workout feedback and confirm check-in updates.
+6. Save measurement records, refresh, log back in, and confirm records persist.
+7. Create a post, like it, and comment.
+8. Ask the AI coach a fitness question.
+9. Test guest preview still opens the app.
+10. Test phone-width layout.
 
-1. Run API with `python -m uvicorn api:app --reload --port 8000`.
-2. Run frontend with `cd frontend && npm run dev`.
-3. Open `http://localhost:3000`.
-4. Enter profile data.
-5. Generate a plan.
-6. View warm-up and activation guidance.
-7. View exercise teaching links.
-8. Submit workout feedback.
-9. Trigger pain-aware guidance.
-10. Trigger plan adjustment.
-11. Add measurements.
-12. See progress trend.
-13. Check the knowledge cards.
+## Persistence Checks
 
-Fallback Streamlit check:
+For logged-in users:
 
-1. Open app with `streamlit run app.py`.
-2. Confirm the Python-only prototype still loads.
+- Community actions should save in SQLite.
+- Check-ins should save in SQLite.
+- Measurements should save in SQLite.
+- Workout feedback should save in SQLite.
 
-## UI Verification
+For guest mode:
 
-Check:
+- Data can remain in page state.
+- Community write actions should require login.
 
-- mobile-sized screen readability
-- no text overflow
-- clear primary action on each screen
-- no placeholder text
-- consistent cards, spacing, and buttons
-- professional, clean, athletic, data-driven feel
-- primary React UI uses only black, white, and gray
-- native controls are usable on mobile
+## Pre-Commit Expectations
 
-## AI Verification
-
-Check:
-
-- API key is loaded from environment variables or Streamlit secrets.
-- No API key is committed.
-- API failure does not crash the app.
-- AI coach refuses medical diagnosis framing.
-- Severe pain advice remains cautious.
-
-## Pre-Commit Hooks
-
-No hooks are required yet. If hooks are added later, they should run:
+Before committing:
 
 ```bash
 python -m pytest
-cd frontend && npm run typecheck
+cd frontend
+npm run typecheck
+npm run build
 ```
 
-Optional future checks:
-
-- `ruff check .`
-- `ruff format .`
-
-Do not add these tools unless they are added to `requirements.txt` and the user approves.
-
-## Verification Loop
-
-After each feature:
-
-1. Run relevant unit tests.
-2. Run the full pytest suite.
-3. Run frontend typecheck/build if React UI changed.
-4. Open React frontend if UI changed.
-5. Fix failures immediately.
-6. Update `MEMORY.md` when a milestone is complete.
+If any check fails, fix it before continuing or explicitly report the failure.

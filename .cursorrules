@@ -3,7 +3,7 @@
 ## Project Context
 
 **App:** GymPath  
-**Stack:** Python, Streamlit, SQLite, pytest, pandas, python-dotenv, OpenAI-compatible AI API  
+**Stack:** Python core, FastAPI, React/Next, SQLite, pytest, TypeScript, DeepSeek/OpenAI-compatible AI API  
 **Stage:** MVP development  
 **User level:** Vibe-coder
 
@@ -13,10 +13,10 @@
 2. Read `MEMORY.md` before starting work.
 3. Use `agent_docs/` for product requirements, tech stack, code patterns, and testing.
 4. Keep core logic in `project.py`.
-5. Keep Streamlit UI in `app.py`.
+5. Keep API routes in `api.py`, persistence in `storage.py`, and primary UI in `frontend/`.
 6. Build one small feature at a time.
 7. Run `python -m pytest` after core logic changes.
-8. Do not add frontend frameworks or new architecture without approval.
+8. Run `npm run typecheck` and `npm run build` after frontend changes.
 9. Do not hardcode API keys.
 10. Do not make medical diagnosis claims.
 
@@ -25,6 +25,7 @@
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest
-streamlit run app.py
+cd frontend
+npm run typecheck
+npm run build
 ```
-

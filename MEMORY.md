@@ -7,6 +7,7 @@ This file stores current project state for AI agents. Keep it short, factual, an
 **Phase 1: Working MVP foundation**
 
 Current status: first foundation slice implemented.
+Latest status: documentation has been synchronized to the actual FastAPI + React/Next architecture, and logged-in users now have SQLite persistence for measurements, check-ins, and workout feedback.
 
 Built:
 
@@ -62,6 +63,8 @@ Validated:
 - Anatomy hotspot calibration fix: joint hotspots were recalculated for the actual stacked front/back anatomy image dimensions instead of the earlier side-by-side layout assumption.
 - Latest check-in update: the training profile no longer exposes the weekly training-days slider. Feedback/check-in now includes a 7-day supplement lottery incentive, with backend reward status from `get_checkin_reward_status()` and prizes such as protein powder and creatine.
 - Latest AI update: added a GymPath AI Q&A tab backed by `/api/ai-chat` and `get_ai_fitness_reply()`. The backend reads `DEEPSEEK_API_KEY` from environment or `.env`, calls DeepSeek through the OpenAI SDK when configured, and falls back to local rule-based fitness guidance when the API is unavailable.
+- Latest persistence update: `storage.py` now includes `measurements`, `checkins`, and `workout_feedbacks` tables. `api.py` exposes authenticated measurement/check-in routes, feedback saves when logged in, and the React UI syncs logged-in progress/check-ins while keeping guest preview local.
+- Latest documentation update: `AGENTS.md`, `agent_docs/`, `README.md`, PRD, and Tech Design now describe the current FastAPI + React/Next + SQLite app instead of the older Streamlit-first plan.
 
 The first usable GymPath version should continue toward:
 
@@ -94,11 +97,11 @@ The app should be usable for a course demo before adding extra polish.
 
 ## Next Actions
 
-1. Manually click through pain body-map joints and progress chart in the browser.
-2. Add SQLite or MySQL persistence for profile, feedback, measurements, and community.
-3. Add nickname-based community feed.
-4. Add `ai_coach.py` with API and fallback guidance.
-5. Update final report screenshots.
+1. Manually verify login -> progress save -> refresh/login -> data persists.
+2. Manually verify feedback check-in persists for logged-in users.
+3. Add profile persistence if the project needs profile data to survive across devices.
+4. Capture final report screenshots from the current React/Next UI.
+5. Push the updated documentation and persistence changes to GitHub.
 
 ## Risks To Watch
 

@@ -2,73 +2,58 @@
 
 ## Product Vision
 
-GymPath is a mobile-first fitness web app that reduces fitness decision fatigue. It gives beginners a safe and simple start, helps inconsistent users restart without guilt, and gives experienced gym users more useful split training, exercise substitutions, progress feedback, and advanced education.
+GymPath helps beginners, restarting users, advanced lifters, and health-first users stop guessing what to train and eat. It turns profile data, goals, training feedback, pain signals, and progress records into a clear training loop.
 
-The product should feel like a professional training companion, not a content dump.
+## Current MVP Shape
 
-## Core User Journey
+- Primary UI: React/Next black-white-gray training dashboard.
+- Backend: FastAPI in `api.py`.
+- Core logic: Python functions in `project.py`.
+- Persistence: SQLite through `storage.py`.
+- AI coach: DeepSeek/OpenAI-compatible API through environment variables with local fallback.
+- Fallback: `app.py` Streamlit prototype remains available but is not the primary app.
 
-1. User opens GymPath.
-2. User enters profile data: height, weight, age, training level, experience, available days, available time, goal, and equipment access.
-3. GymPath generates a plan:
-   - beginners get full-body training
-   - advanced users get split training
-   - health-first users can get diet-only or home-bodyweight guidance
-4. Before training, GymPath shows warm-up and activation guidance.
-5. User views exercise teaching and nutrition guidance.
-6. After training, user checks in and records fatigue, pain, workout duration, and perceived difficulty.
-7. GymPath lightly adjusts later plans based on feedback.
-8. User sees measurement and training trends.
-9. User can post, comment, and like in a nickname-based community.
-10. AI coach explains training, nutrition, and beginner misconceptions.
+## Core Conventions
 
-## Coding Conventions
-
-- Use Python for MVP implementation.
-- Keep core logic in `project.py`.
-- Keep Streamlit UI in `app.py`.
-- Keep deterministic calculations testable with pytest.
-- Use clear function names such as `generate_workout_plan`, `assess_pain_response`, and `calculate_checkin_streak`.
-- Prefer dictionaries with named keys for plan data.
-- Use type hints for new core functions where reasonable.
-- Keep comments short and useful.
-- Do not hide business logic inside Streamlit button callbacks.
-
-## Architecture Conventions
-
-- UI layer: `app.py`
-- Core logic: `project.py`
-- AI service: `ai_coach.py`
-- Storage helpers: `storage.py` if needed
-- Static data: `data/*.json`
-- Tests: `test_project.py`
-- Source docs: `docs/`
-- Agent docs: `agent_docs/`
+- Keep course-required logic in `project.py`.
+- Keep API route code thin; call `project.py` and `storage.py`.
+- Keep database access in `storage.py`.
+- Keep frontend API calls in `frontend/lib/api.ts`.
+- Keep UI copy Chinese-first unless the user asks otherwise.
+- Maintain the black/white/gray native-control visual direction.
+- Do not commit `.env`, SQLite databases, logs, release zips, `.next`, or `node_modules`.
 
 ## Quality Gates
 
-- `python -m pytest` must pass after core logic changes.
-- The app must launch with `streamlit run app.py`.
-- The core flow must be manually tested after UI changes.
-- AI failures must not break the app.
-- Severe pain handling must remain cautious and non-diagnostic.
-- Mobile layout must be checked before marking UI complete.
-
-## Key Commands
+Run after relevant changes:
 
 ```bash
-python -m pip install -r requirements.txt
 python -m pytest
-streamlit run app.py
+python -m py_compile project.py api.py storage.py test_project.py
+cd frontend
+npm run typecheck
+npm run build
 ```
+
+## User-Facing Current Capabilities
+
+1. Register/login or enter as guest.
+2. Generate training plans by level and goal.
+3. Use beginner four-day split, restarting plans, advanced plans, strength plans, muscle-gain plans, and health/home plans.
+4. View warm-up guidance and teaching links.
+5. Use nutrition plans and meal logging.
+6. Select pain location on an anatomy image and receive substitutions/rehab suggestions.
+7. Submit workout feedback and complete check-ins.
+8. Save measurements for logged-in users and view trend lines.
+9. Post, like, and comment in the community.
+10. Ask AI coach fitness questions.
 
 ## Update Cadence
 
 Update this brief when:
 
-- the stack changes
-- file structure changes
-- a new major feature is added
-- a feature is moved out of MVP
-- commands or test strategy change
-
+- The tech stack changes.
+- A new persistent table or API family is added.
+- The primary user flow changes.
+- Run/deploy commands change.
+- The assignment/report scope changes.

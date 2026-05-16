@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import json
 import os
 import secrets
 import sqlite3
@@ -84,6 +85,40 @@ def init_storage() -> None:
                 created_at TEXT NOT NULL,
                 PRIMARY KEY (post_id, user_id),
                 FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+
+            CREATE TABLE IF NOT EXISTS measurements (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                measurement_date TEXT NOT NULL,
+                weight_kg REAL,
+                waist_cm REAL,
+                body_fat_percent REAL,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                UNIQUE(user_id, measurement_date),
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+
+            CREATE TABLE IF NOT EXISTS checkins (
+                user_id INTEGER NOT NULL,
+                checkin_date TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                PRIMARY KEY (user_id, checkin_date),
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+
+            CREATE TABLE IF NOT EXISTS workout_feedbacks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                feedback_date TEXT NOT NULL,
+                completed INTEGER NOT NULL,
+                fatigue_level INTEGER,
+                duration_min INTEGER,
+                pain_level INTEGER,
+                adjustment_json TEXT,
+                created_at TEXT NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             );
             """
@@ -334,3 +369,108 @@ def _post_from_row(conn: sqlite3.Connection, row: sqlite3.Row, viewer_id: int | 
         "viewer_liked": viewer_liked,
         "comments": [dict(comment) for comment in comments],
     }
+
+
+def list_measurements(user_id: int) -> list[dict[str, Any]]:
+    with _connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT measurement_date AS date, weight_kg, waist_cm, body_fat_percent
+            FROM measurements
+            WHERE user_id = ?
+            ORDER BY measurement_date ASC
+            """,
+            (user_id,),
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+def replace_measurements(user_id: int, measurements: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    now = _iso_now()
+    cleaned: list[tuple[str, float | None, float | None, float | None, str, str]] = []
+    seen_dates: set[str] = set()
+    for item in measurements:
+        date = str(item.get("date", "")).strip()
+        if not date or date in seen_dates:
+            continue
+        seen_dates.add(date)
+        cleaned.append(
+            (
+                date,
+                item.get("weight_kg"),
+                item.get("waist_cm"),
+                item.get("body_fat_percent"),
+                now,
+                now,
+            )
+        )
+
+    with _connect() as conn:
+        conn.execute("DELETE FROM measurements WHERE user_id = ?", (user_id,))
+        conn.executemany(
+            """
+            INSERT INTO measurements (
+                user_id, measurement_date, weight_kg, waist_cm, body_fat_percent, created_at, updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            [(user_id, *entry) for entry in cleaned],
+        )
+    return list_measurements(user_id)
+
+
+def list_checkins(user_id: int) -> list[str]:
+    with _connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT checkin_date
+            FROM checkins
+            WHERE user_id = ?
+            ORDER BY checkin_date ASC
+            """,
+            (user_id,),
+        ).fetchall()
+    return [row["checkin_date"] for row in rows]
+
+
+def add_checkin(user_id: int, checkin_date: str) -> list[str]:
+    date = checkin_date.strip()
+    if not date:
+        raise ValueError("打卡日期不能为空")
+    with _connect() as conn:
+        conn.execute(
+            "INSERT OR IGNORE INTO checkins (user_id, checkin_date, created_at) VALUES (?, ?, ?)",
+            (user_id, date, _iso_now()),
+        )
+    return list_checkins(user_id)
+
+
+def create_workout_feedback(
+    user_id: int,
+    feedback: dict[str, Any],
+    adjustment: dict[str, Any],
+    feedback_date: str | None = None,
+) -> dict[str, Any]:
+    date = (feedback_date or _utc_now().date().isoformat()).strip()
+    now = _iso_now()
+    with _connect() as conn:
+        cursor = conn.execute(
+            """
+            INSERT INTO workout_feedbacks (
+                user_id, feedback_date, completed, fatigue_level, duration_min, pain_level, adjustment_json, created_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                user_id,
+                date,
+                1 if feedback.get("completed") else 0,
+                feedback.get("fatigue_level"),
+                feedback.get("duration_min"),
+                feedback.get("pain_level"),
+                json.dumps(adjustment, ensure_ascii=False),
+                now,
+            ),
+        )
+        feedback_id = cursor.lastrowid
+    return {"id": feedback_id, "date": date, "saved": True}

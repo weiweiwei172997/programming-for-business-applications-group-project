@@ -71,5 +71,5 @@ npm run build
 ## Notes
 
 - Do not commit `.env`.
-- Local account and community data are stored in `data/gympath_app.db`.
+- Local account, community, check-in, workout feedback, and measurement data are stored in `data/gympath_app.db`.
 - The database is intentionally excluded from Git and release packages.

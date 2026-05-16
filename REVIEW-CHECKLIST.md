@@ -21,7 +21,8 @@ Use this before marking any feature complete.
 
 - [ ] New deterministic logic has pytest coverage.
 - [ ] `python -m pytest` passes.
-- [ ] The feature was manually tested in the Streamlit app if it affects UI.
+- [ ] The feature was manually tested in the React/Next app if it affects UI.
+- [ ] `npm run typecheck` and `npm run build` pass after frontend changes.
 - [ ] API failure paths were checked when touching AI features.
 
 ## UI Quality
@@ -45,4 +46,3 @@ Use this before marking any feature complete.
 - [ ] README instructions still match the app.
 - [ ] `MEMORY.md` is updated after meaningful changes.
 - [ ] Prompt-log relevant decisions are captured in `docs/ai_prompt_log.md`.
-

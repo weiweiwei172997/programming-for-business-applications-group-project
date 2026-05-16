@@ -2,7 +2,7 @@
 
 import type { Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
-import { getJson, postJson } from "../lib/api";
+import { getJson, postJson, putJson } from "../lib/api";
 
 type Level = "beginner" | "restarting" | "experienced";
 type Goal = "muscle_gain" | "strength_gain" | "fat_loss" | "general_fitness" | "health";
@@ -268,6 +268,9 @@ type AuthResponse = {
   user: User;
   expires_at: string;
 };
+
+type MeasurementResponse = { measurements: Measurement[] };
+type CheckinResponse = { checkin_dates: string[] };
 
 type CommunityComment = {
   id: number;
@@ -655,6 +658,9 @@ export default function Home() {
 
   useEffect(() => {
     void loadCommunity(authToken);
+    if (authToken) {
+      void loadAccountData(authToken);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authToken]);
 
@@ -733,12 +739,44 @@ export default function Home() {
     }
   }
 
+  async function loadAccountData(token: string) {
+    try {
+      const [savedMeasurements, savedCheckins] = await Promise.all([
+        getJson<MeasurementResponse>("/api/progress/measurements", token),
+        getJson<CheckinResponse>("/api/checkins", token),
+      ]);
+      const accountMeasurements = savedMeasurements.measurements.length
+        ? savedMeasurements.measurements
+        : [
+            {
+              date: todayIso(),
+              weight_kg: profile.weight_kg,
+              waist_cm: 82,
+              body_fat_percent: 18,
+            },
+          ];
+      setMeasurements(accountMeasurements);
+      await analyzeProgress(accountMeasurements);
+      setCheckins(savedCheckins.checkin_dates);
+      await refreshCheckinReward(savedCheckins.checkin_dates);
+      setStatus("账号数据已同步");
+    } catch (error) {
+      setStatus(error instanceof Error ? `账号数据同步失败：${error.message}` : "账号数据同步失败");
+    }
+  }
+
   async function completeTodayCheckin() {
     const today = todayIso();
-    const nextDates = Array.from(new Set([...checkins, today])).sort();
-    setCheckins(nextDates);
-    await refreshCheckinReward(nextDates);
-    setStatus(nextDates.length === checkins.length ? "今日已经完成打卡" : "今日打卡已记录");
+    try {
+      const nextDates = authToken
+        ? (await postJson<CheckinResponse>("/api/checkins", { date: today }, authToken)).checkin_dates
+        : Array.from(new Set([...checkins, today])).sort();
+      setCheckins(nextDates);
+      await refreshCheckinReward(nextDates);
+      setStatus(nextDates.length === checkins.length ? "今日已经完成打卡" : "今日打卡已记录");
+    } catch (error) {
+      setStatus(error instanceof Error ? `打卡保存失败：${error.message}` : "打卡保存失败");
+    }
   }
 
   async function submitFeedback(event: FormEvent<HTMLFormElement>) {
@@ -749,7 +787,7 @@ export default function Home() {
     }
     setStatus("正在根据练后反馈调整");
     try {
-      const result = await postJson<FeedbackResult>("/api/feedback", { plan, ...feedback });
+      const result = await postJson<FeedbackResult>("/api/feedback", { plan, ...feedback }, authToken);
       setFeedbackResult(result);
       if (feedback.completed) {
         await completeTodayCheckin();
@@ -760,12 +798,25 @@ export default function Home() {
     }
   }
 
-  async function analyzeProgress() {
+  async function analyzeProgress(nextMeasurements = measurements) {
     try {
-      const result = await postJson<ProgressResult>("/api/progress", { measurements });
+      const result = await postJson<ProgressResult>("/api/progress", { measurements: nextMeasurements });
       setProgress(result);
     } catch (error) {
       setStatus(error instanceof Error ? `趋势分析失败：${error.message}` : "趋势分析失败");
+    }
+  }
+
+  async function saveAndAnalyzeProgress() {
+    try {
+      const nextMeasurements = authToken
+        ? (await putJson<MeasurementResponse>("/api/progress/measurements", { measurements }, authToken)).measurements
+        : measurements;
+      setMeasurements(nextMeasurements);
+      await analyzeProgress(nextMeasurements);
+      setStatus(authToken ? "围度趋势已保存到账号" : "游客趋势已在本页更新");
+    } catch (error) {
+      setStatus(error instanceof Error ? `围度保存失败：${error.message}` : "围度保存失败");
     }
   }
 
@@ -800,6 +851,18 @@ export default function Home() {
           height_cm: profile.height_cm,
           age: profile.age,
           activity_level: profile.activity_level,
+          current_plan: plan
+            ? {
+                split: plan.split.split_name,
+                days: plan.weekly_schedule.map((day) => ({
+                  focus: day.focus,
+                  exercises: day.exercises.slice(0, 5).map((exercise) => exercise.name),
+                })),
+              }
+            : null,
+          latest_feedback: feedback,
+          latest_pain_check: pain,
+          progress_entries: measurements.slice(-3),
         },
       });
       setChatMessages([...nextMessages, { role: "assistant", content: result.reply }]);
@@ -1065,7 +1128,7 @@ export default function Home() {
             />
           )}
           {view === "progress" && (
-            <ProgressView measurements={measurements} setMeasurements={setMeasurements} progress={progress} addMeasurement={() => setMeasurements((current) => [...current, { date: new Date().toISOString().slice(0, 10), weight_kg: current.at(-1)?.weight_kg ?? 72, waist_cm: current.at(-1)?.waist_cm ?? 82, body_fat_percent: current.at(-1)?.body_fat_percent ?? 18 }])} analyzeProgress={analyzeProgress} />
+            <ProgressView measurements={measurements} setMeasurements={setMeasurements} progress={progress} addMeasurement={() => setMeasurements((current) => [...current, { date: new Date().toISOString().slice(0, 10), weight_kg: current.at(-1)?.weight_kg ?? profile.weight_kg, waist_cm: current.at(-1)?.waist_cm ?? 82, body_fat_percent: current.at(-1)?.body_fat_percent ?? 18 }])} analyzeProgress={saveAndAnalyzeProgress} />
           )}
           {view === "community" && (
             <CommunityView
