@@ -305,6 +305,29 @@ def test_adjust_plan_after_feedback_pain_replaces_exercise():
     assert adjustment["next_session_focus"] == "substitute_painful_movement"
 
 
+def test_adjust_plan_after_feedback_combines_pain_and_fatigue():
+    plan = generate_workout_plan("experienced", "muscle_gain", 4, 75)
+    adjustment = adjust_plan_after_feedback(
+        plan,
+        {
+            "completed": True,
+            "fatigue_level": 8,
+            "duration_min": 75,
+            "pain_level": 6,
+            "pain_type": "joint",
+            "pain_location": "shoulder",
+            "exercise_name": "Barbell Bench Press",
+        },
+    )
+
+    assert adjustment["volume_multiplier"] == 0.6
+    assert adjustment["replace_exercise"] is True
+    assert adjustment["next_session_focus"] == "deload_and_substitute"
+    assert adjustment["decision_level"] == "recovery_priority"
+    assert adjustment["combined_load_score"] == 14
+    assert adjustment["pain_context"]["pain_location"] == "shoulder"
+
+
 def test_calculate_checkin_streak():
     dates = ["2026-05-10", "2026-05-12", "2026-05-13", "2026-05-14"]
     assert calculate_checkin_streak(dates, today="2026-05-14") == 3

@@ -774,6 +774,24 @@ details .chip-row {
   gap: 1rem;
 }
 
+.adjustment-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0 0 0.85rem;
+}
+
+.adjustment-summary span {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--white);
+  padding: 0.55rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .checkin-meter {
   display: grid;
   gap: 0.85rem;

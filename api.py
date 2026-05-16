@@ -117,6 +117,9 @@ class FeedbackRequest(BaseModel):
     fatigue_level: int = Field(default=5, ge=0, le=10)
     duration_min: int = Field(default=60, ge=0, le=240)
     pain_level: int = Field(default=0, ge=0, le=10)
+    pain_location: str = "shoulder"
+    pain_type: str = "burn"
+    exercise_name: str = "Barbell Bench Press"
 
 
 class ProgressEntry(BaseModel):
@@ -418,6 +421,9 @@ def feedback(request: FeedbackRequest, user: dict[str, Any] | None = Depends(opt
         "fatigue_level": request.fatigue_level,
         "duration_min": request.duration_min,
         "pain_level": request.pain_level,
+        "pain_location": request.pain_location,
+        "pain_type": request.pain_type,
+        "exercise_name": request.exercise_name,
     }
     adjustment = adjust_plan_after_feedback(
         request.plan,

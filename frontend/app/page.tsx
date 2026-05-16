@@ -8,7 +8,7 @@ type Level = "beginner" | "restarting" | "experienced";
 type Goal = "muscle_gain" | "strength_gain" | "fat_loss" | "general_fitness" | "health";
 type Gender = "male" | "female" | "other";
 type Activity = "sedentary" | "light" | "moderate" | "active";
-type View = "plan" | "nutrition" | "pain" | "feedback" | "progress" | "community" | "knowledge" | "coach";
+type View = "plan" | "nutrition" | "feedback" | "progress" | "community" | "knowledge" | "coach";
 type FatLossPlan = "kaisheng_carb_cycle" | "orange_carb_taper";
 type StrengthPlan = "beginner_ab_linear" | "advanced_linear_5x5" | "universal_5x5_split";
 type MuscleGainPlan = "tan_chengyi_beginner_follow" | "tan_kaisheng_three_split" | "orange_hypertrophy";
@@ -232,6 +232,14 @@ type FeedbackResult = {
   recommended_rest_seconds?: number;
   replace_exercise: boolean;
   next_session_focus: string;
+  decision_level?: string;
+  combined_load_score?: number;
+  pain_context?: {
+    exercise_name: string;
+    pain_location: string;
+    pain_type: string;
+    pain_level: number;
+  };
   notes: string[];
 };
 
@@ -369,8 +377,7 @@ const DIET_INTENSITY_OPTIONS: { value: DietTrainingIntensity; label: string; not
 const VIEWS: { value: View; label: string; code: string }[] = [
   { value: "plan", label: "训练计划", code: "TRAIN" },
   { value: "nutrition", label: "饮食面板", code: "FUEL" },
-  { value: "pain", label: "疼痛替换", code: "CHECK" },
-  { value: "feedback", label: "练后反馈", code: "ADAPT" },
+  { value: "feedback", label: "反馈调整", code: "ADAPT" },
   { value: "progress", label: "围度趋势", code: "TRACE" },
   { value: "community", label: "社区交流", code: "CLUB" },
   { value: "knowledge", label: "认知扫盲", code: "LEARN" },
@@ -719,6 +726,7 @@ export default function Home() {
   }
 
   async function requestPainGuidance(nextPain: PainInput) {
+    setFeedback((current) => ({ ...current, pain_level: nextPain.pain_level }));
     setStatus("正在判断疼痛和替换动作");
     try {
       const result = await postJson<PainResult>("/api/pain", { ...nextPain, goal: profile.goal });
@@ -732,6 +740,7 @@ export default function Home() {
   function selectPainLocation(location: string) {
     const nextPain = { ...pain, pain_location: location, pain_type: "joint", pain_level: Math.max(pain.pain_level, 4) };
     setPain(nextPain);
+    setFeedback((current) => ({ ...current, pain_level: nextPain.pain_level }));
     void requestPainGuidance(nextPain);
   }
 
@@ -795,7 +804,14 @@ export default function Home() {
     }
     setStatus("正在根据练后反馈调整");
     try {
-      const result = await postJson<FeedbackResult>("/api/feedback", { plan, ...feedback }, authToken);
+      const mergedFeedback = {
+        ...feedback,
+        pain_level: Math.max(feedback.pain_level, pain.pain_level),
+        pain_location: pain.pain_location,
+        pain_type: pain.pain_type,
+        exercise_name: pain.exercise_name,
+      };
+      const result = await postJson<FeedbackResult>("/api/feedback", { plan, ...mergedFeedback }, authToken);
       setFeedbackResult(result);
       if (feedback.completed) {
         await completeTodayCheckin();
@@ -1121,11 +1137,14 @@ export default function Home() {
         <section className="stage" ref={resultRef}>
           {view === "plan" && <PlanView plan={plan} />}
           {view === "nutrition" && <NutritionView nutrition={nutrition} />}
-          {view === "pain" && (
-            <PainView pain={pain} setPain={setPain} result={painResult} onSubmit={checkPain} onJointSelect={selectPainLocation} exerciseNames={planExerciseNames} />
-          )}
           {view === "feedback" && (
             <FeedbackView
+              pain={pain}
+              setPain={setPain}
+              painResult={painResult}
+              onPainSubmit={checkPain}
+              onJointSelect={selectPainLocation}
+              exerciseNames={planExerciseNames}
               feedback={feedback}
               setFeedback={setFeedback}
               result={feedbackResult}
@@ -1817,6 +1836,7 @@ function PainView({
   onSubmit,
   onJointSelect,
   exerciseNames,
+  syncPainLevel,
 }: {
   pain: PainInput;
   setPain: Dispatch<SetStateAction<PainInput>>;
@@ -1824,6 +1844,7 @@ function PainView({
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onJointSelect: (location: string) => void;
   exerciseNames: string[];
+  syncPainLevel?: (level: number) => void;
 }) {
   const names = Array.from(new Set(["Barbell Bench Press", "Back Squat", "Deadlift", ...exerciseNames]));
   return (
@@ -1860,7 +1881,17 @@ function PainView({
               </select>
             </Field>
             <Field label={`疼痛等级 ${pain.pain_level}/10`}>
-              <input type="range" min="0" max="10" value={pain.pain_level} onChange={(event) => setPain((current) => ({ ...current, pain_level: Number(event.target.value) }))} />
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value={pain.pain_level}
+                onChange={(event) => {
+                  const level = Number(event.target.value);
+                  setPain((current) => ({ ...current, pain_level: level }));
+                  syncPainLevel?.(level);
+                }}
+              />
             </Field>
           </div>
           <button className="primary" type="submit">判断能不能继续练</button>
@@ -1934,6 +1965,12 @@ function HumanPainMap({ selected, onSelect }: { selected: string; onSelect: (loc
 }
 
 function FeedbackView({
+  pain,
+  setPain,
+  painResult,
+  onPainSubmit,
+  onJointSelect,
+  exerciseNames,
   feedback,
   setFeedback,
   result,
@@ -1943,6 +1980,12 @@ function FeedbackView({
   reward,
   onCheckin,
 }: {
+  pain: PainInput;
+  setPain: Dispatch<SetStateAction<PainInput>>;
+  painResult: PainResult | null;
+  onPainSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onJointSelect: (location: string) => void;
+  exerciseNames: string[];
   feedback: FeedbackInput;
   setFeedback: Dispatch<SetStateAction<FeedbackInput>>;
   result: FeedbackResult | null;
@@ -1954,8 +1997,17 @@ function FeedbackView({
 }) {
   return (
     <div className="stack">
+      <PainView
+        pain={pain}
+        setPain={setPain}
+        result={painResult}
+        onSubmit={onPainSubmit}
+        onJointSelect={onJointSelect}
+        exerciseNames={exerciseNames}
+        syncPainLevel={(level) => setFeedback((current) => ({ ...current, pain_level: level }))}
+      />
       <form className="wide form" onSubmit={onSubmit}>
-        <Header code="POST SESSION" title="练后反馈" right={hasPlan ? "已连接计划" : "先生成计划"} />
+        <Header code="POST SESSION" title="疲劳 + 疼痛调整下次计划" right={hasPlan ? "已连接计划" : "先生成计划"} />
         <label className="check-row">
           <input type="checkbox" checked={feedback.completed} onChange={(event) => setFeedback((current) => ({ ...current, completed: event.target.checked }))} />
           今天是否完成训练
@@ -1965,13 +2017,24 @@ function FeedbackView({
             <input type="range" min="0" max="10" value={feedback.fatigue_level} onChange={(event) => setFeedback((current) => ({ ...current, fatigue_level: Number(event.target.value) }))} />
           </Field>
           <Field label={`疼痛 ${feedback.pain_level}/10`}>
-            <input type="range" min="0" max="10" value={feedback.pain_level} onChange={(event) => setFeedback((current) => ({ ...current, pain_level: Number(event.target.value) }))} />
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={feedback.pain_level}
+              onChange={(event) => {
+                const level = Number(event.target.value);
+                setFeedback((current) => ({ ...current, pain_level: level }));
+                setPain((current) => ({ ...current, pain_level: level }));
+              }}
+            />
           </Field>
           <Field label="训练时长 min">
             <input type="number" value={feedback.duration_min} onChange={(event) => setFeedback((current) => ({ ...current, duration_min: Number(event.target.value) }))} />
           </Field>
         </div>
-        <button className="primary" type="submit" disabled={!hasPlan}>轻量调整下次计划</button>
+        <p className="soft">下次计划会综合疲劳、疼痛等级、疼痛类型和疼痛部位判断：疼痛和疲劳越高，越倾向于减量、延长休息或替换动作。</p>
+        <button className="primary" type="submit" disabled={!hasPlan}>根据反馈调整下次计划</button>
       </form>
       <section className="wide checkin-card">
         <Header
@@ -1997,9 +2060,19 @@ function FeedbackView({
         <section className="wide">
           <Header
             code="ADAPT"
-            title="下一次怎么调"
-            right={`${Math.round(result.volume_multiplier * 100)}% 训练量 / 休息 ${formatRest(result.recommended_rest_seconds ?? 120)}`}
+            title={nextFocusLabel(result.next_session_focus)}
+            right={`${decisionLevelLabel(result.decision_level)} / 负荷分 ${result.combined_load_score ?? "--"}`}
           />
+          <div className="adjustment-summary">
+            <span>{Math.round(result.volume_multiplier * 100)}% 训练量</span>
+            <span>组间休息 {formatRest(result.recommended_rest_seconds ?? 120)}</span>
+            <span>{result.replace_exercise ? "下次先替换疼痛动作" : "动作可继续观察"}</span>
+          </div>
+          {result.pain_context ? (
+            <p className="soft">
+              疼痛记录：{tx(EXERCISE_CN, result.pain_context.exercise_name)} / {painLocationLabel(result.pain_context.pain_location)} / {painTypeLabel(result.pain_context.pain_type)} / {result.pain_context.pain_level}/10
+            </p>
+          ) : null}
           <div className="rule-list">{result.notes.map((note) => <p key={note}>{feedbackNote(note)}</p>)}</div>
         </section>
       )}
@@ -2596,12 +2669,68 @@ function painAction(action: string) {
   return "可以谨慎继续，但必须控制动作，并重新检查起始姿态。";
 }
 
+function nextFocusLabel(value: string) {
+  const map: Record<string, string> = {
+    keep_plan: "下次保持计划",
+    restart_simpler: "下次降低门槛重启",
+    reduce_fatigue: "下次先降疲劳",
+    substitute_painful_movement: "下次替换疼痛动作",
+    stop_or_deload_and_substitute: "下次停止高风险动作并减量替换",
+    deload_and_substitute: "下次减量并替换动作",
+    reduce_stress: "下次降低压力观察",
+  };
+  return map[value] ?? value;
+}
+
+function decisionLevelLabel(value?: string) {
+  const map: Record<string, string> = {
+    normal: "正常推进",
+    lower_barrier: "降低门槛",
+    fatigue_high: "疲劳偏高",
+    pain_modify: "疼痛需修改",
+    watch: "观察调整",
+    recovery_priority: "恢复优先",
+    high_risk: "高风险",
+  };
+  return value ? map[value] ?? value : "未分级";
+}
+
+function painLocationLabel(value: string) {
+  const map: Record<string, string> = {
+    shoulder: "肩",
+    elbow: "肘",
+    wrist: "手腕",
+    back: "腰背",
+    hip: "髋",
+    knee: "膝",
+    ankle: "踝",
+  };
+  return map[value] ?? value;
+}
+
+function painTypeLabel(value: string) {
+  const map: Record<string, string> = {
+    burn: "肌肉灼烧",
+    pinch: "夹挤感",
+    joint: "关节不适",
+    sharp: "尖锐痛",
+    radiating: "放射痛",
+    worsening: "越来越痛",
+    numbness: "麻木",
+    electric: "电击感",
+  };
+  return map[value] ?? value;
+}
+
 function feedbackNote(note: string) {
   const map: Record<string, string> = {
     "Next session should be shorter and easier to complete.": "下次训练应该更短、更容易完成。",
     "Reduce total sets by about 25% for the next similar workout.": "下次同类训练总组数减少约 25%。",
     "Workout felt manageable. Consider a small load or rep increase next time.": "这次训练可控，下次可以小幅加重量或加次数。",
     "Shorten accessory work to keep sessions realistic.": "减少辅助动作，让训练时长更现实。",
+    "Do not repeat the painful movement next session; substitute it and reduce workload.": "下次不要重复疼痛动作，先替换动作并降低训练量。",
+    "Pain and fatigue are both high. Deload the next similar session and replace the painful movement.": "疼痛和疲劳都偏高，下次同类训练先减量并替换疼痛动作。",
+    "Pain and fatigue are moderate. Keep the next session easier and avoid adding load.": "疼痛和疲劳中等，下次训练保持更轻松，不要加重量。",
     "Replace or modify the painful movement before repeating this session.": "再次训练前先替换或修改疼痛动作。",
     "Keep the plan unchanged and focus on consistent execution.": "计划保持不变，重点是持续执行。",
   };

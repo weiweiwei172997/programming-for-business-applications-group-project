@@ -1816,6 +1816,11 @@ def adjust_plan_after_feedback(plan: dict[str, Any], feedback: dict[str, Any]) -
     duration = int(feedback.get("duration_min", 0) or 0)
     pain_level = int(feedback.get("pain_level", 0) or 0)
     completed = bool(feedback.get("completed", False))
+    pain_type = str(feedback.get("pain_type", "") or "").lower().strip()
+    pain_location = str(feedback.get("pain_location", "") or "").strip()
+    exercise_name = str(feedback.get("exercise_name", "") or "").strip()
+    risky_pain = pain_type in {"sharp", "numbness", "radiating", "worsening", "electric"}
+    combined_load_score = fatigue + pain_level
 
     adjustment = {
         "volume_multiplier": 1.0,
@@ -1823,19 +1828,56 @@ def adjust_plan_after_feedback(plan: dict[str, Any], feedback: dict[str, Any]) -
         "recommended_rest_seconds": 120,
         "replace_exercise": False,
         "next_session_focus": "keep_plan",
+        "decision_level": "normal",
+        "combined_load_score": combined_load_score,
+        "pain_context": {
+            "exercise_name": exercise_name,
+            "pain_location": pain_location,
+            "pain_type": pain_type,
+            "pain_level": pain_level,
+        },
         "notes": [],
     }
 
     if not completed:
         adjustment["volume_multiplier"] = 0.8
         adjustment["next_session_focus"] = "restart_simpler"
+        adjustment["decision_level"] = "lower_barrier"
         adjustment["notes"].append("Next session should be shorter and easier to complete.")
+
+    if pain_level >= 8 or risky_pain:
+        adjustment["volume_multiplier"] = min(adjustment["volume_multiplier"], 0.6)
+        adjustment["recommended_rest_seconds"] = 240
+        adjustment["rest_adjustment_seconds"] = 120
+        adjustment["replace_exercise"] = True
+        adjustment["next_session_focus"] = "stop_or_deload_and_substitute"
+        adjustment["decision_level"] = "high_risk"
+        adjustment["notes"].append("Do not repeat the painful movement next session; substitute it and reduce workload.")
+    elif pain_level >= 5 and fatigue >= 8:
+        adjustment["volume_multiplier"] = min(adjustment["volume_multiplier"], 0.6)
+        adjustment["recommended_rest_seconds"] = 240
+        adjustment["rest_adjustment_seconds"] = 120
+        adjustment["replace_exercise"] = True
+        adjustment["next_session_focus"] = "deload_and_substitute"
+        adjustment["decision_level"] = "recovery_priority"
+        adjustment["notes"].append("Pain and fatigue are both high. Deload the next similar session and replace the painful movement.")
+    elif pain_level >= 3 and fatigue >= 6:
+        adjustment["volume_multiplier"] = min(adjustment["volume_multiplier"], 0.9)
+        adjustment["recommended_rest_seconds"] = 180
+        adjustment["rest_adjustment_seconds"] = 60
+        adjustment["next_session_focus"] = "reduce_stress"
+        adjustment["decision_level"] = "watch"
+        adjustment["notes"].append("Pain and fatigue are moderate. Keep the next session easier and avoid adding load.")
 
     if fatigue >= 8:
         adjustment["volume_multiplier"] = min(adjustment["volume_multiplier"], 0.75)
-        adjustment["recommended_rest_seconds"] = 240 if fatigue >= 9 else 180
+        fatigue_rest = 240 if fatigue >= 9 else 180
+        adjustment["recommended_rest_seconds"] = max(adjustment["recommended_rest_seconds"], fatigue_rest)
         adjustment["rest_adjustment_seconds"] = adjustment["recommended_rest_seconds"] - 120
-        adjustment["next_session_focus"] = "reduce_fatigue"
+        if adjustment["next_session_focus"] == "keep_plan":
+            adjustment["next_session_focus"] = "reduce_fatigue"
+        if adjustment["decision_level"] == "normal":
+            adjustment["decision_level"] = "fatigue_high"
         adjustment["notes"].append("Reduce total sets by about 25% for the next similar workout.")
     elif fatigue <= 3 and completed and pain_level <= 2:
         adjustment["notes"].append("Workout felt manageable. Consider a small load or rep increase next time.")
@@ -1845,7 +1887,10 @@ def adjust_plan_after_feedback(plan: dict[str, Any], feedback: dict[str, Any]) -
 
     if pain_level >= 5:
         adjustment["replace_exercise"] = True
-        adjustment["next_session_focus"] = "substitute_painful_movement"
+        if adjustment["next_session_focus"] in {"keep_plan", "reduce_fatigue"}:
+            adjustment["next_session_focus"] = "substitute_painful_movement"
+        if adjustment["decision_level"] == "normal":
+            adjustment["decision_level"] = "pain_modify"
         adjustment["notes"].append("Replace or modify the painful movement before repeating this session.")
 
     if not adjustment["notes"]:
