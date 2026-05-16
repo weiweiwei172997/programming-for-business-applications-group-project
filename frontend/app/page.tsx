@@ -2100,6 +2100,8 @@ function CommunityView({
   onCommentSubmit: (event: FormEvent<HTMLFormElement>, postId: number) => void;
   reload: () => void;
 }) {
+  const [previewImage, setPreviewImage] = useState<{ src: string; alt: string } | null>(null);
+
   return (
     <div className="stack community-stack">
       <section className="wide community-auth">
@@ -2178,7 +2180,16 @@ function CommunityView({
                 </button>
               </div>
               <p className="post-content">{post.content}</p>
-              {post.image_url ? <img className="post-image" src={post.image_url} alt={`${post.title} 配图`} loading="lazy" /> : null}
+              {post.image_url ? (
+                <button
+                  className="post-image-button"
+                  type="button"
+                  onClick={() => setPreviewImage({ src: post.image_url ?? "", alt: `${post.title} 配图` })}
+                  aria-label="点开查看帖子大图"
+                >
+                  <img className="post-image" src={post.image_url} alt={`${post.title} 配图`} loading="lazy" />
+                </button>
+              ) : null}
               <div className="comment-list">
                 {post.comments.map((comment) => (
                   <p key={comment.id}><strong>{comment.author}</strong> {comment.content}</p>
@@ -2192,6 +2203,12 @@ function CommunityView({
           ))
         )}
       </section>
+      {previewImage ? (
+        <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="帖子大图预览" onClick={() => setPreviewImage(null)}>
+          <button className="lightbox-close" type="button" onClick={() => setPreviewImage(null)} aria-label="关闭大图">关闭</button>
+          <img src={previewImage.src} alt={previewImage.alt} onClick={(event) => event.stopPropagation()} />
+        </div>
+      ) : null}
     </div>
   );
 }
