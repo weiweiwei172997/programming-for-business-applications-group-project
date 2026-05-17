@@ -466,12 +466,344 @@ const ZH_TEXT: Record<string, string> = {
   "Checking your local login session.": "\u6b63\u5728\u68c0\u67e5\u672c\u5730\u767b\u5f55\u72b6\u6001\u3002",
   "Enter your training account first.": "\u5148\u8fdb\u5165\u4f60\u7684\u8bad\u7ec3\u8d26\u53f7\u3002",
   "Create an account to post, like, and comment, while keeping GymPath usable as a real multi-user fitness web app.": "\u521b\u5efa\u8d26\u53f7\u540e\u53ef\u4ee5\u53d1\u5e16\u3001\u70b9\u8d5e\u548c\u8bc4\u8bba\uff0c\u8ba9 GymPath \u50cf\u771f\u6b63\u7684\u591a\u4eba\u5065\u8eab Web App\u3002",
+  "Local MVP account": "本地 MVP 账号",
+  "Account mode": "账号模式",
+  "e.g. No-Shrug Shoulders": "例如：不耸肩同学",
+  "For future account recovery": "用于后续找回账号",
+  "At least 6 characters": "至少 6 个字符",
+  "Guided four-day video plan": "四分化视频跟练",
+  "Structured training with manageable progression": "结构化训练，稳步推进",
+  "Hard training, specialization, and recovery control": "高强度训练、专项突破和恢复控制",
+  "Volume and progression": "训练容量与渐进超负荷",
+  "Compound lifts first": "优先主项复合动作",
+  "Calories and consistency": "热量控制与持续执行",
+  "Low-friction movement": "低门槛动起来",
+  "Muscle-Gain Plan": "增肌计划",
+  "Strength Plan": "增力计划",
+  "Fat-Loss Nutrition Plan": "减脂饮食计划",
+  "Orange Macro Ratio": "橙子饮食比例",
+  "Kaisheng Carb-Cycle Cut": "凯圣王碳循环减脂",
+  "Orange Carb-Taper Cut": "橙子碳水渐降减脂",
+  "2 high / 3 medium / 2 low-carb days": "2 天高碳 / 3 天中碳 / 2 天低碳",
+  "BMR + training burn + staged carb drops": "基础代谢 + 训练消耗 + 阶段性降碳",
+  "Beginner A/B Linear Strength": "小白 A/B 轮线性力量",
+  "Empty bar start / 2+2 rule / train-rest cycle": "空杆起步 / 2+2 法则 / 练一休一",
+  "Advanced Linear 5x5": "老手线性 5x5",
+  "70% 1RM start / light day / deloads": "70% 极限起步 / 轻训日 / 减载",
+  "Universal 5x5 Split": "全人群 5x5 三分化",
+  "Push-pull-squat / four-week cycle / RPE control": "推拉蹲 / 四周周期 / RPE 控制",
+  "Tan Chengyi Beginner Follow-Along": "谭成义新手跟练",
+  "Four sessions / video sequence / beginner launch": "四次训练 / 视频顺序 / 新手启动",
+  "Tan + Kaisheng Three-Day Split": "谭成义 + 凯圣王三分化",
+  "Chest-shoulder-triceps / back-rear delts-biceps / glutes-legs": "胸肩三头 / 背后束二头 / 臀腿",
+  "Orange Hypertrophy Cycle": "橙子增肌计划",
+  "Hypertrophy / mass-strength / strength phase": "肌肥大 / 增肌增力 / 增力阶段",
+  "Standard": "标准",
+  "Carb Sensitive": "碳水敏感",
+  "Carbs 50 / protein 30 / fat 20": "碳水 50 / 蛋白 30 / 脂肪 20",
+  "Carbs 40 / protein 40 / fat 20": "碳水 40 / 蛋白 40 / 脂肪 20",
+  "Training burn is now automatic: Beginner or female = 5 kcal/min, Fitness Enthusiast = 8 kcal/min, High-Intensity Trainee = 10 kcal/min.": "训练消耗已自动匹配：新手或女生 = 5 kcal/分钟，健身爱好者 = 8 kcal/分钟，高强度训练者 = 10 kcal/分钟。",
+  "Generated from the current goal, with training days, warm-ups, exercises, and feedback adjustment entry points.": "已根据当前目标生成训练日、热身激活、动作安排和练后反馈调整入口。",
+  "Recovery Plan": "恢复安排",
+  "No formal training today. Prioritize recovery.": "今天不安排正式训练，优先恢复。",
+  "Warm-up / Activation": "热身 / 激活",
+  "Teaching video": "教学视频",
+  "Session video": "训练视频",
+  "Warm-up video": "热身视频",
+  "Core Logic": "核心逻辑",
+  "Progression Rules": "进阶规则",
+  "Stall Strategy": "停滞处理",
+  "Risk Notes": "风险提示",
+  "Waiting for body data": "等待身体数据",
+  "Generating a plan also calculates calories, protein, and a rough BMI reference.": "生成方案时会同步计算热量、蛋白质和粗略 BMI 参考。",
+  "Target Calories": "目标热量",
+  "Protein Target": "计划蛋白质",
+  "Only a rough reference for muscular lifters": "老炮只作粗略参考",
+  "Daily Carb Target": "每日碳水基准",
+  "Training-day Carb Target": "训练日碳水基准",
+  "Daily Fat Target": "每日脂肪基准",
+  "Training-day Fat Target": "训练日脂肪基准",
+  "Protein Per Meal": "单餐蛋白",
+  "Maintenance": "维持热量",
+  "Calculated from the selected nutrition plan": "按当前饮食计划计算",
+  "Easier to sustain across 3-5 meals": "分 3-5 餐更容易执行",
+  "25% of total calories ÷ 4 kcal/g": "总热量的 25% ÷ 4 kcal/g",
+  "PERFORMANCE FUEL": "表现供能",
+  "CARB CYCLE": "碳循环",
+  "CARB TAPER": "碳水渐降",
+  "Fat-Loss Carb Cycle": "减脂碳循环",
+  "2 high / 3 medium / 2 low": "2 高 / 3 中 / 2 低",
+  "BMR": "基础代谢",
+  "Basal Metabolic Rate": "基础代谢率",
+  "Formula result": "公式结果",
+  "Lifestyle Burn": "生活消耗",
+  "Estimate": "估算",
+  "Training Burn": "训练消耗",
+  "Duration": "时长",
+  "Intensity factor": "强度系数",
+  "Auto factor": "自动系数",
+  "Estimated burn": "估算消耗",
+  "Calorie Strategy": "热量策略",
+  "Training day": "训练日",
+  "Rest day": "休息日",
+  "Floor": "底线",
+  "Training days sit around +250 kcal; rest days sit around -600 kcal, but no day goes below BMR.": "训练日约 +250 kcal；休息日约 -600 kcal，但任何一天都不低于基础代谢。",
+  "Daily Expenditure": "每日消耗",
+  "Base total": "基础总消耗",
+  "Fat-Loss Target": "减脂目标",
+  "Target weight": "目标体重",
+  "Total loss": "总减重",
+  "3% pace": "3% 速度",
+  "5% pace": "5% 速度",
+  "Male: 10x bodyweight + 6.25x height - 5x age + 5. Female: same formula but ending with -161.": "男性：10×体重 + 6.25×身高 - 5×年龄 + 5；女性同公式但最后为 -161。",
+  "Hit protein first, then check total calories.": "先把蛋白吃够，再看总热量。",
+  "Bulking is not random eating; cutting is not extreme restriction.": "增肌不是乱吃，减脂也不是极端节食。",
+  "Adjust calories only after two weeks without body-weight or measurement change.": "连续两周体重和围度都没变化时，再调整热量。",
+  "BMI is weak for muscular users. Combine it with measurements, strength, photos, and body-fat trends.": "BMI 对肌肉量高的人参考价值有限，要结合围度、力量、照片和体脂趋势。",
+  "Nutrition Execution Rules": "饮食执行线",
+  "Today Target": "今日目标",
+  "Selected Total": "已选合计",
+  "Remaining": "剩余",
+  "Food values are practical estimates for common portions. For packaged foods, use the nutrition label. After selecting multiple foods, each meal header updates calories and macros in real time.": "食物数据是常见份量的实用估算；包装食品优先看营养成分表。选择多个食物后，每餐顶部会实时更新热量和三大营养素。",
+  "Not listed? Add a custom food": "没有你吃的？自定义食物",
+  "Food name, e.g. beef rice bowl": "食物名称，例如牛肉盖饭",
+  "Amount eaten, g": "吃了多少 g",
+  "Carbs per 100g": "每 100g 碳水",
+  "Protein per 100g": "每 100g 蛋白质",
+  "Fat per 100g": "每 100g 脂肪",
+  "Add to meal": "加入本餐",
+  "Nutrition data sources": "营养数据来源",
+  "Pain Check": "动作疼痛判断",
+  "Not medical diagnosis": "非医疗诊断",
+  "Current exercise": "当前动作",
+  "Pain location": "疼痛位置",
+  "Pain type": "疼痛类型",
+  "Shoulder": "肩",
+  "Elbow": "肘",
+  "Wrist": "腕",
+  "Low back": "腰背",
+  "Low Back": "腰背",
+  "Hip": "髋",
+  "Knee": "膝",
+  "Ankle": "踝",
+  "Muscle burn": "肌肉灼烧感",
+  "Pinching": "夹挤疼",
+  "Joint discomfort": "关节不适",
+  "Sharp pain": "锐痛",
+  "Radiating pain": "放射痛",
+  "Getting worse": "越来越痛",
+  "Check whether to continue": "判断是否继续",
+  "Relief options": "缓解方式",
+  "Rehab drills": "康复训练",
+  "Video links": "视频入口",
+  "Muscle and Joint Map": "真实肌肉关节图",
+  "Click a joint": "点击关节",
+  "Image source: Wikimedia Commons / OpenStax Anatomy and Physiology / CC BY 4.0": "图片来源：Wikimedia Commons / OpenStax Anatomy and Physiology / CC BY 4.0",
+  "Click the painful joint to get substitutions, relief options, rehab drills, and video links.": "点击疼痛关节后，系统会给出替代动作、缓解方式、康复训练和视频入口。",
+  "Adjust Next Session From Fatigue + Pain": "根据疲劳 + 疼痛调整下一次训练",
+  "Plan connected": "已关联训练计划",
+  "Generate a plan first": "请先生成训练计划",
+  "Training completed today": "今天已完成训练",
+  "Session duration, min": "本次训练时长，分钟",
+  "The next-session recommendation combines fatigue, pain level, pain type, and pain location. Higher pain plus higher fatigue pushes the plan toward lower volume, longer rest, or exercise substitution.": "下一次训练建议会综合疲劳程度、疼痛等级、疼痛类型和疼痛位置。疼痛与疲劳越高，越倾向于降低容量、延长休息或替换动作。",
+  "Adjust next session": "调整下一次训练",
+  "Substitute the painful movement next time": "下次替换疼痛动作",
+  "Movement can be monitored": "动作可继续观察",
+  "SUPPLEMENT LOTTERY": "补剂抽奖",
+  "Check-In Prize Wheel": "打卡抽奖转盘",
+  "Keep going": "继续加油",
+  "Your first spin is a free trial. After that, every 7-day check-in streak earns one real draw ticket. Prizes include protein powder, creatine, and training accessories.": "第一次可以试抽；之后每坚持打卡 7 天获得一次正式抽奖资格，奖品包括蛋白粉、肌酸和训练配件。",
+  "Trial Spin": "试抽",
+  "Ready": "可用",
+  "Used": "已使用",
+  "Draw Tickets": "抽奖券",
+  "Current Streak": "当前连续打卡",
+  "Spinning": "抽奖中",
+  "Spin": "开始抽奖",
+  "KEEP GOING": "继续加油",
+  "Keep Going": "继续加油",
+  "You can spin now": "现在可以抽奖",
+  "Use the free trial or an earned check-in ticket. After spinning, keep checking in to unlock the next 7-day ticket.": "使用试抽或已获得的打卡抽奖券。抽完后继续打卡，解锁下一个 7 天奖励。",
+  "Check in after training. A 7-day streak unlocks one formal prize-wheel ticket.": "训练后完成打卡；连续 7 天可解锁一张正式抽奖券。",
+  "Today's check-in recorded": "今日打卡已记录",
+  "Complete today's check-in": "完成今日打卡",
+  "PRIZE POOL": "奖品池",
+  "Prize Pool and Result": "奖品池与抽奖结果",
+  "Ready to spin": "准备抽奖",
+  "Trial": "试抽",
+  "Ticket": "抽奖券",
+  "You won": "你抽中了",
+  "This was the first free trial spin, so it did not consume a 7-day ticket.": "这是第一次免费试抽，不消耗 7 天打卡券。",
+  "This consumed one 7-day check-in draw ticket.": "本次消耗了一张 7 天打卡抽奖券。",
+  "No draw history yet. Press “Spin” to use your first trial spin.": "还没有抽奖记录。点击“开始抽奖”使用第一次试抽。",
+  "Measurement Trends": "维度趋势",
+  "Add Record": "新增记录",
+  "Customize date, body weight, waist, and body-fat percentage. The line chart sorts entries by date automatically.": "可自定义日期、体重、腰围和体脂率；折线图会按日期自动排序。",
+  "Date": "日期",
+  "Weight": "体重",
+  "Waist": "腰围",
+  "Body Fat": "体脂率",
+  "Analyze Trend": "分析趋势",
+  "Trend Line Chart": "趋势折线图",
+  "Logged-In Account": "已登录账号",
+  "Account required for posting": "发帖需要登录",
+  "You can now post, like, and comment. Training plans and AI coaching stay available as usual.": "你现在可以发帖、点赞和评论；训练计划和 AI 教练照常可用。",
+  "Log Out": "退出登录",
+  "Create Account & Log In": "创建账号并登录",
+  "Log In to GymPath": "登录 GymPath",
+  "Share a Training Update": "分享训练动态",
+  "Posting enabled": "可发帖",
+  "Log in to unlock": "登录后解锁",
+  "Title: What happened in today's chest session?": "标题：今天胸部训练发生了什么？",
+  "Write your training question, check-in note, meal plan, movement feeling, or something you want experienced lifters to answer.": "写下你的训练问题、打卡记录、饮食计划、动作感受，或想让老手回答的内容。",
+  "Post image (optional)": "帖子图片（可选）",
+  "Supports JPG / PNG / WebP / GIF, max 5MB per image": "支持 JPG / PNG / WebP / GIF，单张最大 5MB",
+  "Refresh Feed": "刷新动态",
+  "Publish": "发布",
+  "Community Feed": "社区动态",
+  "No posts yet": "还没有帖子",
+  "Create the first training update after logging in, so classmates or test users have a real interaction entry point.": "登录后发布第一条训练动态，让同学或测试用户可以真实互动。",
+  "Liked": "已赞",
+  "Like": "点赞",
+  "Write a comment...": "写一条评论...",
+  "Log in to comment": "登录后评论",
+  "Comment": "评论",
+  "Close": "关闭",
+  "Full-size post image preview": "帖子大图预览",
+  "Close full-size image": "关闭大图",
+  "Thinking": "思考中",
+  "DeepSeek / fallback": "DeepSeek / 备用回答",
+  "You": "你",
+  "GymPath AI": "GymPath AI",
+  "How should a beginner arrange one week of muscle-gain training?": "新手增肌一周怎么安排？",
+  "My front shoulder hurts during bench press. What can I substitute?": "卧推肩前侧疼，可以替换什么动作？",
+  "How should I distribute carbs during a fat-loss phase?": "减脂期碳水应该怎么分配？",
+  "Can I train again if I am sore the next day?": "练完第二天酸痛还能继续练吗？",
+  "Ask a fitness question, e.g. can I train chest today if my shoulder hurts?": "输入你的健身问题，例如：今天肩疼还能不能练胸？",
+  "Generating Answer": "正在生成回答",
+  "Send to AI Coach": "发送给 AI 教练",
+  "Note: AI answers are for fitness education and training decisions only. They do not replace a doctor, physiotherapist, or in-person coach.": "提示：AI 回答只用于健身学习和训练决策，不替代医生、康复师或线下教练。",
+  "I am the GymPath AI coach. Ask me about training plans, exercise substitutions, nutrition, cutting, bulking, recovery, and beginner fitness concepts.": "我是 GymPath AI 教练。你可以问我训练计划、动作替换、饮食、减脂、增肌、恢复和新手健身认知问题。",
+  "AI coaching is temporarily unavailable. Describe your goal, exercise, pain location, training performance, and diet record clearly, and I can still help you troubleshoot.": "AI 教练暂时不可用。你可以先把目标、动作、疼痛位置、训练表现和饮食记录说清楚，我会继续帮你排查。",
+  "Beginner Knowledge Base": "新手认知扫盲库",
+  "Remove wrong assumptions first": "先破除错误认知",
+  "Spot Reduction": "局部减脂",
+  "BMI Limits": "BMI 局限",
+  "Beginner Splits": "新手分化",
+  "Pain Rules": "疼痛规则",
+  "Calorie Deficit": "热量缺口",
+  "Carb Cycling": "碳循环",
+  "Progressive Overload": "渐进超负荷",
+  "Deload": "减载",
+  "Soreness vs Injury": "酸痛与伤痛",
+  "Warm-Up Logic": "热身逻辑",
+  "Restart Training": "重启训练",
+  "Supplements": "补剂",
+  "Photo Tracking": "照片记录",
+  "You cannot target fat loss in one body part": "不能只瘦某一个部位",
+  "Spot reduction is one of the most common beginner myths. You can train abs, arms, or legs to make those muscles stronger, but fat loss is mainly driven by an overall calorie deficit. The practical path is whole-body fat loss, targeted muscle training, and long-term measurement tracking.": "局部减脂是新手最常见的误区之一。练腹、练手臂、练腿可以让对应肌肉更强，但脂肪下降主要由整体热量缺口决定。更实际的路径是全身减脂、局部肌肉训练和长期围度记录。",
+  "BMI is only a rough reference": "BMI 只是粗略参考",
+  "Experienced lifters often carry more muscle, so BMI may mislabel muscle mass as excess weight. Judge body composition with weight, waist, estimated body-fat percentage, photos, strength performance, and recovery trends rather than one BMI number.": "有训练基础的人通常肌肉量更高，BMI 容易把肌肉误判成超重。判断体态要结合体重、腰围、体脂估算、照片、力量表现和恢复趋势，而不是只看一个 BMI 数字。",
+  "Beginners can use a simple split": "新手也可以用简单分化",
+  "Beginners do not have to train full body only, but a split must stay simple, repeatable, and easy to follow. GymPath's beginner four-day split focuses on warm-ups, movement paths, and target-muscle sensation before adding load.": "新手不一定只能练全身，但分化必须简单、可重复、容易照着做。GymPath 的新手四分化先关注热身、动作路径和目标肌肉感受，再考虑加重量。",
+  "Pain is not proof of effort": "疼痛不是努力的证明",
+  "Muscle burn, pump, and hard effort can be part of training. Sharp pain, radiating pain, numbness, worsening pain, or deep joint pain are different signals. If those appear, reduce load, shorten range, substitute the exercise, or stop that session.": "肌肉灼烧、泵感和用力感可以是训练的一部分；锐痛、放射痛、麻木、越来越痛或深层关节痛则是不同信号。出现这些情况时，应降低重量、缩短幅度、替换动作，或停止本次训练。",
+  "Fat loss starts with a calorie deficit": "减脂从热量缺口开始",
+  "Fat loss is not about banning one food. It comes from a long-term average intake below expenditure. Carbs, fats, and protein can all stay in the diet; the key is total calories, enough protein, and training that remains sustainable.": "减脂不是禁止某种食物，而是长期平均摄入低于消耗。碳水、脂肪和蛋白质都可以保留，关键是总热量、足够蛋白质和可持续训练。",
+  "Protein is the recovery floor": "蛋白质是恢复底线",
+  "Muscle gain and fat loss both need enough protein. During fat loss, protein is especially useful for preserving muscle and improving fullness. A practical pattern is 4-5 meals, with about 20-40g protein per meal.": "增肌和减脂都需要足够蛋白质。减脂期蛋白质尤其有助于保留肌肉和增加饱腹感。实用做法是分 4-5 餐，每餐约 20-40g 蛋白质。",
+  "A high-carb day is not a cheat day": "高碳日不是放纵日",
+  "Carb cycling puts more carbs around high-intensity training days and fewer carbs on rest or lighter days. High-carb days support performance; low-carb days control weekly totals. Both still need structure.": "碳循环是在高强度训练日前后安排更多碳水，在休息或轻训练日减少碳水。高碳日支持表现，低碳日控制周总量，两者都需要结构化执行。",
+  "Progress comes from trackable progression": "进步来自可记录的渐进",
+  "Training is not about failing every session. Progress means load, reps, sets, control, or density improves while technique stays stable. If it can be recorded, it can be adjusted.": "训练不是每次都练到力竭。真正的进步是重量、次数、组数、控制或训练密度在动作稳定的前提下提升。能记录，就能调整。",
+  "A deload is not regression": "减载不是退步",
+  "When motivation drops for days, sleep worsens, loads fall, or joints feel irritated, a deload week can keep long-term progress alive. Reduce load, sets, or high-intensity work to restore the system.": "当训练热情连续下降、睡眠变差、重量下滑或关节不适时，减载周反而能保护长期进步。通过降低重量、组数或高强度内容让系统恢复。",
+  "Separate soreness from injury signals": "区分酸痛和伤痛信号",
+  "Delayed soreness is usually broad, dull, and improves with movement. Injury risk feels more local, sharp, joint-centered, radiating, or worse as you train. Beginners should learn whether today calls for training, modification, or rest.": "延迟性酸痛通常范围较大、钝痛，活动后会缓解；伤痛风险通常更局部、更锐利、集中在关节、会放射或越练越痛。新手要学会判断今天是继续练、调整练，还是休息。",
+  "A warm-up prepares the exact training pattern": "热身要服务今天的训练模式",
+  "A useful warm-up is not just sweating. Prepare the joints, target muscles, and movement pattern you will train today, then ramp into the working sets gradually.": "有效热身不只是出汗，而是准备今天要训练的关节、目标肌肉和动作模式，然后逐步递增到正式组。",
+  "Do not restart at your peak loads": "重启训练不要从巅峰重量开始",
+  "After a break, reduce load and sets for the first few sessions. Rebuild movement feel, recovery, and check-in rhythm before pushing hard again. A sustainable restart beats one heroic session.": "停练后前几次要降低重量和组数，先找回动作感觉、恢复能力和打卡节奏，再逐渐加码。可持续重启比一次硬顶更重要。",
+  "Supplements do not replace the basics": "补剂不能替代基本功",
+  "Creatine, whey, caffeine, and electrolytes can help convenience or performance, but they cannot replace training consistency, protein, sleep, and calorie control. If budget is limited, stabilize food and training first.": "肌酸、乳清、咖啡因和电解质可以提高便利性或表现，但不能替代稳定训练、蛋白质、睡眠和热量控制。预算有限时，先把饮食和训练稳定下来。",
+  "Photos and measurements give better feedback": "照片和围度能提供更好反馈",
+  "Body weight fluctuates daily. Fixed lighting, fixed angles, weekly weight, waist, and body-fat estimates make real trends easier to see and help decide whether diet needs adjustment.": "体重每天都会波动。固定光线、固定角度、每周体重、腰围和体脂估算更容易看出真实趋势，也更利于判断饮食是否需要调整。",
+  "Build the basics first": "先把基础做好",
+  "Train consistently, eat enough protein, sleep well, and adjust based on feedback.": "稳定训练、吃够蛋白质、睡好觉，再根据反馈调整。",
+  "Carbs": "碳水",
+  "Protein": "蛋白质",
+  "Fat": "脂肪",
+  "Calories": "热量",
+  "Baseline": "今日基准",
+  "High-Carb Day": "高碳日",
+  "Medium-Carb Day": "中碳日",
+  "Low-Carb Day": "低碳日",
+  "Training Day": "训练日",
+  "Rest Day": "休息日",
+  "Default": "默认",
+  "Custom": "自定义",
+  "Raw weight": "生重",
+  "Cooked weight": "熟重",
+  "Dry weight": "干重",
+  "switch raw/cooked or dry/cooked state": "可切换生重/熟重或干重/熟重",
+  "Anterior and posterior muscle anatomy": "人体前后视肌肉解剖图",
+  "Trend chart for weight, waist, and body-fat percentage": "体重、腰围和体脂率趋势图",
+  "Open full-size post image": "打开帖子大图",
+  "Stop this movement today": "今天停止这个动作",
+  "Reduce load or substitute": "降低重量或替换动作",
+  "Continue cautiously": "谨慎继续",
+  "Stop this exercise today. If symptoms continue, consult a qualified professional.": "今天停止这个动作；如果症状持续，请咨询合格专业人士。",
+  "Reduce load, shorten range of motion, slow the tempo, or switch to a more stable substitute.": "降低重量、缩短动作幅度、放慢节奏，或换成更稳定的替代动作。",
+  "You may continue cautiously, but control the movement and re-check the setup.": "可以谨慎继续，但要控制动作，并重新检查动作设置。",
+  "Keep the plan next time": "下次保持计划",
+  "Restart with a lower barrier": "降低门槛重启",
+  "Reduce fatigue first": "先降低疲劳",
+  "Substitute the painful movement": "替换疼痛动作",
+  "Stop the high-risk movement and deload": "停止高风险动作并减载",
+  "Deload and substitute": "减载并替换",
+  "Lower stress and monitor": "降低压力并观察",
+  "Normal progression": "正常推进",
+  "Lower barrier": "降低门槛",
+  "High fatigue": "疲劳偏高",
+  "Pain modification": "疼痛调整",
+  "Monitor": "继续观察",
+  "Recovery first": "恢复优先",
+  "High risk": "高风险",
+  "Unclassified": "未分类",
+  "Numbness": "麻木",
+  "Electric pain": "电击样疼痛",
+  "Next session should be shorter and easier to complete.": "下一次训练应更短、更容易完成。",
+  "Reduce total sets by about 25% for the next similar workout.": "下一次同类训练总组数减少约 25%。",
+  "This workout felt manageable. Consider a small load or rep increase next time.": "这次训练可控，下次可以小幅加重量或加次数。",
+  "Shorten accessory work to keep sessions realistic.": "缩短辅助动作，让训练时长更现实。",
+  "Do not repeat the painful movement next session; substitute it and reduce workload.": "下一次不要重复疼痛动作，先替换并降低训练量。",
+  "Pain and fatigue are both high. Deload the next similar session and replace the painful movement.": "疼痛和疲劳都偏高，下一次同类训练减载并替换疼痛动作。",
+  "Pain and fatigue are moderate. Keep the next session easier and avoid adding load.": "疼痛和疲劳中等，下一次训练保持更轻，不要加重量。",
+  "Replace or modify the painful movement before repeating this session.": "再次训练前先替换或修改疼痛动作。",
+  "Keep the plan unchanged and focus on consistent execution.": "计划保持不变，重点放在稳定执行。",
+  "Beginner four-day split: chest, shoulders, and triceps. Learn the video sequence before adding load.": "新手四分化：胸、肩、三头。先学会视频动作顺序，再考虑加重量。",
+  "Beginner four-day split: back and biceps. Start by feeling the lats before heavy pulling.": "新手四分化：背和二头。先找到背阔肌发力，再追求更重的拉。",
+  "Beginner four-day split: lower body. Keep balance and joint control ahead of load.": "新手四分化：下肢。先保证平衡和关节控制，再追求重量。",
+  "Beginner four-day split: shoulders and arms. Keep shoulder positions stable and avoid swinging.": "新手四分化：肩和手臂。肩部位置保持稳定，避免借力甩动。",
+  "Recovery day: no hard training.": "休息日：不做高强度训练。",
+  "Rest one day after the lower-body session. Keep steps easy, sleep enough, and do light mobility only if it feels good.": "下肢训练后休息一天。轻松走路、保证睡眠；如果身体感觉不错，可做轻量活动度训练。",
+  "Protein Powder": "蛋白粉",
+  "Creatine": "肌酸",
+  "Electrolyte Drink": "电解质饮料",
+  "Shaker Bottle": "摇摇杯",
+  "Training Gloves": "训练手套",
+  "Supplement Sample": "补剂试用装",
   "Switch to English": "\u5207\u6362\u5230\u82f1\u6587",
   "Switch to Chinese": "\u5207\u6362\u5230\u4e2d\u6587",
 };
 
 function uiText(value: string) {
-  return renderLocale === "zh" ? ZH_TEXT[value] ?? value : value;
+  return renderLocale === "zh" ? zhText(value) : value;
+}
+
+function zhText(value: string) {
+  if (!value) return value;
+  return ZH_TEXT[value] ?? EXERCISE_CN[value] ?? FOCUS_CN[value] ?? SPLIT_CN[value] ?? WARMUP_CN[value] ?? value;
 }
 
 const EXERCISE_CN: Record<string, string> = {
@@ -1272,7 +1604,7 @@ export default function Home() {
                 {profile.fat_loss_plan === "orange_carb_taper" ? (
                   <>
                     <Segment label="Orange Macro Ratio" options={CARB_SENSITIVITY_OPTIONS} value={profile.carb_sensitivity} onChange={(value) => patchProfile("carb_sensitivity", value)} />
-                    <p className="soft">Training burn is now automatic: Beginner or female = 5 kcal/min, Fitness Enthusiast = 8 kcal/min, High-Intensity Trainee = 10 kcal/min.</p>
+                    <p className="soft">{uiText("Training burn is now automatic: Beginner or female = 5 kcal/min, Fitness Enthusiast = 8 kcal/min, High-Intensity Trainee = 10 kcal/min.")}</p>
                     <Field label={`Target weight ${targetWeightValue} kg`}>
                       <input type="range" min="40" max={targetWeightMax} step="1" value={targetWeightValue} onChange={(event) => patchProfile("target_weight_kg", Number(event.target.value))} />
                     </Field>
@@ -1482,20 +1814,20 @@ function AuthGate({
       <section className="auth-panel">
         <Header code="ACCOUNT" title={authMode === "register" ? "Create Account" : "Log In"} right="Local MVP account" />
         <form className="auth-form" onSubmit={onAuthSubmit}>
-          <div className="auth-tabs" role="tablist" aria-label="Account mode">
+          <div className="auth-tabs" role="tablist" aria-label={uiText("Account mode")}>
             <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>{uiText("Log In")}</button>
             <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>{uiText("Register")}</button>
           </div>
           <Field label={authMode === "register" ? "Nickname" : "Nickname or Email"}>
-            <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="e.g. No-Shrug Shoulders" />
+            <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder={uiText("e.g. No-Shrug Shoulders")} />
           </Field>
           {authMode === "register" ? (
             <Field label="Email (optional)">
-              <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder="For future account recovery" />
+              <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder={uiText("For future account recovery")} />
             </Field>
           ) : null}
           <Field label="Password">
-            <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="At least 6 characters" />
+            <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder={uiText("At least 6 characters")} />
           </Field>
           {authError ? <p className="form-error">{cleanApiError(authError)}</p> : null}
           <button className="primary" type="submit">{uiText(authMode === "register" ? "Create Account & Enter" : "Log In & Enter")}</button>
@@ -1537,13 +1869,13 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
 
   return (
     <section className="wide">
-      <Header code="WEEK PLAN" title={tx(SPLIT_CN, plan.split.split_name)} right={`${plan.days_per_week} days / ${plan.minutes_per_session} min`} />
+      <Header code="WEEK PLAN" title={tx(SPLIT_CN, plan.split.split_name)} right={renderLocale === "zh" ? `${plan.days_per_week} 天 / ${plan.minutes_per_session} 分钟` : `${plan.days_per_week} days / ${plan.minutes_per_session} min`} />
       {plan.muscle_gain_plan ? (
         <ProgramBriefView code="MUSCLE PLAN" plan={plan.muscle_gain_plan} />
       ) : plan.strength_plan ? (
         <ProgramBriefView code="STRENGTH PLAN" plan={plan.strength_plan} />
       ) : (
-        <p className="soft">Generated from the current goal, with training days, warm-ups, exercises, and feedback adjustment entry points.</p>
+        <p className="soft">{uiText("Generated from the current goal, with training days, warm-ups, exercises, and feedback adjustment entry points.")}</p>
       )}
       <div className="day-stack">
         {plan.weekly_schedule.map((day, index) => {
@@ -1560,21 +1892,21 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
             </div>
             {day.is_rest_day ? (
               <div className="rest-card">
-                <strong>Recovery Plan</strong>
+                <strong>{uiText("Recovery Plan")}</strong>
                 <p>{enText(day.rest_note ?? "No formal training today. Prioritize recovery.")}</p>
               </div>
             ) : (
               <>
-                {day.rest_policy ? <p className="session-rest-policy">{day.rest_policy}</p> : null}
+                {day.rest_policy ? <p className="session-rest-policy">{enText(day.rest_policy)}</p> : null}
                 <div className="day-actions">
                   {dayVideoLinks.map((link) => (
                     <a key={`${day.day}-${link.key}`} href={link.url} target="_blank" rel="noreferrer">
-                      {link.label}
+                      {uiText(link.label)}
                     </a>
                   ))}
                 </div>
                 <details>
-                  <summary>Warm-up / Activation</summary>
+                  <summary>{uiText("Warm-up / Activation")}</summary>
                   <ul className="chip-row">
                     {day.warmup.map((item) => <li key={item}>{tx(WARMUP_CN, item)}</li>)}
                   </ul>
@@ -1594,11 +1926,11 @@ function PlanView({ plan }: { plan: WorkoutPlan | null }) {
                     return (
                       <article className="exercise" key={`${exercise.name}-${exerciseIndex}`}>
                         <header>
-                          <span>{exercise.phase ?? exercise.target_muscle}</span>
-                          {showTeachingVideo ? <a href={exercise.teaching_url} target="_blank" rel="noreferrer">Teaching video</a> : null}
+                          <span>{enText(exercise.phase ?? exercise.target_muscle)}</span>
+                          {showTeachingVideo ? <a href={exercise.teaching_url} target="_blank" rel="noreferrer">{uiText("Teaching video")}</a> : null}
                         </header>
                         <h4>{tx(EXERCISE_CN, exercise.name)}</h4>
-                        <p>{exercise.sets} sets / {exercise.reps} reps / rest {formatRest(exercise.rest_seconds)}</p>
+                        <p>{renderLocale === "zh" ? `${exercise.sets} 组 / ${exercise.reps} 次 / 休息 ${formatRest(exercise.rest_seconds)}` : `${exercise.sets} sets / ${exercise.reps} reps / rest ${formatRest(exercise.rest_seconds)}`}</p>
                       </article>
                     );
                   })}
@@ -1638,21 +1970,21 @@ function ProgramBriefView({ code, plan }: { code: string; plan: ProgramBrief }) 
       </div>
       <div className="strength-grid">
         <article>
-          <strong>Core Logic</strong>
+          <strong>{uiText("Core Logic")}</strong>
           {plan.logic_points.map((item) => <span key={item}>{enText(item)}</span>)}
         </article>
         <article>
-          <strong>Progression Rules</strong>
+          <strong>{uiText("Progression Rules")}</strong>
           {plan.progression_rules.map((item) => <span key={item}>{enText(item)}</span>)}
         </article>
         {plan.stall_strategy?.length ? (
           <article>
-            <strong>Stall Strategy</strong>
+            <strong>{uiText("Stall Strategy")}</strong>
             {plan.stall_strategy.map((item) => <span key={item}>{enText(item)}</span>)}
           </article>
         ) : null}
         <article>
-          <strong>Risk Notes</strong>
+          <strong>{uiText("Risk Notes")}</strong>
           {plan.warnings.map((item) => <span key={item}>{enText(item)}</span>)}
         </article>
       </div>
@@ -1699,12 +2031,17 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
   const proteinValue = diet ? String(diet.baseline_daily.protein_g) : `${nutrition.protein.min_grams}-${nutrition.protein.max_grams}`;
   const isPerformanceDiet = diet?.type === "performance_macros";
   const calorieNote = isPerformanceDiet
-    ? `Training day ${diet.training_day_calories} kcal / rest day ${diet.rest_day_calories} kcal`
-    : `Maintenance ${nutrition.calories.maintenance_calories} kcal`;
+    ? renderLocale === "zh"
+      ? `训练日 ${diet.training_day_calories} kcal / 休息日 ${diet.rest_day_calories} kcal`
+      : `Training day ${diet.training_day_calories} kcal / rest day ${diet.rest_day_calories} kcal`
+    : renderLocale === "zh"
+      ? `维持热量 ${nutrition.calories.maintenance_calories} kcal`
+      : `Maintenance ${nutrition.calories.maintenance_calories} kcal`;
   const proteinNote = isPerformanceDiet
     ? "25% of total calories ÷ 4 kcal/g"
     : diet ? "Calculated from the selected nutrition plan" : "Easier to sustain across 3-5 meals";
-  const dailyPrefix = isPerformanceDiet ? "Training-day" : "Daily";
+  const carbTargetLabel = isPerformanceDiet ? "Training-day Carb Target" : "Daily Carb Target";
+  const fatTargetLabel = isPerformanceDiet ? "Training-day Fat Target" : "Daily Fat Target";
   return (
     <div className="metric-grid">
       <Metric label="Target Calories" value={String(nutrition.calories.target_calories)} suffix="kcal" note={calorieNote} />
@@ -1712,9 +2049,9 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
       <Metric label="BMI" value={String(nutrition.bmi)} suffix="" note="Only a rough reference for muscular lifters" />
       {diet ? (
         <>
-          <Metric label={`${dailyPrefix} Carb Target`} value={String(diet.baseline_daily.carbs_g)} suffix="g" note={`${diet.weekly_totals.carbs_g}g per week`} />
-          <Metric label={`${dailyPrefix} Fat Target`} value={String(diet.baseline_daily.fat_g)} suffix="g" note={`${diet.weekly_totals.fat_g}g per week`} />
-          <Metric label="Protein Per Meal" value={diet.meal_timing.protein_per_meal_g} suffix="g" note={`${diet.meal_timing.meals_per_day} meals / every ${diet.meal_timing.meal_interval_hours} hours`} />
+          <Metric label={carbTargetLabel} value={String(diet.baseline_daily.carbs_g)} suffix="g" note={renderLocale === "zh" ? `每周 ${diet.weekly_totals.carbs_g}g` : `${diet.weekly_totals.carbs_g}g per week`} />
+          <Metric label={fatTargetLabel} value={String(diet.baseline_daily.fat_g)} suffix="g" note={renderLocale === "zh" ? `每周 ${diet.weekly_totals.fat_g}g` : `${diet.weekly_totals.fat_g}g per week`} />
+          <Metric label="Protein Per Meal" value={diet.meal_timing.protein_per_meal_g} suffix="g" note={renderLocale === "zh" ? `${diet.meal_timing.meals_per_day} 餐 / 每 ${diet.meal_timing.meal_interval_hours} 小时` : `${diet.meal_timing.meals_per_day} meals / every ${diet.meal_timing.meal_interval_hours} hours`} />
         </>
       ) : null}
       {diet?.type === "performance_macros" ? (
@@ -1722,28 +2059,28 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
           <Header code="PERFORMANCE FUEL" title={enText(diet.title)} right={enText(diet.macro_ratio?.label ?? "5:2.5:2.5")} />
           <div className="macro-cycle orange-cycle">
             <article className="macro-card">
-              <header><span>BMR</span><strong>Basal Metabolic Rate</strong></header>
-              <div className="macro-row"><span>Formula result</span><b>{diet.bmr} kcal</b></div>
+              <header><span>{uiText("BMR")}</span><strong>{uiText("Basal Metabolic Rate")}</strong></header>
+              <div className="macro-row"><span>{uiText("Formula result")}</span><b>{diet.bmr} kcal</b></div>
               <p>{enText(diet.bmr_formula ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>LIFE</span><strong>Lifestyle Burn</strong></header>
-              <div className="macro-row"><span>Estimate</span><b>{diet.life_burn} kcal</b></div>
+              <header><span>LIFE</span><strong>{uiText("Lifestyle Burn")}</strong></header>
+              <div className="macro-row"><span>{uiText("Estimate")}</span><b>{diet.life_burn} kcal</b></div>
               <p>{enText(diet.life_burn_note ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TRAIN</span><strong>Training Burn</strong></header>
-              <div className="macro-row"><span>Duration</span><b>{diet.training_burn?.minutes} min</b></div>
-              <div className="macro-row"><span>Intensity factor</span><b>{diet.training_burn?.intensity_factor}</b></div>
-              <div className="macro-row"><span>Estimated burn</span><b>{diet.training_burn?.calories} kcal</b></div>
+              <header><span>TRAIN</span><strong>{uiText("Training Burn")}</strong></header>
+              <div className="macro-row"><span>{uiText("Duration")}</span><b>{diet.training_burn?.minutes} min</b></div>
+              <div className="macro-row"><span>{uiText("Intensity factor")}</span><b>{diet.training_burn?.intensity_factor}</b></div>
+              <div className="macro-row"><span>{uiText("Estimated burn")}</span><b>{diet.training_burn?.calories} kcal</b></div>
               <p>{enText(diet.training_burn?.label ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TARGET</span><strong>Calorie Strategy</strong></header>
-              <div className="macro-row"><span>Training day</span><b>{diet.training_day_calories} kcal</b></div>
-              <div className="macro-row"><span>Rest day</span><b>{diet.rest_day_calories} kcal</b></div>
-              <div className="macro-row"><span>Floor</span><b>{diet.calorie_floor} kcal</b></div>
-              <p>Training days sit around +250 kcal; rest days sit around -600 kcal, but no day goes below BMR.</p>
+              <header><span>TARGET</span><strong>{uiText("Calorie Strategy")}</strong></header>
+              <div className="macro-row"><span>{uiText("Training day")}</span><b>{diet.training_day_calories} kcal</b></div>
+              <div className="macro-row"><span>{uiText("Rest day")}</span><b>{diet.rest_day_calories} kcal</b></div>
+              <div className="macro-row"><span>{uiText("Floor")}</span><b>{diet.calorie_floor} kcal</b></div>
+              <p>{uiText("Training days sit around +250 kcal; rest days sit around -600 kcal, but no day goes below BMR.")}</p>
             </article>
           </div>
         </section>
@@ -1755,13 +2092,13 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
             {diet.cycle_days.map((day) => (
               <article className="macro-card" key={day.key}>
                 <header>
-                  <span>{day.days_per_week} days / week</span>
+                  <span>{renderLocale === "zh" ? `每周 ${day.days_per_week} 天` : `${day.days_per_week} days / week`}</span>
                   <strong>{enText(day.label)}</strong>
                 </header>
-                <div className="macro-row"><span>Carbs</span><b>{day.carbs_g}g</b></div>
-                <div className="macro-row"><span>Protein</span><b>{day.protein_g}g</b></div>
-                <div className="macro-row"><span>Fat</span><b>{day.fat_g}g</b></div>
-                <div className="macro-row"><span>Calories</span><b>{day.calories} kcal</b></div>
+                <div className="macro-row"><span>{uiText("Carbs")}</span><b>{day.carbs_g}g</b></div>
+                <div className="macro-row"><span>{uiText("Protein")}</span><b>{day.protein_g}g</b></div>
+                <div className="macro-row"><span>{uiText("Fat")}</span><b>{day.fat_g}g</b></div>
+                <div className="macro-row"><span>{uiText("Calories")}</span><b>{day.calories} kcal</b></div>
                 <p>{enText(day.timing)}</p>
               </article>
             ))}
@@ -1773,31 +2110,31 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
           <Header code="CARB TAPER" title="Orange Carb-Taper Cut" right={enText(diet.macro_ratio?.label ?? "BMR + training burn")} />
           <div className="macro-cycle orange-cycle">
             <article className="macro-card">
-              <header><span>BMR</span><strong>Basal Metabolic Rate</strong></header>
-              <div className="macro-row"><span>Formula result</span><b>{diet.bmr} kcal</b></div>
-              <p>Male: 10x bodyweight + 6.25x height - 5x age + 5. Female: same formula but ending with -161.</p>
+              <header><span>{uiText("BMR")}</span><strong>{uiText("Basal Metabolic Rate")}</strong></header>
+              <div className="macro-row"><span>{uiText("Formula result")}</span><b>{diet.bmr} kcal</b></div>
+              <p>{uiText("Male: 10x bodyweight + 6.25x height - 5x age + 5. Female: same formula but ending with -161.")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TRAIN</span><strong>Training Burn</strong></header>
-              <div className="macro-row"><span>Auto factor</span><b>{diet.training_burn?.intensity_factor}</b></div>
-              <div className="macro-row"><span>Duration</span><b>{diet.training_burn?.minutes} min</b></div>
-              <div className="macro-row"><span>Estimated burn</span><b>{diet.training_burn?.calories} kcal</b></div>
+              <header><span>TRAIN</span><strong>{uiText("Training Burn")}</strong></header>
+              <div className="macro-row"><span>{uiText("Auto factor")}</span><b>{diet.training_burn?.intensity_factor}</b></div>
+              <div className="macro-row"><span>{uiText("Duration")}</span><b>{diet.training_burn?.minutes} min</b></div>
+              <div className="macro-row"><span>{uiText("Estimated burn")}</span><b>{diet.training_burn?.calories} kcal</b></div>
               <p>{enText(diet.training_burn?.label ?? "")}</p>
             </article>
             <article className="macro-card">
-              <header><span>TOTAL</span><strong>Daily Expenditure</strong></header>
-              <div className="macro-row"><span>Base total</span><b>{diet.daily_expenditure} kcal</b></div>
-              <div className="macro-row"><span>Carbs</span><b>{diet.baseline_daily.carbs_g}g</b></div>
-              <div className="macro-row"><span>Protein</span><b>{diet.baseline_daily.protein_g}g</b></div>
-              <div className="macro-row"><span>Fat</span><b>{diet.baseline_daily.fat_g}g</b></div>
+              <header><span>TOTAL</span><strong>{uiText("Daily Expenditure")}</strong></header>
+              <div className="macro-row"><span>{uiText("Base total")}</span><b>{diet.daily_expenditure} kcal</b></div>
+              <div className="macro-row"><span>{uiText("Carbs")}</span><b>{diet.baseline_daily.carbs_g}g</b></div>
+              <div className="macro-row"><span>{uiText("Protein")}</span><b>{diet.baseline_daily.protein_g}g</b></div>
+              <div className="macro-row"><span>{uiText("Fat")}</span><b>{diet.baseline_daily.fat_g}g</b></div>
             </article>
             {diet.target_timeline ? (
               <article className="macro-card">
-                <header><span>TARGET</span><strong>Fat-Loss Target</strong></header>
-                <div className="macro-row"><span>Target weight</span><b>{diet.target_timeline.target_weight_kg}kg</b></div>
-                <div className="macro-row"><span>Total loss</span><b>{diet.target_timeline.target_loss_kg}kg</b></div>
-                <div className="macro-row"><span>3% pace</span><b>{diet.target_timeline.conservative_months_3_percent} months</b></div>
-                <div className="macro-row"><span>5% pace</span><b>{diet.target_timeline.aggressive_months_5_percent} months</b></div>
+                <header><span>TARGET</span><strong>{uiText("Fat-Loss Target")}</strong></header>
+                <div className="macro-row"><span>{uiText("Target weight")}</span><b>{diet.target_timeline.target_weight_kg}kg</b></div>
+                <div className="macro-row"><span>{uiText("Total loss")}</span><b>{diet.target_timeline.target_loss_kg}kg</b></div>
+                <div className="macro-row"><span>{uiText("3% pace")}</span><b>{diet.target_timeline.conservative_months_3_percent} {renderLocale === "zh" ? "个月" : "months"}</b></div>
+                <div className="macro-row"><span>{uiText("5% pace")}</span><b>{diet.target_timeline.aggressive_months_5_percent} {renderLocale === "zh" ? "个月" : "months"}</b></div>
                 <p>{enText(diet.target_timeline.note)}</p>
               </article>
             ) : null}
@@ -1805,7 +2142,7 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
           {diet.adjustment_protocol ? (
             <div className="rule-list compact-rules">
               <p>{enText(diet.adjustment_protocol.rule)}</p>
-              <p>At a 3% monthly pace, the current weekly loss target is about {diet.adjustment_protocol.weekly_loss_target_kg}kg. If progress stalls, reduce daily carbs by {diet.adjustment_protocol.carb_cut_if_stalled_g}g.</p>
+              <p>{renderLocale === "zh" ? `按每月 3% 的速度，当前每周目标约 ${diet.adjustment_protocol.weekly_loss_target_kg}kg。若进度停滞，每日碳水减少 ${diet.adjustment_protocol.carb_cut_if_stalled_g}g。` : `At a 3% monthly pace, the current weekly loss target is about ${diet.adjustment_protocol.weekly_loss_target_kg}kg. If progress stalls, reduce daily carbs by ${diet.adjustment_protocol.carb_cut_if_stalled_g}g.`}</p>
             </div>
           ) : null}
         </section>
@@ -1827,10 +2164,10 @@ function NutritionView({ nutrition }: { nutrition: Nutrition | null }) {
         <div className="rule-list">
           {diet?.rules.map((rule) => <p key={rule}>{enText(rule)}</p>)}
           {diet ? <p>{enText(diet.meal_timing.note)}</p> : null}
-          {!diet ? <p>Hit protein first, then check total calories.</p> : null}
-          {!diet ? <p>Bulking is not random eating; cutting is not extreme restriction.</p> : null}
-          {!diet ? <p>Adjust calories only after two weeks without body-weight or measurement change.</p> : null}
-          <p>BMI is weak for muscular users. Combine it with measurements, strength, photos, and body-fat trends.</p>
+          {!diet ? <p>{uiText("Hit protein first, then check total calories.")}</p> : null}
+          {!diet ? <p>{uiText("Bulking is not random eating; cutting is not extreme restriction.")}</p> : null}
+          {!diet ? <p>{uiText("Adjust calories only after two weeks without body-weight or measurement change.")}</p> : null}
+          <p>{uiText("BMI is weak for muscular users. Combine it with measurements, strength, photos, and body-fat trends.")}</p>
         </div>
       </section>
     </div>
@@ -1957,7 +2294,7 @@ function MealPlanner({
         <MacroBadge label="Selected Total" totals={dailyTotal} />
         <MacroBadge label="Remaining" totals={remaining} />
       </div>
-      <p className="meal-note">Food values are practical estimates for common portions. For packaged foods, use the nutrition label. After selecting multiple foods, each meal header updates calories and macros in real time.</p>
+      <p className="meal-note">{uiText("Food values are practical estimates for common portions. For packaged foods, use the nutrition label. After selecting multiple foods, each meal header updates calories and macros in real time.")}</p>
       <div className="meal-stack">
         {foodLibrary.meals.map((meal) => {
           const selectedIds = mealSelections[meal.key] ?? [];
@@ -1973,9 +2310,9 @@ function MealPlanner({
                   <strong>{mealTotals[meal.key]?.calories ?? 0} kcal</strong>
                 </div>
                 <div className="meal-macros">
-                  <b>Carbs {mealTotals[meal.key]?.carbs_g ?? 0}g</b>
-                  <b>Protein {mealTotals[meal.key]?.protein_g ?? 0}g</b>
-                  <b>Fat {mealTotals[meal.key]?.fat_g ?? 0}g</b>
+                  <b>{uiText("Carbs")} {mealTotals[meal.key]?.carbs_g ?? 0}g</b>
+                  <b>{uiText("Protein")} {mealTotals[meal.key]?.protein_g ?? 0}g</b>
+                  <b>{uiText("Fat")} {mealTotals[meal.key]?.fat_g ?? 0}g</b>
                 </div>
               </header>
               <p>{enText(meal.note)}</p>
@@ -1989,18 +2326,18 @@ function MealPlanner({
                   >
                     <strong>{enText(food.name)}</strong>
                     <span>{food.default_grams}g · {enText(stateLabel(food, food.default_state))}</span>
-                    <small>Per 100g {stateCalories(food, food.default_state)} kcal · {food.states.length > 1 ? "switch raw/cooked or dry/cooked state" : enText(food.portion)}</small>
+                    <small>{renderLocale === "zh" ? "每 100g" : "Per 100g"} {stateCalories(food, food.default_state)} kcal · {food.states.length > 1 ? uiText("switch raw/cooked or dry/cooked state") : enText(food.portion)}</small>
                   </button>
                 ))}
               </div>
               <div className="custom-food-form">
-                <strong>Not listed? Add a custom food</strong>
-                <input value={customDraft.name} onChange={(event) => patchCustomDraft(meal.key, { name: event.target.value })} placeholder="Food name, e.g. beef rice bowl" />
-                <input type="number" min="1" value={customDraft.grams} onChange={(event) => patchCustomDraft(meal.key, { grams: event.target.value })} placeholder="Amount eaten, g" />
-                <input type="number" min="0" step="0.1" value={customDraft.carbs} onChange={(event) => patchCustomDraft(meal.key, { carbs: event.target.value })} placeholder="Carbs per 100g" />
-                <input type="number" min="0" step="0.1" value={customDraft.protein} onChange={(event) => patchCustomDraft(meal.key, { protein: event.target.value })} placeholder="Protein per 100g" />
-                <input type="number" min="0" step="0.1" value={customDraft.fat} onChange={(event) => patchCustomDraft(meal.key, { fat: event.target.value })} placeholder="Fat per 100g" />
-                <button className="ghost" type="button" onClick={() => addCustomFood(meal.key)} disabled={!canAddCustomFood}>Add to meal</button>
+                <strong>{uiText("Not listed? Add a custom food")}</strong>
+                <input value={customDraft.name} onChange={(event) => patchCustomDraft(meal.key, { name: event.target.value })} placeholder={uiText("Food name, e.g. beef rice bowl")} />
+                <input type="number" min="1" value={customDraft.grams} onChange={(event) => patchCustomDraft(meal.key, { grams: event.target.value })} placeholder={uiText("Amount eaten, g")} />
+                <input type="number" min="0" step="0.1" value={customDraft.carbs} onChange={(event) => patchCustomDraft(meal.key, { carbs: event.target.value })} placeholder={uiText("Carbs per 100g")} />
+                <input type="number" min="0" step="0.1" value={customDraft.protein} onChange={(event) => patchCustomDraft(meal.key, { protein: event.target.value })} placeholder={uiText("Protein per 100g")} />
+                <input type="number" min="0" step="0.1" value={customDraft.fat} onChange={(event) => patchCustomDraft(meal.key, { fat: event.target.value })} placeholder={uiText("Fat per 100g")} />
+                <button className="ghost" type="button" onClick={() => addCustomFood(meal.key)} disabled={!canAddCustomFood}>{uiText("Add to meal")}</button>
               </div>
               {selectedIds.length ? (
                 <div className="selected-food-list">
@@ -2012,7 +2349,7 @@ function MealPlanner({
                       <div className="selected-food-row" key={`${meal.key}-${selection.food_id}`}>
                         <div>
                           <strong>{enText(food.name)}</strong>
-                          <span>{Math.round(itemTotals.calories)} kcal · carbs {itemTotals.carbs_g}g / protein {itemTotals.protein_g}g / fat {itemTotals.fat_g}g</span>
+                          <span>{renderLocale === "zh" ? `${Math.round(itemTotals.calories)} kcal · 碳水 ${itemTotals.carbs_g}g / 蛋白 ${itemTotals.protein_g}g / 脂肪 ${itemTotals.fat_g}g` : `${Math.round(itemTotals.calories)} kcal · carbs ${itemTotals.carbs_g}g / protein ${itemTotals.protein_g}g / fat ${itemTotals.fat_g}g`}</span>
                         </div>
                         <input
                           aria-label={`${enText(food.name)} grams`}
@@ -2035,7 +2372,7 @@ function MealPlanner({
         })}
       </div>
       <details className="source-details">
-        <summary>Nutrition data sources</summary>
+        <summary>{uiText("Nutrition data sources")}</summary>
         <ul>
           {foodLibrary.macro_sources.map((source) => <li key={source}>{source}</li>)}
         </ul>
@@ -2047,9 +2384,9 @@ function MealPlanner({
 function MacroBadge({ label, totals }: { label: string; totals: MacroTotals }) {
   return (
     <article>
-      <span>{label}</span>
+      <span>{uiText(label)}</span>
       <strong>{Math.round(totals.calories)} kcal</strong>
-      <p>Carbs {roundMacro(totals.carbs_g)}g / Protein {roundMacro(totals.protein_g)}g / Fat {roundMacro(totals.fat_g)}g</p>
+      <p>{uiText("Carbs")} {roundMacro(totals.carbs_g)}g / {uiText("Protein")} {roundMacro(totals.protein_g)}g / {uiText("Fat")} {roundMacro(totals.fat_g)}g</p>
     </article>
   );
 }
@@ -2086,23 +2423,23 @@ function PainView({
             </Field>
             <Field label="Pain location">
               <select value={pain.pain_location} onChange={(event) => setPain((current) => ({ ...current, pain_location: event.target.value }))}>
-                <option value="shoulder">Shoulder</option>
-                <option value="elbow">Elbow</option>
-                <option value="wrist">Wrist</option>
-                <option value="back">Low back</option>
-                <option value="hip">Hip</option>
-                <option value="knee">Knee</option>
-                <option value="ankle">Ankle</option>
+                <option value="shoulder">{uiText("Shoulder")}</option>
+                <option value="elbow">{uiText("Elbow")}</option>
+                <option value="wrist">{uiText("Wrist")}</option>
+                <option value="back">{uiText("Low back")}</option>
+                <option value="hip">{uiText("Hip")}</option>
+                <option value="knee">{uiText("Knee")}</option>
+                <option value="ankle">{uiText("Ankle")}</option>
               </select>
             </Field>
             <Field label="Pain type">
               <select value={pain.pain_type} onChange={(event) => setPain((current) => ({ ...current, pain_type: event.target.value }))}>
-                <option value="burn">Muscle burn</option>
-                <option value="pinch">Pinching</option>
-                <option value="joint">Joint discomfort</option>
-                <option value="sharp">Sharp pain</option>
-                <option value="radiating">Radiating pain</option>
-                <option value="worsening">Getting worse</option>
+                <option value="burn">{uiText("Muscle burn")}</option>
+                <option value="pinch">{uiText("Pinching")}</option>
+                <option value="joint">{uiText("Joint discomfort")}</option>
+                <option value="sharp">{uiText("Sharp pain")}</option>
+                <option value="radiating">{uiText("Radiating pain")}</option>
+                <option value="worsening">{uiText("Getting worse")}</option>
               </select>
             </Field>
             <Field label={`Pain level ${pain.pain_level}/10`}>
@@ -2119,7 +2456,7 @@ function PainView({
               />
             </Field>
           </div>
-          <button className="primary" type="submit">Check whether to continue</button>
+          <button className="primary" type="submit">{uiText("Check whether to continue")}</button>
         </form>
       </section>
       {result && (
@@ -2132,21 +2469,21 @@ function PainView({
           {result.joint_guidance ? (
             <div className="joint-guidance">
               <article>
-                <strong>{enText(result.joint_guidance.label)} substitutions</strong>
+                <strong>{renderLocale === "zh" ? `${enText(result.joint_guidance.label)}替代动作` : `${enText(result.joint_guidance.label)} substitutions`}</strong>
                 <div className="chip-row">
                   {result.joint_guidance.substitutions.map((item) => <span key={item}>{tx(EXERCISE_CN, item)}</span>)}
                 </div>
               </article>
               <article>
-                <strong>Relief options</strong>
+                <strong>{uiText("Relief options")}</strong>
                 <ul>{result.joint_guidance.relief_methods.map((item) => <li key={item}>{enText(item)}</li>)}</ul>
               </article>
               <article>
-                <strong>Rehab drills</strong>
+                <strong>{uiText("Rehab drills")}</strong>
                 <ul>{result.joint_guidance.rehab_drills.map((item) => <li key={item}>{enText(item)}</li>)}</ul>
               </article>
               <article>
-                <strong>Video links</strong>
+                <strong>{uiText("Video links")}</strong>
                 <div className="day-actions">
                   {result.joint_guidance.video_links.map((item) => <a key={item.url} href={item.url} target="_blank" rel="noreferrer">{enText(item.label)}</a>)}
                 </div>
@@ -2166,7 +2503,7 @@ function HumanPainMap({ selected, onSelect }: { selected: string; onSelect: (loc
       <Header code="ANATOMY MAP" title="Muscle and Joint Map" right="Click a joint" />
       <div className="human-map anatomy-photo-board">
         <div className="anatomy-photo-frame">
-          <img src={ANATOMY_IMAGE_URL} alt="Anterior and posterior muscle anatomy" loading="lazy" />
+          <img src={ANATOMY_IMAGE_URL} alt={uiText("Anterior and posterior muscle anatomy")} loading="lazy" />
           {PAIN_JOINTS.map((joint, index) => (
             <button
               key={`${joint.key}-${joint.view}-${index}`}
@@ -2174,17 +2511,17 @@ function HumanPainMap({ selected, onSelect }: { selected: string; onSelect: (loc
               type="button"
               style={{ left: `${joint.x}%`, top: `${joint.y}%` }}
               onClick={() => onSelect(joint.key)}
-              aria-label={`Select ${enText(joint.label)} pain`}
+              aria-label={renderLocale === "zh" ? `选择${enText(joint.label)}疼痛` : `Select ${enText(joint.label)} pain`}
             >
               <span>{enText(joint.label)}</span>
             </button>
           ))}
         </div>
         <a className="image-source-link" href={ANATOMY_SOURCE_URL} target="_blank" rel="noreferrer">
-          Image source: Wikimedia Commons / OpenStax Anatomy and Physiology / CC BY 4.0
+          {uiText("Image source: Wikimedia Commons / OpenStax Anatomy and Physiology / CC BY 4.0")}
         </a>
       </div>
-      <p className="map-help">Click the painful joint to get substitutions, relief options, rehab drills, and video links.</p>
+      <p className="map-help">{uiText("Click the painful joint to get substitutions, relief options, rehab drills, and video links.")}</p>
     </section>
   );
 }
@@ -2229,7 +2566,7 @@ function FeedbackView({
         <Header code="POST SESSION" title="Adjust Next Session From Fatigue + Pain" right={hasPlan ? "Plan connected" : "Generate a plan first"} />
         <label className="check-row">
           <input type="checkbox" checked={feedback.completed} onChange={(event) => setFeedback((current) => ({ ...current, completed: event.target.checked }))} />
-          Training completed today
+          {uiText("Training completed today")}
         </label>
         <div className="body-grid">
           <Field label={`Fatigue ${feedback.fatigue_level}/10`}>
@@ -2252,24 +2589,24 @@ function FeedbackView({
             <input type="number" value={feedback.duration_min} onChange={(event) => setFeedback((current) => ({ ...current, duration_min: Number(event.target.value) }))} />
           </Field>
         </div>
-        <p className="soft">The next-session recommendation combines fatigue, pain level, pain type, and pain location. Higher pain plus higher fatigue pushes the plan toward lower volume, longer rest, or exercise substitution.</p>
-        <button className="primary" type="submit" disabled={!hasPlan}>Adjust next session</button>
+        <p className="soft">{uiText("The next-session recommendation combines fatigue, pain level, pain type, and pain location. Higher pain plus higher fatigue pushes the plan toward lower volume, longer rest, or exercise substitution.")}</p>
+        <button className="primary" type="submit" disabled={!hasPlan}>{uiText("Adjust next session")}</button>
       </form>
       {result && (
         <section className="wide">
           <Header
             code="ADAPT"
             title={nextFocusLabel(result.next_session_focus)}
-            right={`${decisionLevelLabel(result.decision_level)} / load score ${result.combined_load_score ?? "--"}`}
+            right={renderLocale === "zh" ? `${decisionLevelLabel(result.decision_level)} / 负荷评分 ${result.combined_load_score ?? "--"}` : `${decisionLevelLabel(result.decision_level)} / load score ${result.combined_load_score ?? "--"}`}
           />
           <div className="adjustment-summary">
-            <span>{Math.round(result.volume_multiplier * 100)}% volume</span>
-            <span>Rest {formatRest(result.recommended_rest_seconds ?? 120)}</span>
-            <span>{result.replace_exercise ? "Substitute the painful movement next time" : "Movement can be monitored"}</span>
+            <span>{renderLocale === "zh" ? `${Math.round(result.volume_multiplier * 100)}% 容量` : `${Math.round(result.volume_multiplier * 100)}% volume`}</span>
+            <span>{renderLocale === "zh" ? `休息 ${formatRest(result.recommended_rest_seconds ?? 120)}` : `Rest ${formatRest(result.recommended_rest_seconds ?? 120)}`}</span>
+            <span>{uiText(result.replace_exercise ? "Substitute the painful movement next time" : "Movement can be monitored")}</span>
           </div>
           {result.pain_context ? (
             <p className="soft">
-              Pain record: {tx(EXERCISE_CN, result.pain_context.exercise_name)} / {painLocationLabel(result.pain_context.pain_location)} / {painTypeLabel(result.pain_context.pain_type)} / {result.pain_context.pain_level}/10
+              {renderLocale === "zh" ? "疼痛记录" : "Pain record"}: {tx(EXERCISE_CN, result.pain_context.exercise_name)} / {painLocationLabel(result.pain_context.pain_location)} / {painTypeLabel(result.pain_context.pain_type)} / {result.pain_context.pain_level}/10
             </p>
           ) : null}
           <div className="rule-list">{result.notes.map((note) => <p key={note}>{feedbackNote(note)}</p>)}</div>
@@ -2321,15 +2658,15 @@ function LotteryView({
           <Header
             code="SUPPLEMENT LOTTERY"
             title="Check-In Prize Wheel"
-            right={chances.total_available > 0 ? `${chances.total_available} draw(s) available` : "Keep going"}
+            right={chances.total_available > 0 ? (renderLocale === "zh" ? `${chances.total_available} 次抽奖可用` : `${chances.total_available} draw(s) available`) : "Keep going"}
           />
           <p className="big-copy">
-            Your first spin is a free trial. After that, every 7-day check-in streak earns one real draw ticket. Prizes include protein powder, creatine, and training accessories.
+            {uiText("Your first spin is a free trial. After that, every 7-day check-in streak earns one real draw ticket. Prizes include protein powder, creatine, and training accessories.")}
           </p>
           <div className="lottery-stats">
-            <article><span>Trial Spin</span><strong>{chances.trial_available ? "Ready" : "Used"}</strong></article>
-            <article><span>Draw Tickets</span><strong>{chances.ticket_available}</strong></article>
-            <article><span>Current Streak</span><strong>{reward?.streak ?? 0} days</strong></article>
+            <article><span>{uiText("Trial Spin")}</span><strong>{uiText(chances.trial_available ? "Ready" : "Used")}</strong></article>
+            <article><span>{uiText("Draw Tickets")}</span><strong>{chances.ticket_available}</strong></article>
+            <article><span>{uiText("Current Streak")}</span><strong>{reward?.streak ?? 0} {renderLocale === "zh" ? "天" : "days"}</strong></article>
           </div>
         </div>
         <div className="lottery-wheel-shell" aria-live="polite">
@@ -2352,7 +2689,7 @@ function LotteryView({
             })}
           </div>
           <button className="wheel-center" type="button" onClick={onSpin} disabled={spinning}>
-            {spinning ? "Spinning" : "Spin"}
+            {uiText(spinning ? "Spinning" : "Spin")}
           </button>
         </div>
       </section>
@@ -2361,27 +2698,27 @@ function LotteryView({
         <Header code="KEEP GOING" title="Keep Going" right={`${progress}/${goal}`} />
         <div className="checkin-meter">
           <div>
-            <strong>{chances.total_available > 0 ? "You can spin now" : `${daysLeft} day(s) to the next ticket`}</strong>
+            <strong>{chances.total_available > 0 ? uiText("You can spin now") : (renderLocale === "zh" ? `距离下一张抽奖券还差 ${daysLeft} 天` : `${daysLeft} day(s) to the next ticket`)}</strong>
             <p>
               {chances.total_available > 0
-                ? "Use the free trial or an earned check-in ticket. After spinning, keep checking in to unlock the next 7-day ticket."
-                : "Check in after training. A 7-day streak unlocks one formal prize-wheel ticket."}
+                ? uiText("Use the free trial or an earned check-in ticket. After spinning, keep checking in to unlock the next 7-day ticket.")
+                : uiText("Check in after training. A 7-day streak unlocks one formal prize-wheel ticket.")}
             </p>
           </div>
           <progress value={progress} max={goal} />
         </div>
         <button className={todayChecked ? "ghost active" : "ghost"} type="button" onClick={() => void onCheckin()}>
-          {todayChecked ? "Today's check-in recorded" : "Complete today's check-in"}
+          {uiText(todayChecked ? "Today's check-in recorded" : "Complete today's check-in")}
         </button>
       </section>
 
       <section className="wide">
-        <Header code="PRIZE POOL" title="Prize Pool and Result" right={result ? `${result.draw_type === "trial" ? "Trial" : "Ticket"}: ${enText(result.prize)}` : "Ready to spin"} />
+        <Header code="PRIZE POOL" title="Prize Pool and Result" right={result ? `${uiText(result.draw_type === "trial" ? "Trial" : "Ticket")}: ${enText(result.prize)}` : "Ready to spin"} />
         {result ? (
           <div className="lottery-result">
-            <span>You won</span>
+            <span>{uiText("You won")}</span>
             <strong>{enText(result.prize)}</strong>
-            <p>{result.draw_type === "trial" ? "This was the first free trial spin, so it did not consume a 7-day ticket." : "This consumed one 7-day check-in draw ticket."}</p>
+            <p>{uiText(result.draw_type === "trial" ? "This was the first free trial spin, so it did not consume a 7-day ticket." : "This consumed one 7-day check-in draw ticket.")}</p>
           </div>
         ) : null}
         <div className="prize-grid">
@@ -2391,14 +2728,14 @@ function LotteryView({
           <div className="lottery-history">
             {lotteryState.history.map((draw) => (
               <p key={draw.id}>
-                <span>{draw.draw_type === "trial" ? "Trial" : "Ticket"}</span>
+                <span>{uiText(draw.draw_type === "trial" ? "Trial" : "Ticket")}</span>
                 <strong>{enText(draw.prize)}</strong>
                 <time>{formatCommunityTime(draw.created_at)}</time>
               </p>
             ))}
           </div>
         ) : (
-          <p className="soft">No draw history yet. Press “Spin” to use your first trial spin.</p>
+          <p className="soft">{uiText("No draw history yet. Press “Spin” to use your first trial spin.")}</p>
         )}
       </section>
     </div>
@@ -2421,10 +2758,10 @@ function ProgressView({
   return (
     <div className="stack">
       <section className="wide">
-        <Header code="MEASUREMENTS" title="Measurement Trends" right={<button className="ghost" type="button" onClick={addMeasurement}>Add Record</button>} />
-        <p className="soft">Customize date, body weight, waist, and body-fat percentage. The line chart sorts entries by date automatically.</p>
+        <Header code="MEASUREMENTS" title="Measurement Trends" right={<button className="ghost" type="button" onClick={addMeasurement}>{uiText("Add Record")}</button>} />
+        <p className="soft">{uiText("Customize date, body weight, waist, and body-fat percentage. The line chart sorts entries by date automatically.")}</p>
         <div className="table">
-          <div className="table-row progress-row head"><span>Date</span><span>Weight</span><span>Waist</span><span>Body Fat</span></div>
+          <div className="table-row progress-row head"><span>{uiText("Date")}</span><span>{uiText("Weight")}</span><span>{uiText("Waist")}</span><span>{uiText("Body Fat")}</span></div>
           {measurements.map((item, index) => (
             <div className="table-row progress-row" key={`${item.date}-${index}`}>
               <input type="date" value={item.date} onChange={(event) => setMeasurements((current) => current.map((entry, entryIndex) => entryIndex === index ? { ...entry, date: event.target.value } : entry))} />
@@ -2434,16 +2771,16 @@ function ProgressView({
             </div>
           ))}
         </div>
-        <button className="primary" type="button" onClick={() => void analyzeProgress()}>Analyze Trend</button>
+        <button className="primary" type="button" onClick={() => void analyzeProgress()}>{uiText("Analyze Trend")}</button>
       </section>
       {progress && (
         <section className="wide">
-          <Header code="TRACE" title="Trend Line Chart" right={`${progress.entries ?? measurements.length} records`} />
+          <Header code="TRACE" title="Trend Line Chart" right={renderLocale === "zh" ? `${progress.entries ?? measurements.length} 条记录` : `${progress.entries ?? measurements.length} records`} />
           <ProgressLineChart measurements={measurements} />
           <div className="trend-summary">
-            <span>Weight {formatDelta(progress.weight_change_kg ?? 0, "kg")}</span>
-            <span>Waist {formatDelta(progress.waist_change_cm ?? 0, "cm")}</span>
-            <span>Body Fat {formatDelta(progress.body_fat_change_percent ?? 0, "%")}</span>
+            <span>{uiText("Weight")} {formatDelta(progress.weight_change_kg ?? 0, "kg")}</span>
+            <span>{uiText("Waist")} {formatDelta(progress.waist_change_cm ?? 0, "cm")}</span>
+            <span>{uiText("Body Fat")} {formatDelta(progress.body_fat_change_percent ?? 0, "%")}</span>
           </div>
           <p className="big-copy">{trendMessage(progress.message)}</p>
         </section>
@@ -2472,14 +2809,14 @@ function ProgressLineChart({ measurements }: { measurements: Measurement[] }) {
   }
 
   const series = [
-    { key: "weight", label: "Weight", unit: "kg", pattern: "solid line / circle", points: pointsFor(sorted.map((item) => item.weight_kg)) },
-    { key: "waist", label: "Waist", unit: "cm", pattern: "long dash / square", points: pointsFor(sorted.map((item) => item.waist_cm)) },
-    { key: "fat", label: "Body Fat", unit: "%", pattern: "dotted line / triangle", points: pointsFor(sorted.map((item) => item.body_fat_percent)) },
+    { key: "weight", label: "Weight", unit: "kg", pattern: "solid line / circle", zhPattern: "实线 / 圆点", points: pointsFor(sorted.map((item) => item.weight_kg)) },
+    { key: "waist", label: "Waist", unit: "cm", pattern: "long dash / square", zhPattern: "长虚线 / 方点", points: pointsFor(sorted.map((item) => item.waist_cm)) },
+    { key: "fat", label: "Body Fat", unit: "%", pattern: "dotted line / triangle", zhPattern: "点线 / 三角点", points: pointsFor(sorted.map((item) => item.body_fat_percent)) },
   ];
 
   return (
     <div className="line-chart-card">
-      <svg className="line-chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Trend chart for weight, waist, and body-fat percentage">
+      <svg className="line-chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={uiText("Trend chart for weight, waist, and body-fat percentage")}>
         <path className="chart-grid" d={`M${padding} ${padding} H${width - padding} M${padding} ${height / 2} H${width - padding} M${padding} ${height - padding} H${width - padding}`} />
         {series.map((item) => (
           <g key={item.key} className={`chart-series ${item.key}`}>
@@ -2498,7 +2835,7 @@ function ProgressLineChart({ measurements }: { measurements: Measurement[] }) {
         {series.map((item) => {
           const first = item.points[0]?.value ?? 0;
           const last = item.points.at(-1)?.value ?? first;
-          return <span key={item.key} className={item.key}><i />{item.label} {last.toFixed(1)}{item.unit} ({formatDelta(last - first, item.unit)}) - {item.pattern}</span>;
+          return <span key={item.key} className={item.key}><i />{uiText(item.label)} {last.toFixed(1)}{item.unit} ({formatDelta(last - first, item.unit)}) - {renderLocale === "zh" ? item.zhPattern : item.pattern}</span>;
         })}
       </div>
     </div>
@@ -2564,31 +2901,31 @@ function CommunityView({
           <div className="account-row">
             <div>
               <strong>{user.username}</strong>
-              <p>You can now post, like, and comment. Training plans and AI coaching stay available as usual.</p>
+              <p>{uiText("You can now post, like, and comment. Training plans and AI coaching stay available as usual.")}</p>
             </div>
-            <button className="ghost" type="button" onClick={onLogout}>Log Out</button>
+            <button className="ghost" type="button" onClick={onLogout}>{uiText("Log Out")}</button>
           </div>
         ) : (
           <form className="auth-form" onSubmit={onAuthSubmit}>
-            <div className="auth-tabs" role="tablist" aria-label="Account mode">
-              <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>Log In</button>
-              <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>Register</button>
+            <div className="auth-tabs" role="tablist" aria-label={uiText("Account mode")}>
+              <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>{uiText("Log In")}</button>
+              <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>{uiText("Register")}</button>
             </div>
             <div className="body-grid">
               <Field label={authMode === "register" ? "Nickname" : "Nickname or Email"}>
-                <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="e.g. No-Shrug Shoulders" />
+                <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder={uiText("e.g. No-Shrug Shoulders")} />
               </Field>
               {authMode === "register" ? (
                 <Field label="Email (optional)">
-                  <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder="For future account recovery" />
+                  <input value={authForm.email} onChange={(event) => setAuthForm((current) => ({ ...current, email: event.target.value }))} placeholder={uiText("For future account recovery")} />
                 </Field>
               ) : null}
               <Field label="Password">
-                <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="At least 6 characters" />
+                <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder={uiText("At least 6 characters")} />
               </Field>
             </div>
             {authError ? <p className="form-error">{cleanApiError(authError)}</p> : null}
-            <button className="primary" type="submit">{authMode === "register" ? "Create Account & Log In" : "Log In to GymPath"}</button>
+            <button className="primary" type="submit">{uiText(authMode === "register" ? "Create Account & Log In" : "Log In to GymPath")}</button>
           </form>
         )}
       </section>
@@ -2596,10 +2933,10 @@ function CommunityView({
       <section className="wide community-publisher">
         <Header code="POST" title="Share a Training Update" right={user ? "Posting enabled" : "Log in to unlock"} />
         <form className="post-form" onSubmit={onPostSubmit}>
-          <input value={postDraft.title} onChange={(event) => setPostDraft((current) => ({ ...current, title: event.target.value }))} placeholder="Title: What happened in today's chest session?" disabled={!user} />
-          <textarea value={postDraft.content} onChange={(event) => setPostDraft((current) => ({ ...current, content: event.target.value }))} placeholder="Write your training question, check-in note, meal plan, movement feeling, or something you want experienced lifters to answer." disabled={!user} />
+          <input value={postDraft.title} onChange={(event) => setPostDraft((current) => ({ ...current, title: event.target.value }))} placeholder={uiText("Title: What happened in today's chest session?")} disabled={!user} />
+          <textarea value={postDraft.content} onChange={(event) => setPostDraft((current) => ({ ...current, content: event.target.value }))} placeholder={uiText("Write your training question, check-in note, meal plan, movement feeling, or something you want experienced lifters to answer.")} disabled={!user} />
           <label className="image-upload">
-            <span>Post image (optional)</span>
+            <span>{uiText("Post image (optional)")}</span>
             <input
               key={postImage ? postImage.name : "empty-community-image"}
               type="file"
@@ -2607,18 +2944,18 @@ function CommunityView({
               disabled={!user}
               onChange={(event) => setPostImage(event.target.files?.[0] ?? null)}
             />
-            <small>{postImage ? `${postImage.name} - ${Math.ceil(postImage.size / 1024)} KB` : "Supports JPG / PNG / WebP / GIF, max 5MB per image"}</small>
+            <small>{postImage ? `${postImage.name} - ${Math.ceil(postImage.size / 1024)} KB` : uiText("Supports JPG / PNG / WebP / GIF, max 5MB per image")}</small>
           </label>
           {communityError ? <p className="form-error">{cleanApiError(communityError)}</p> : null}
           <div className="post-actions">
-            <button className="ghost" type="button" onClick={reload}>Refresh Feed</button>
-            <button className="primary" type="submit" disabled={!user}>Publish</button>
+            <button className="ghost" type="button" onClick={reload}>{uiText("Refresh Feed")}</button>
+            <button className="primary" type="submit" disabled={!user}>{uiText("Publish")}</button>
           </div>
         </form>
       </section>
 
       <section className="wide community-feed">
-        <Header code="CLUB FEED" title="Community Feed" right={`${posts.length} posts`} />
+        <Header code="CLUB FEED" title="Community Feed" right={renderLocale === "zh" ? `${posts.length} 条帖子` : `${posts.length} posts`} />
         {posts.length === 0 ? (
           <Empty title="No posts yet" text="Create the first training update after logging in, so classmates or test users have a real interaction entry point." />
         ) : (
@@ -2630,7 +2967,7 @@ function CommunityView({
                   <p>{post.author} - {formatCommunityTime(post.created_at)}</p>
                 </div>
                 <button className={post.viewer_liked ? "like-button active" : "like-button"} type="button" onClick={() => void onLike(post.id)} disabled={!user}>
-                  {post.viewer_liked ? "Liked" : "Like"} - {post.like_count}
+                  {uiText(post.viewer_liked ? "Liked" : "Like")} - {post.like_count}
                 </button>
               </div>
               <p className="post-content">{post.content}</p>
@@ -2639,7 +2976,7 @@ function CommunityView({
                   className="post-image-button"
                   type="button"
                   onClick={() => setPreviewImage({ src: post.image_url ?? "", alt: `${post.title} image` })}
-                  aria-label="Open full-size post image"
+                  aria-label={uiText("Open full-size post image")}
                 >
                   <img className="post-image" src={post.image_url} alt={`${post.title} image`} loading="lazy" />
                 </button>
@@ -2650,16 +2987,16 @@ function CommunityView({
                 ))}
               </div>
               <form className="comment-form" onSubmit={(event) => onCommentSubmit(event, post.id)}>
-                <input value={commentDrafts[post.id] ?? ""} onChange={(event) => setCommentDrafts((current) => ({ ...current, [post.id]: event.target.value }))} placeholder={user ? "Write a comment..." : "Log in to comment"} disabled={!user} />
-                <button className="ghost" type="submit" disabled={!user}>Comment</button>
+                <input value={commentDrafts[post.id] ?? ""} onChange={(event) => setCommentDrafts((current) => ({ ...current, [post.id]: event.target.value }))} placeholder={uiText(user ? "Write a comment..." : "Log in to comment")} disabled={!user} />
+                <button className="ghost" type="submit" disabled={!user}>{uiText("Comment")}</button>
               </form>
             </article>
           ))
         )}
       </section>
       {previewImage ? (
-        <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="Full-size post image preview" onClick={() => setPreviewImage(null)}>
-          <button className="lightbox-close" type="button" onClick={() => setPreviewImage(null)} aria-label="Close full-size image">Close</button>
+        <div className="image-lightbox" role="dialog" aria-modal="true" aria-label={uiText("Full-size post image preview")} onClick={() => setPreviewImage(null)}>
+          <button className="lightbox-close" type="button" onClick={() => setPreviewImage(null)} aria-label={uiText("Close full-size image")}>{uiText("Close")}</button>
           <img src={previewImage.src} alt={previewImage.alt} onClick={(event) => event.stopPropagation()} />
         </div>
       ) : null}
@@ -2696,15 +3033,15 @@ function AiCoachView({
         <div className="chat-log" aria-live="polite">
           {messages.map((message, index) => (
             <article className={message.role === "user" ? "chat-bubble user" : "chat-bubble assistant"} key={`${message.role}-${index}`}>
-              <span>{message.role === "user" ? "You" : "GymPath AI"}</span>
-              <p>{message.content}</p>
+              <span>{uiText(message.role === "user" ? "You" : "GymPath AI")}</span>
+              <p>{message.role === "assistant" ? uiText(message.content) : message.content}</p>
             </article>
           ))}
         </div>
         <div className="prompt-row">
           {examples.map((example) => (
             <button className="ghost" type="button" key={example} onClick={() => setInput(example)}>
-              {example}
+              {uiText(example)}
             </button>
           ))}
         </div>
@@ -2712,15 +3049,15 @@ function AiCoachView({
           <textarea
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            placeholder="Ask a fitness question, e.g. can I train chest today if my shoulder hurts?"
+            placeholder={uiText("Ask a fitness question, e.g. can I train chest today if my shoulder hurts?")}
             rows={4}
           />
           <button className="primary" type="submit" disabled={loading || !input.trim()}>
-            {loading ? "Generating Answer" : "Send to AI Coach"}
+            {uiText(loading ? "Generating Answer" : "Send to AI Coach")}
           </button>
         </form>
         <p className="ai-meta">
-          {meta || "Note: AI answers are for fitness education and training decisions only. They do not replace a doctor, physiotherapist, or in-person coach."}
+          {meta ? uiText(meta) : uiText("Note: AI answers are for fitness education and training decisions only. They do not replace a doctor, physiotherapist, or in-person coach.")}
         </p>
       </div>
     </section>
@@ -2749,7 +3086,7 @@ function KnowledgeView({ topic, card, load }: { topic: string; card: Knowledge |
       <Header code="KNOWLEDGE" title="Beginner Knowledge Base" right="Remove wrong assumptions first" />
       <div className="topic-row">
         {topics.map(([value, label]) => (
-          <button key={value} className={topic === value ? "ghost active" : "ghost"} type="button" onClick={() => void load(value)}>{label}</button>
+          <button key={value} className={topic === value ? "ghost active" : "ghost"} type="button" onClick={() => void load(value)}>{uiText(label)}</button>
         ))}
       </div>
       {card && (
@@ -2819,6 +3156,7 @@ function tx(map: Record<string, string>, value: string) {
 }
 
 function enText(value: string) {
+  if (renderLocale === "zh") return zhText(value);
   const map: Record<string, string> = {
     "肩": "Shoulder",
     "肘": "Elbow",
@@ -3137,6 +3475,11 @@ function stateCalories(food: FoodItem, stateKey: string) {
 }
 
 function formatRest(seconds: number) {
+  if (renderLocale === "zh") {
+    if (seconds >= 60 && seconds % 60 === 0) return `${seconds / 60}+ 分钟`;
+    if (seconds >= 120) return `${Math.floor(seconds / 60)} 分 ${seconds % 60} 秒+`;
+    return "2+ 分钟";
+  }
   if (seconds >= 60 && seconds % 60 === 0) return `${seconds / 60}+ min`;
   if (seconds >= 120) return `${Math.floor(seconds / 60)} min ${seconds % 60} sec+`;
   return "2+ min";
@@ -3147,17 +3490,18 @@ function sessionNote(note: string) {
 }
 
 function painCategory(category: PainResult["assessment"]["category"]) {
-  return {
+  const map = {
     stop: "Stop this movement today",
     modify_or_replace: "Reduce load or substitute",
     continue_with_cues: "Continue cautiously",
-  }[category];
+  };
+  return uiText(map[category]);
 }
 
 function painAction(action: string) {
-  if (action.includes("Stop")) return "Stop this exercise today. If symptoms continue, consult a qualified professional.";
-  if (action.includes("Reduce")) return "Reduce load, shorten range of motion, slow the tempo, or switch to a more stable substitute.";
-  return "You may continue cautiously, but control the movement and re-check the setup.";
+  if (action.includes("Stop")) return uiText("Stop this exercise today. If symptoms continue, consult a qualified professional.");
+  if (action.includes("Reduce")) return uiText("Reduce load, shorten range of motion, slow the tempo, or switch to a more stable substitute.");
+  return uiText("You may continue cautiously, but control the movement and re-check the setup.");
 }
 
 function nextFocusLabel(value: string) {
@@ -3170,7 +3514,7 @@ function nextFocusLabel(value: string) {
     deload_and_substitute: "Deload and substitute",
     reduce_stress: "Lower stress and monitor",
   };
-  return map[value] ?? value;
+  return uiText(map[value] ?? value);
 }
 
 function decisionLevelLabel(value?: string) {
@@ -3183,7 +3527,7 @@ function decisionLevelLabel(value?: string) {
     recovery_priority: "Recovery first",
     high_risk: "High risk",
   };
-  return value ? map[value] ?? value : "Unclassified";
+  return value ? uiText(map[value] ?? value) : uiText("Unclassified");
 }
 
 function painLocationLabel(value: string) {
@@ -3196,7 +3540,7 @@ function painLocationLabel(value: string) {
     knee: "Knee",
     ankle: "Ankle",
   };
-  return map[value] ?? value;
+  return uiText(map[value] ?? value);
 }
 
 function painTypeLabel(value: string) {
@@ -3210,7 +3554,7 @@ function painTypeLabel(value: string) {
     numbness: "Numbness",
     electric: "Electric pain",
   };
-  return map[value] ?? value;
+  return uiText(map[value] ?? value);
 }
 
 function feedbackNote(note: string) {
@@ -3225,7 +3569,7 @@ function feedbackNote(note: string) {
     "Replace or modify the painful movement before repeating this session.": "Replace or modify the painful movement before repeating this session.",
     "Keep the plan unchanged and focus on consistent execution.": "Keep the plan unchanged and focus on consistent execution.",
   };
-  return map[note] ?? note;
+  return uiText(map[note] ?? note);
 }
 
 function trendMessage(message: string) {
@@ -3236,7 +3580,7 @@ function trendMessage(message: string) {
 function formatCommunityTime(value: string) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString("en-US", {
+  return date.toLocaleString(renderLocale === "zh" ? "zh-CN" : "en-US", {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
