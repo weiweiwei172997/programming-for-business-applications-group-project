@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   const body = await request.text();
   const authorization = request.headers.get("authorization");
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 85000);
+  const timeout = setTimeout(() => controller.abort(), 180000);
 
   try {
     const response = await fetch(`${FASTAPI_ORIGIN}/api/ai-chat`, {

@@ -3246,7 +3246,7 @@ Answer rules:
 4. Do not promise spot reduction, crash weight loss, risk-free max attempts, or other unscientific outcomes.
 5. Adjust advice by level: Beginner = safe start; Fitness Enthusiast = sustainable progression; High-Intensity Trainee = fatigue and advanced variable management.
 6. Make the answer actionable: exercise substitutions, sets/reps, macros, warm-up, recovery, or next data to record.
-7. For web chat, aim for about 500-900 English words or 700-1200 Chinese characters when the question needs detail; be shorter for simple questions.
+7. Do not impose a word-count or character-count cap. Answer as fully as needed for the user's question, and end with a complete final sentence instead of truncating.
 """.strip()
 
 
@@ -3267,7 +3267,6 @@ def get_ai_fitness_reply(
     selected_base_url = base_url or os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     selected_model = model or os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
     reasoning_effort = os.environ.get("DEEPSEEK_REASONING_EFFORT", "medium").strip()
-    max_tokens = int(os.environ.get("DEEPSEEK_MAX_TOKENS", "1200"))
     profile_context = _ai_profile_context(profile or {})
     llm_messages = [
         {"role": "system", "content": AI_FITNESS_SYSTEM_PROMPT},
@@ -3292,7 +3291,6 @@ def get_ai_fitness_reply(
             "model": selected_model,
             "messages": llm_messages,
             "stream": False,
-            "max_tokens": max_tokens,
         }
         if reasoning_effort:
             request_kwargs["reasoning_effort"] = reasoning_effort
@@ -3333,7 +3331,6 @@ def _retry_ai_without_reasoning(
             model=model,
             messages=llm_messages,
             stream=False,
-            max_tokens=int(os.environ.get("DEEPSEEK_MAX_TOKENS", "1200")),
         )
         content = response.choices[0].message.content or ""
         return {
