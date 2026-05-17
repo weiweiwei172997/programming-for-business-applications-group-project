@@ -14,6 +14,7 @@ type StrengthPlan = "beginner_ab_linear" | "advanced_linear_5x5" | "universal_5x
 type MuscleGainPlan = "tan_chengyi_beginner_follow" | "tan_kaisheng_three_split" | "orange_hypertrophy";
 type CarbSensitivity = "standard" | "sensitive";
 type DietTrainingIntensity = "auto" | "beginner_or_female" | "fitness_enthusiast" | "high_intensity";
+type Locale = "zh" | "en";
 
 type Profile = {
   level: Level;
@@ -399,6 +400,80 @@ const EMPTY_LOTTERY_STATE: LotteryState = {
   history: [],
 };
 
+let renderLocale: Locale = "zh";
+
+function readStoredLocale(): Locale {
+  if (typeof window === "undefined") return "zh";
+  return window.localStorage.getItem("gympath_locale") === "en" ? "en" : "zh";
+}
+
+const ZH_TEXT: Record<string, string> = {
+  "System ready": "\u7cfb\u7edf\u5c31\u7eea",
+  "BLACK / WHITE / NATIVE UI": "\u9ed1\u767d\u7070 / \u539f\u751f\u7ec4\u4ef6 / \u8bad\u7ec3\u7cfb\u7edf",
+  "Stop guessing your training.": "\u8bad\u7ec3\u4e0d\u8be5\u9760\u731c\u3002",
+  "GymPath turns level, goal, warm-ups, exercise teaching, nutrition, pain substitutions, post-workout feedback, and rewards into one clear workflow.": "GymPath \u628a\u8bad\u7ec3\u6c34\u5e73\u3001\u76ee\u6807\u3001\u70ed\u8eab\u6fc0\u6d3b\u3001\u52a8\u4f5c\u6559\u5b66\u3001\u996e\u98df\u3001\u75bc\u75db\u66ff\u6362\u3001\u7ec3\u540e\u53cd\u9988\u548c\u6253\u5361\u6fc0\u52b1\u4e32\u6210\u4e00\u4e2a\u6e05\u6670\u6d41\u7a0b\u3002",
+  "Training Profile": "\u8bad\u7ec3\u753b\u50cf",
+  "Training Level": "\u8bad\u7ec3\u6c34\u5e73",
+  "Goal": "\u76ee\u6807",
+  "Body Data": "\u8eab\u4f53\u6570\u636e",
+  "Weight kg": "\u4f53\u91cd kg",
+  "Height cm": "\u8eab\u9ad8 cm",
+  "Age": "\u5e74\u9f84",
+  "Sex": "\u6027\u522b",
+  "Male": "\u7537",
+  "Female": "\u5973",
+  "Other / Not specified": "\u5176\u4ed6 / \u4e0d\u900f\u9732",
+  "Daily activity": "\u65e5\u5e38\u6d3b\u52a8",
+  "Sedentary": "\u4e45\u5750",
+  "Light activity": "\u8f7b\u5ea6\u6d3b\u52a8",
+  "Moderate activity": "\u4e2d\u7b49\u6d3b\u52a8",
+  "High activity": "\u9ad8\u6d3b\u52a8\u91cf",
+  "Used to estimate maintenance calories, target calories, and lifestyle burn.": "\u7528\u4e8e\u4f30\u7b97\u7ef4\u6301\u70ed\u91cf\u3001\u76ee\u6807\u70ed\u91cf\u548c\u751f\u6d3b\u6d88\u8017\u3002",
+  "Generating": "\u751f\u6210\u4e2d",
+  "Generate Nutrition Plan": "\u751f\u6210\u996e\u98df\u65b9\u6848",
+  "Generate Training Plan": "\u751f\u6210\u8bad\u7ec3\u65b9\u6848",
+  "Beginner": "\u65b0\u624b",
+  "Fitness Enthusiast": "\u5065\u8eab\u7231\u597d\u8005",
+  "High-Intensity Trainee": "\u9ad8\u5f3a\u5ea6\u8bad\u7ec3\u8005",
+  "Muscle Gain": "\u589e\u808c",
+  "Strength": "\u589e\u529b",
+  "Fat Loss": "\u51cf\u8102",
+  "Health": "\u5065\u5eb7",
+  "Training Plan": "\u8bad\u7ec3\u8ba1\u5212",
+  "Nutrition": "\u996e\u98df",
+  "Feedback": "\u53cd\u9988\u8c03\u6574",
+  "Prize Wheel": "\u62bd\u5956\u8f6c\u76d8",
+  "Progress": "\u7ef4\u5ea6\u8d8b\u52bf",
+  "Community": "\u793e\u533a\u4ea4\u6d41",
+  "Knowledge": "\u8ba4\u77e5\u626b\u76f2",
+  "AI Coach": "AI \u6559\u7ec3",
+  "No plan yet": "\u8fd8\u6ca1\u6709\u8bad\u7ec3\u8ba1\u5212",
+  "Fill in the training profile and generate a plan to see training days, warm-ups, exercises, and teaching links.": "\u586b\u5199\u8bad\u7ec3\u753b\u50cf\u5e76\u751f\u6210\u8ba1\u5212\u540e\uff0c\u53ef\u4ee5\u770b\u5230\u8bad\u7ec3\u65e5\u3001\u70ed\u8eab\u6fc0\u6d3b\u3001\u52a8\u4f5c\u5b89\u6392\u548c\u6559\u5b66\u94fe\u63a5\u3002",
+  "Food Log": "\u996e\u98df\u8bb0\u5f55",
+  "Fitness AI Q&A": "\u5065\u8eab AI \u95ee\u7b54",
+  "Register / Log In": "\u6ce8\u518c / \u767b\u5f55",
+  "Log In": "\u767b\u5f55",
+  "Register": "\u6ce8\u518c",
+  "Nickname": "\u6635\u79f0",
+  "Nickname or Email": "\u6635\u79f0\u6216\u90ae\u7bb1",
+  "Email (optional)": "\u90ae\u7bb1\uff08\u53ef\u9009\uff09",
+  "Password": "\u5bc6\u7801",
+  "Create Account": "\u521b\u5efa\u8d26\u53f7",
+  "Create Account & Enter": "\u521b\u5efa\u8d26\u53f7\u5e76\u8fdb\u5165",
+  "Log In & Enter": "\u767b\u5f55\u5e76\u8fdb\u5165",
+  "Preview as guest; log in later for community actions": "\u5148\u6e38\u5ba2\u9884\u89c8\uff0c\u793e\u533a\u4e92\u52a8\u7a0d\u540e\u767b\u5f55",
+  "Entering GymPath.": "\u6b63\u5728\u8fdb\u5165 GymPath\u3002",
+  "Checking your local login session.": "\u6b63\u5728\u68c0\u67e5\u672c\u5730\u767b\u5f55\u72b6\u6001\u3002",
+  "Enter your training account first.": "\u5148\u8fdb\u5165\u4f60\u7684\u8bad\u7ec3\u8d26\u53f7\u3002",
+  "Create an account to post, like, and comment, while keeping GymPath usable as a real multi-user fitness web app.": "\u521b\u5efa\u8d26\u53f7\u540e\u53ef\u4ee5\u53d1\u5e16\u3001\u70b9\u8d5e\u548c\u8bc4\u8bba\uff0c\u8ba9 GymPath \u50cf\u771f\u6b63\u7684\u591a\u4eba\u5065\u8eab Web App\u3002",
+  "Switch to English": "\u5207\u6362\u5230\u82f1\u6587",
+  "Switch to Chinese": "\u5207\u6362\u5230\u4e2d\u6587",
+};
+
+function uiText(value: string) {
+  return renderLocale === "zh" ? ZH_TEXT[value] ?? value : value;
+}
+
 const EXERCISE_CN: Record<string, string> = {
   "Cable Fly": "龙门架绳索夹胸",
   "Goblet Squat": "高脚杯深蹲",
@@ -646,6 +721,7 @@ const PAIN_JOINTS = [
 
 export default function Home() {
   const resultRef = useRef<HTMLElement | null>(null);
+  const [locale, setLocale] = useState<Locale>(readStoredLocale);
   const [profile, setProfile] = useState<Profile>(initialProfile);
   const [view, setView] = useState<View>("plan");
   const [status, setStatus] = useState("System ready");
@@ -695,6 +771,7 @@ export default function Home() {
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [communityError, setCommunityError] = useState("");
   const currentLotteryStorageKey = useMemo(() => lotteryStorageKey(user), [user]);
+  renderLocale = locale;
 
   useEffect(() => {
     void generatePlan();
@@ -704,6 +781,11 @@ export default function Home() {
     // Initial dashboard hydration only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    renderLocale = locale;
+    window.localStorage.setItem("gympath_locale", locale);
+  }, [locale]);
 
   useEffect(() => {
     const savedToken = window.localStorage.getItem("gympath_token");
@@ -971,6 +1053,7 @@ export default function Home() {
         messages: nextMessages,
         profile: {
           level: profile.level,
+          locale,
           goal: profile.goal,
           minutes_per_session: profile.minutes_per_session,
           weight_kg: profile.weight_kg,
@@ -1110,12 +1193,14 @@ export default function Home() {
   const targetWeightValue = Math.min(profile.target_weight_kg, targetWeightMax);
 
   if (!authChecked) {
-    return <AuthLoading />;
+    return <AuthLoading locale={locale} setLocale={setLocale} />;
   }
 
   if (!user && !guestMode) {
     return (
       <AuthGate
+        locale={locale}
+        setLocale={setLocale}
         authMode={authMode}
         setAuthMode={setAuthMode}
         authForm={authForm}
@@ -1129,6 +1214,7 @@ export default function Home() {
 
   return (
     <main className="app-shell">
+      <LanguageToggle locale={locale} setLocale={setLocale} />
       <aside className="rail">
         <div className="brand">
           <span>GP</span>
@@ -1147,7 +1233,7 @@ export default function Home() {
               onClick={() => setView(item.value)}
             >
               <span>{item.code}</span>
-              {item.label}
+              {uiText(item.label)}
             </button>
           ))}
         </nav>
@@ -1157,10 +1243,10 @@ export default function Home() {
       <section className="workspace">
         <header className="hero">
           <div>
-            <p className="kicker">BLACK / WHITE / NATIVE UI</p>
-            <h1>Stop guessing your training.</h1>
+            <p className="kicker">{uiText("BLACK / WHITE / NATIVE UI")}</p>
+            <h1>{uiText("Stop guessing your training.")}</h1>
             <p>
-              GymPath turns level, goal, warm-ups, exercise teaching, nutrition, pain substitutions, post-workout feedback, and rewards into one clear workflow.
+              {uiText("GymPath turns level, goal, warm-ups, exercise teaching, nutrition, pain substitutions, post-workout feedback, and rewards into one clear workflow.")}
             </p>
           </div>
         </header>
@@ -1198,7 +1284,7 @@ export default function Home() {
               <input type="range" min="20" max="120" step="5" value={profile.minutes_per_session} onChange={(event) => patchProfile("minutes_per_session", Number(event.target.value))} />
             </Field>
             <button className="primary" type="button" onClick={generatePlan} disabled={loading}>
-              {loading ? "Generating" : view === "nutrition" ? "Generate Nutrition Plan" : "Generate Training Plan"}
+              {loading ? uiText("Generating") : view === "nutrition" ? uiText("Generate Nutrition Plan") : uiText("Generate Training Plan")}
             </button>
           </Panel>
 
@@ -1216,19 +1302,19 @@ export default function Home() {
                 </Field>
                 <Field label="Sex">
                   <select value={profile.gender} onChange={(event) => patchProfile("gender", event.target.value as Gender)}>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other / Not specified</option>
+                    <option value="male">{uiText("Male")}</option>
+                    <option value="female">{uiText("Female")}</option>
+                    <option value="other">{uiText("Other / Not specified")}</option>
                   </select>
                 </Field>
                 <Field label="Daily activity">
                   <select value={profile.activity_level} onChange={(event) => patchProfile("activity_level", event.target.value as Activity)}>
-                    <option value="sedentary">Sedentary</option>
-                    <option value="light">Light activity</option>
-                    <option value="moderate">Moderate activity</option>
-                    <option value="active">High activity</option>
+                    <option value="sedentary">{uiText("Sedentary")}</option>
+                    <option value="light">{uiText("Light activity")}</option>
+                    <option value="moderate">{uiText("Moderate activity")}</option>
+                    <option value="active">{uiText("High activity")}</option>
                   </select>
-                  <small className="field-note">Used to estimate maintenance calories, target calories, and lifestyle burn.</small>
+                  <small className="field-note">{uiText("Used to estimate maintenance calories, target calories, and lifestyle burn.")}</small>
                 </Field>
               </div>
             </Panel>
@@ -1311,11 +1397,32 @@ export default function Home() {
   );
 }
 
+function LanguageToggle({
+  locale,
+  setLocale,
+}: {
+  locale: Locale;
+  setLocale: Dispatch<SetStateAction<Locale>>;
+}) {
+  const nextLocale = locale === "zh" ? "en" : "zh";
+  return (
+    <button
+      className="language-toggle"
+      type="button"
+      onClick={() => setLocale(nextLocale)}
+      aria-label={uiText(locale === "zh" ? "Switch to English" : "Switch to Chinese")}
+    >
+      <span>{locale === "zh" ? "\u4e2d\u6587" : "EN"}</span>
+      <strong>{locale === "zh" ? "EN" : "\u4e2d\u6587"}</strong>
+    </button>
+  );
+}
+
 function Panel({ code, title, children }: { code: string; title: string; children: ReactNode }) {
   return (
     <section className="panel">
       <p className="kicker">{code}</p>
-      <h2>{title}</h2>
+      <h2>{uiText(title)}</h2>
       {children}
     </section>
   );
@@ -1324,25 +1431,28 @@ function Panel({ code, title, children }: { code: string; title: string; childre
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="field">
-      <span>{label}</span>
+      <span>{uiText(label)}</span>
       {children}
     </label>
   );
 }
 
-function AuthLoading() {
+function AuthLoading({ locale, setLocale }: { locale: Locale; setLocale: Dispatch<SetStateAction<Locale>> }) {
   return (
     <main className="auth-gate">
+      <LanguageToggle locale={locale} setLocale={setLocale} />
       <section className="auth-panel">
         <p className="kicker">GYMPATH ACCOUNT</p>
-        <h1>Entering GymPath.</h1>
-        <p>Checking your local login session.</p>
+        <h1>{uiText("Entering GymPath.")}</h1>
+        <p>{uiText("Checking your local login session.")}</p>
       </section>
     </main>
   );
 }
 
 function AuthGate({
+  locale,
+  setLocale,
   authMode,
   setAuthMode,
   authForm,
@@ -1351,6 +1461,8 @@ function AuthGate({
   onAuthSubmit,
   onGuest,
 }: {
+  locale: Locale;
+  setLocale: Dispatch<SetStateAction<Locale>>;
   authMode: "login" | "register";
   setAuthMode: Dispatch<SetStateAction<"login" | "register">>;
   authForm: { username: string; email: string; password: string };
@@ -1361,17 +1473,18 @@ function AuthGate({
 }) {
   return (
     <main className="auth-gate">
+      <LanguageToggle locale={locale} setLocale={setLocale} />
       <section className="auth-hero">
         <p className="kicker">GYMPATH / TRAINING OS</p>
-        <h1>Enter your training account first.</h1>
-        <p>Create an account to post, like, and comment, while keeping GymPath usable as a real multi-user fitness web app.</p>
+        <h1>{uiText("Enter your training account first.")}</h1>
+        <p>{uiText("Create an account to post, like, and comment, while keeping GymPath usable as a real multi-user fitness web app.")}</p>
       </section>
       <section className="auth-panel">
         <Header code="ACCOUNT" title={authMode === "register" ? "Create Account" : "Log In"} right="Local MVP account" />
         <form className="auth-form" onSubmit={onAuthSubmit}>
           <div className="auth-tabs" role="tablist" aria-label="Account mode">
-            <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>Log In</button>
-            <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>Register</button>
+            <button type="button" className={authMode === "login" ? "active" : ""} onClick={() => setAuthMode("login")}>{uiText("Log In")}</button>
+            <button type="button" className={authMode === "register" ? "active" : ""} onClick={() => setAuthMode("register")}>{uiText("Register")}</button>
           </div>
           <Field label={authMode === "register" ? "Nickname" : "Nickname or Email"}>
             <input value={authForm.username} onChange={(event) => setAuthForm((current) => ({ ...current, username: event.target.value }))} placeholder="e.g. No-Shrug Shoulders" />
@@ -1385,8 +1498,8 @@ function AuthGate({
             <input type="password" value={authForm.password} onChange={(event) => setAuthForm((current) => ({ ...current, password: event.target.value }))} placeholder="At least 6 characters" />
           </Field>
           {authError ? <p className="form-error">{cleanApiError(authError)}</p> : null}
-          <button className="primary" type="submit">{authMode === "register" ? "Create Account & Enter" : "Log In & Enter"}</button>
-          <button className="ghost guest-entry" type="button" onClick={onGuest}>Preview as guest; log in later for community actions</button>
+          <button className="primary" type="submit">{uiText(authMode === "register" ? "Create Account & Enter" : "Log In & Enter")}</button>
+          <button className="ghost guest-entry" type="button" onClick={onGuest}>{uiText("Preview as guest; log in later for community actions")}</button>
         </form>
       </section>
     </main>
@@ -1406,12 +1519,12 @@ function Segment<T extends string>({
 }) {
   return (
     <fieldset className="segment">
-      <legend>{label}</legend>
+      <legend>{uiText(label)}</legend>
       <div>
         {options.map((option) => (
           <button key={option.value} type="button" className={value === option.value ? "tile active" : "tile"} onClick={() => onChange(option.value)}>
-            <strong>{option.label}</strong>
-            <span>{option.note}</span>
+            <strong>{uiText(option.label)}</strong>
+            <span>{uiText(option.note)}</span>
           </button>
         ))}
       </div>
@@ -2655,9 +2768,9 @@ function Header({ code, title, right }: { code: string; title: string; right: Re
     <div className="section-head">
       <div>
         <p className="kicker">{code}</p>
-        <h2>{title}</h2>
+        <h2>{uiText(title)}</h2>
       </div>
-      <span>{right}</span>
+      <span>{typeof right === "string" ? uiText(right) : right}</span>
     </div>
   );
 }
@@ -2665,9 +2778,9 @@ function Header({ code, title, right }: { code: string; title: string; right: Re
 function Metric({ label, value, suffix, note }: { label: string; value: string; suffix: string; note: string }) {
   return (
     <article className="metric">
-      <span>{label}</span>
+      <span>{uiText(label)}</span>
       <strong>{value}<small>{suffix}</small></strong>
-      <p>{note}</p>
+      <p>{uiText(note)}</p>
     </article>
   );
 }
@@ -2691,8 +2804,8 @@ function Empty({ title, text }: { title: string; text: string }) {
   return (
     <section className="empty">
       <p className="kicker">EMPTY</p>
-      <h2>{title}</h2>
-      <p>{text}</p>
+      <h2>{uiText(title)}</h2>
+      <p>{uiText(text)}</p>
     </section>
   );
 }
@@ -2701,8 +2814,8 @@ function labelOf<T extends string>(options: { value: T; label: string }[], value
   return options.find((item) => item.value === value)?.label ?? value;
 }
 
-function tx(_map: Record<string, string>, value: string) {
-  return enText(value);
+function tx(map: Record<string, string>, value: string) {
+  return renderLocale === "zh" ? map[value] ?? uiText(enText(value)) : enText(value);
 }
 
 function enText(value: string) {

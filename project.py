@@ -3237,16 +3237,16 @@ def _default_substitutions(name: str) -> list[str]:
 
 
 AI_FITNESS_SYSTEM_PROMPT = """
-You are GymPath's English fitness Q&A coach. Your job is to reduce fitness decision cost, build correct training knowledge, and give practical training, nutrition, pain-modification, warm-up, recovery, and tracking advice.
+You are GymPath's bilingual fitness Q&A coach. Your job is to reduce fitness decision cost, build correct training knowledge, and give practical training, nutrition, pain-modification, warm-up, recovery, and tracking advice.
 
 Answer rules:
-1. Reply in clear English by default, with a direct, professional, encouraging tone.
+1. Reply in the user's selected language. If profile preferred_language=zh, use Simplified Chinese. If preferred_language=en, use clear English.
 2. Start with the conclusion, then give concrete steps. Avoid vague motivational filler.
 3. If the question involves pain, injury, illness, medication, numbness, radiating pain, or abnormal symptoms, state that this is not medical diagnosis and recommend a doctor or physiotherapist when symptoms are severe or persistent.
 4. Do not promise spot reduction, crash weight loss, risk-free max attempts, or other unscientific outcomes.
 5. Adjust advice by level: Beginner = safe start; Fitness Enthusiast = sustainable progression; High-Intensity Trainee = fatigue and advanced variable management.
 6. Make the answer actionable: exercise substitutions, sets/reps, macros, warm-up, recovery, or next data to record.
-7. For web chat, aim for about 500-900 English words when the question needs detail; be shorter for simple questions.
+7. For web chat, aim for about 500-900 English words or 700-1200 Chinese characters when the question needs detail; be shorter for simple questions.
 """.strip()
 
 
@@ -3367,8 +3367,10 @@ def _clean_ai_messages(messages: list[dict[str, str]]) -> list[dict[str, str]]:
 def _ai_profile_context(profile: dict[str, Any]) -> str:
     if not profile:
         return "The user has not provided a training profile. Ask for missing critical details when needed, but still provide safe, actionable guidance."
+    preferred_language = "Simplified Chinese" if profile.get("locale") == "zh" else "English"
     return (
         "User training profile: "
+        f"preferred_language={preferred_language}; "
         f"level={profile.get('level', 'unknown')}; "
         f"goal={profile.get('goal', 'unknown')}; "
         f"session_length={profile.get('minutes_per_session', 'unknown')} minutes; "
@@ -3383,28 +3385,41 @@ def _local_fitness_reply(question: str, profile: dict[str, Any]) -> str:
     lower_question = question.lower()
     level = str(profile.get("level", "beginner"))
     goal = str(profile.get("goal", "muscle_gain"))
+    zh = profile.get("locale") == "zh"
     if any(word in lower_question for word in ["pain", "hurt", "injury", "numb", "tingle", "sharp", "radiating"]):
+        if zh:
+            return "先判断疼痛性质：如果是尖锐痛、放射痛、麻木、越来越重，或明显在关节深处，不要硬练这个动作。今天改成无痛变式，降低重量和动作幅度；这只是训练建议，不是医疗诊断，持续或严重症状应找医生或康复师。"
         return (
             "First decide what kind of pain it is. If it is sharp, radiating, numb, worsening, or deep in a joint, do not force that movement today. "
             "Switch to a pain-free variation, reduce load and range of motion, and treat this as training guidance rather than medical diagnosis. Persistent or severe symptoms should be checked by a doctor or physiotherapist."
         )
     if any(word in lower_question for word in ["fat loss", "cut", "calorie", "carb", "carbs", "diet"]):
+        if zh:
+            return "减脂先抓三件事：每天蛋白吃够、热量保持小幅亏空、训练表现不要崩。不要追求只瘦某个部位。连续 7-10 天体重和腰围都不动，再小幅降低碳水或总热量，不要突然极端节食。"
         return (
             "For fat loss, control three things first: hit daily protein, keep a small calorie deficit, and protect training performance. "
             "Do not chase fat loss from one body part. If 7-10 days of body weight and waist measurements do not move, reduce carbs or total calories slightly instead of making a crash adjustment."
         )
     if any(word in lower_question for word in ["muscle", "hypertrophy", "bulk", "gain"]):
+        if zh:
+            return f"增肌的核心是稳定训练容量、渐进超负荷和足够能量摄入。你当前目标是 {goal}。如果某个动作感受差，优先换同部位动作，而不是盲目加重量；主项动作保留 1-3 次余力更适合长期进步。"
         return (
             "Muscle gain depends on stable training volume, progressive overload, and enough energy intake. "
             f"Your current goal is {goal}. If a movement feels poor, swap to another exercise for the same muscle before blindly adding load. Keep 1-3 reps in reserve on main lifts for sustainable progress."
         )
     if any(word in lower_question for word in ["strength", "bench", "squat", "deadlift", "5x5"]):
+        if zh:
+            return "增力训练要先固定主项并管理疲劳。5x5 或 3x3 都可以作为推进框架。如果某个动作卡住 1-2 周，先减载或降低容量，再重新推进，不要连续硬顶极限。"
         return (
             "Strength work starts with fixed main lifts and fatigue control. A 5x5 or 3x3 progression can work well. "
             "If a lift stalls for 1-2 weeks, deload or reduce volume before forcing repeated max-effort attempts."
         )
     if level == "beginner":
+        if zh:
+            return "作为新手，先不要追复杂理论。固定执行一个计划，训练前热身，避开疼痛动作，记录每次训练感受。连续完成 2-4 周，比频繁换计划更重要。"
         return "As a beginner, do not chase complicated theory first. Use a fixed plan, warm up before training, avoid painful movements, and record how each session felt. Completing 2-4 consistent weeks matters more than constantly changing plans."
+    if zh:
+        return "把问题拆成训练、饮食和恢复三块。告诉我你的目标、当前计划、最近表现和卡住或不舒服的动作，GymPath 就能给出更具体的调整。"
     return "Break the issue into training, nutrition, and recovery. Share your goal, current plan, recent performance, and the movement that feels stuck, and GymPath can make a more specific adjustment."
 
 def _parse_date(value: str | date) -> date:
